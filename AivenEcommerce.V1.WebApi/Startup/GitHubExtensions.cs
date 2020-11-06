@@ -1,17 +1,16 @@
-﻿
-using AivenEcommerce.V1.Infrastructure.Options;
+﻿using AivenEcommerce.V1.Infrastructure.Options;
 
 using Microsoft.Extensions.DependencyInjection;
 
 using Octokit;
 
-namespace AivenEcommerce.V1.WebApi.Extensions
+namespace AivenEcommerce.V1.WebApi.Startup
 {
     public static class GitHubExtensions
     {
         public static IServiceCollection AddGitHubClient(this IServiceCollection services)
-        { 
-            services.AddSingleton<IGitHubClient, GitHubClient>(sp => 
+        {
+            services.AddSingleton<IGitHubClient, GitHubClient>(sp =>
             {
                 IGitHubOptions options = sp.GetRequiredService<IGitHubOptions>();
 

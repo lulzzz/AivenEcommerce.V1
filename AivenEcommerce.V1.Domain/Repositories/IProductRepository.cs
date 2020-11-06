@@ -7,5 +7,6 @@ namespace AivenEcommerce.V1.Domain.Repositories
     public interface IProductRepository : IRepository<Product>
     {
         IEnumerable<Product> GetAvailableProducts();
+        Product? GetByName(string productName);
     }
 }

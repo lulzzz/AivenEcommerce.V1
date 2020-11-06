@@ -161,7 +161,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             throw new System.NotImplementedException();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual Task<IEnumerable<T>> GetAllAsync()
         {
             throw new System.NotImplementedException();
         }

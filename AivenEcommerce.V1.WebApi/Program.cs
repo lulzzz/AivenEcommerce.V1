@@ -15,7 +15,7 @@ namespace AivenEcommerce.V1.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<StartupHost>();
                 });
     }
 }

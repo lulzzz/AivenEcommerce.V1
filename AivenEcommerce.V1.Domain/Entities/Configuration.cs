@@ -5,5 +5,6 @@
         public bool AmbassadorEnable { get; set; }
         public bool ValidateVerifiedEmail { get; set; }
         public bool RegistrationEnable { get; set; }
+        public bool ShowProductsWittoutStock { get; set; }
     }
 }

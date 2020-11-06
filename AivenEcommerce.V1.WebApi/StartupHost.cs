@@ -1,22 +1,27 @@
 
+using AivenEcommerce.V1.Application.Services;
+using AivenEcommerce.V1.Application.Validators;
 using AivenEcommerce.V1.Domain.Repositories;
+using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Validators;
 using AivenEcommerce.V1.Infrastructure.Options;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories;
-using AivenEcommerce.V1.WebApi.Extensions;
+using AivenEcommerce.V1.WebApi.Startup;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AivenEcommerce.V1.WebApi
 {
-    public class Startup
+    public class StartupHost
     {
-        public Startup(IConfiguration configuration)
+        public StartupHost(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -28,10 +33,8 @@ namespace AivenEcommerce.V1.WebApi
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AivenEcommerce.V1", Version = "v1" });
-            });
+            services.AddSwaggerApiVersioning();
+
 
             services.AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration);
             services.AddOptions<IMongoProductDetailOptions, MongoProductDetailOptions>(Configuration);
@@ -45,6 +48,7 @@ namespace AivenEcommerce.V1.WebApi
 
             services.AddGitHubClient();
 
+            services.AddHealthChecks(Configuration);
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
@@ -54,18 +58,27 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IBasketItemRepository, BasketItemRepository>();
             services.AddScoped<IBasketItemDetailRepository, BasketItemDetailRepository>();
 
+            services.AddScoped<IProductService, ProductService>();
+
+            services.AddScoped<IProductValidator, ProductValidator>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AivenEcommerce.V1 v1"));
             }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseExceptionHandlingOperationResult(loggerFactory.CreateLogger("ExceptionHandler"));
+
+            app.UseSwaggerApiVersioning(provider);
 
             app.UseHttpsRedirection();
 
@@ -75,6 +88,7 @@ namespace AivenEcommerce.V1.WebApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks();
                 endpoints.MapControllers();
             });
         }

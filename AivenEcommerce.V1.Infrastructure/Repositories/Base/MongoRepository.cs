@@ -7,6 +7,7 @@ using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {
@@ -22,19 +23,19 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             _collection = database.GetCollection<T>(options.CollectionName);
         }
 
-        protected IQueryable<T> GetQueryable()
+        protected IMongoQueryable<T> GetQueryable()
         {
             return _collection.AsQueryable();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return GetQueryable().ToList();
+            return await _collection.AsQueryable().ToListAsync();
         }
 
         public Task<T> GetAsync(string id)
         {
-            return _collection.Find(x => x.Id == id).SingleAsync();
+            return _collection.Find(x => x.Id == id).SingleOrDefaultAsync();
         }
 
         public async Task<T> CreateAsync(T entity)
@@ -51,5 +52,10 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 
         public Task RemoveAsync(string id) =>
             _collection.DeleteOneAsync(x => x.Id == id);
+
+        public Task RemoveAllAsync()
+        {
+            return _collection.DeleteManyAsync(x => true);
+        }
     }
 }

@@ -10,9 +10,15 @@ namespace AivenEcommerce.V1.Domain.Entities
 {
     public class Product : IEntity<string>
     {
+        public Product()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+        }
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Cost { get; set; }
@@ -21,7 +27,7 @@ namespace AivenEcommerce.V1.Domain.Entities
         public ProductCategory Category { get; set; }
         public ProductSubCategory SubCategory { get; set; }
         public int Stock { get; set; }
-        public Uri Thumbnail { get; set; }
+        public Uri? Thumbnail { get; set; }
         public bool IsActive { get; set; }
 
     }

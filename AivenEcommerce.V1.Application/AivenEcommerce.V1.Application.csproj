@@ -2,7 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <NullableContextOptions>enable</NullableContextOptions>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AivenEcommerce.V1.Domain\AivenEcommerce.V1.Domain.csproj" />
