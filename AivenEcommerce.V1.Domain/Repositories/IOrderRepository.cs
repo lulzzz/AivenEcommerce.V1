@@ -7,13 +7,11 @@ using AivenEcommerce.V1.Domain.Entities;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
-        Task<Order> GetOrder(int id);
-        Task<Order> GetOrder(Basket basket);
-        Task<IEnumerable<Order>> GetOrders();
-        Task<IEnumerable<Order>> GetOrdersByUser(User user);
-        Task<Order> UpdateLink(Order order, Uri uri);
+        Order GetOrder(Basket basket);
+        IEnumerable<Order> GetOrdersByUser(User user);
+        Task<Order> UpdateLinkAsync(Order order, Uri uri);
 
 
     }

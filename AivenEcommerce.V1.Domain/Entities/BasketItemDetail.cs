@@ -1,9 +1,17 @@
-﻿namespace AivenEcommerce.V1.Domain.Entities
+﻿
+using AivenEcommerce.V1.Domain.Entities.Base;
+
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace AivenEcommerce.V1.Domain.Entities
 {
-    public class BasketItemDetail
+    public class BasketItemDetail : IEntity<string>
     {
-        public int Id { get; set; }
-        public int BasketItemId { get; set; }
-        public int ProductDetailId { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        public string BasketItemId { get; set; }
+        public string ProductDetailId { get; set; }
     }
 }

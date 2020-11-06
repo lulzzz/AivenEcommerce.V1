@@ -1,12 +1,20 @@
 ﻿
+using System;
+
+using AivenEcommerce.V1.Domain.Entities.Base;
 using AivenEcommerce.V1.Domain.Enums;
+
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace AivenEcommerce.V1.Domain.Entities
 {
-    public class Basket
+    public class Basket : IEntity<string>
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        public Guid UserId { get; set; }
         public BasketStatus Status { get; set; }
     }
 }

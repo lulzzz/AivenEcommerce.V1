@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Entities;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
-    public interface IBasketItemRepository
+    public interface IBasketItemRepository : IRepository<BasketItem>
     {
-        Task<IEnumerable<BasketItem>> GetBasketItems(Basket basket);
-        Task<BasketItem> GetBasketItem(int id);
-        Task<IEnumerable<BasketItem>> GetBasketItems(Basket basket, Product product);
+        IEnumerable<BasketItem> GetBasketItems(Basket basket);
+        IEnumerable<BasketItem> GetBasketItems(Basket basket, Product product);
     }
 }
