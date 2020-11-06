@@ -62,17 +62,17 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 
         protected async Task<bool> ExistFileAsync(long repositoryId, string path, string fileName)
         {
-            FileContent fileContent = await GetFileContentAsync(repositoryId, path, fileName);
+            GhFileContent fileContent = await GetFileContentAsync(repositoryId, path, fileName);
             return fileContent != null;
         }
 
-        protected async Task<IEnumerable<FileContent>> GetAllFilesAsync(long repositoryId, string path)
+        protected async Task<IEnumerable<GhFileContent>> GetAllFilesAsync(long repositoryId, string path)
         {
             try
             {
                 IReadOnlyList<RepositoryContent> contents = await _githubClient.Repository.Content.GetAllContents(repositoryId, path);
 
-                var files = contents.Where(x => x.Type == new StringEnum<ContentType>(ContentType.File)).Select(x => new FileContent()
+                var files = contents.Where(x => x.Type == new StringEnum<ContentType>(ContentType.File)).Select(x => new GhFileContent()
                 {
                     Name = x.Name,
                     Content = x.Content,
@@ -87,13 +87,13 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             }
         }
 
-        protected async Task<FileContent> GetFileContentAsync(long repositoryId, string path, string fileName)
+        protected async Task<GhFileContent> GetFileContentAsync(long repositoryId, string path, string fileName)
         {
             try
             {
                 IReadOnlyList<RepositoryContent> contents = await _githubClient.Repository.Content.GetAllContents(repositoryId, Path.Combine(path, fileName));
                 RepositoryContent content = contents.First();
-                return new FileContent()
+                return new GhFileContent()
                 {
                     Name = content.Name,
                     Content = content.Content,
@@ -106,13 +106,13 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             }
         }
 
-        protected async Task<IEnumerable<FileContent>> GetAllFilesWithContentAsync(long repositoryId, string path)
+        protected async Task<IEnumerable<GhFileContent>> GetAllFilesWithContentAsync(long repositoryId, string path)
         {
             try
             {
                 IReadOnlyList<RepositoryContent> contents = await _githubClient.Repository.Content.GetAllContents(repositoryId, path);
 
-                var files = contents.Where(x => x.Type == new StringEnum<ContentType>(ContentType.File)).Select(x => new FileContent()
+                var files = contents.Where(x => x.Type == new StringEnum<ContentType>(ContentType.File)).Select(x => new GhFileContent()
                 {
                     Name = x.Name,
                     Content = x.Content,
@@ -134,13 +134,13 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             }
         }
 
-        protected async Task<IEnumerable<FileContent>> GetAllDirectoriesAsync(long repositoryId, string path)
+        protected async Task<IEnumerable<GhFileContent>> GetAllDirectoriesAsync(long repositoryId, string path)
         {
             try
             {
                 IReadOnlyList<RepositoryContent> contents = await _githubClient.Repository.Content.GetAllContents(repositoryId, path);
 
-                var files = contents.Where(x => x.Type == new StringEnum<ContentType>(ContentType.Dir)).Select(x => new FileContent()
+                var files = contents.Where(x => x.Type == new StringEnum<ContentType>(ContentType.Dir)).Select(x => new GhFileContent()
                 {
                     Name = x.Name,
                     Content = x.Content,
