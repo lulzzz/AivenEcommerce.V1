@@ -47,20 +47,28 @@ namespace AivenEcommerce.V1.WebApi
 
 
             services.AddGitHubClient();
+            services.AddImgBb(Configuration);
 
             services.AddHealthChecks(Configuration);
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBasketItemRepository, BasketItemRepository>();
             services.AddScoped<IBasketItemDetailRepository, BasketItemDetailRepository>();
+            services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductImageService, ProductImageService>();
+            services.AddScoped<IImageUploaderService, ImageUploaderService>();
+            services.AddScoped<IProductCategoryService, ProductCategoryService>();
 
             services.AddScoped<IProductValidator, ProductValidator>();
+            services.AddScoped<IProductImageValidator, ProductImageValidator>();
+            services.AddScoped<IProductCategoryValidator, ProductCategoryValidator>();
 
         }
 
@@ -77,6 +85,8 @@ namespace AivenEcommerce.V1.WebApi
             }
 
             app.UseExceptionHandlingOperationResult(loggerFactory.CreateLogger("ExceptionHandler"));
+
+            app.UseAllowAnyCors();
 
             app.UseSwaggerApiVersioning(provider);
 

@@ -11,5 +11,8 @@ namespace AivenEcommerce.V1.Domain.Validators
         Task<ValidationResult> ValidateUpdateProduct(UpdateProductInput input);
         Task<ValidationResult> ValidateDeleteProduct(DeleteProductInput input);
         Task<ValidationResult> ValidateGetProduct(GetProductInput input);
+        Task<ValidationResult> ValidateUpdateProductCostPrice(UpdateProductCostPriceInput input);
+        Task<ValidationResult> ValidateUpdateProductCategory(UpdateProductCategorySubCategoryInput input);
+
     }
 }

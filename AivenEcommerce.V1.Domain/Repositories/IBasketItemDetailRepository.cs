@@ -4,7 +4,7 @@ using AivenEcommerce.V1.Domain.Entities;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
-    public interface IBasketItemDetailRepository : IRepository<BasketItemDetail>
+    public interface IBasketItemDetailRepository : IRepository<BasketItemDetail, string>
     {
         IEnumerable<BasketItemDetail> GetBasketItems(BasketItem basketItem);
     }

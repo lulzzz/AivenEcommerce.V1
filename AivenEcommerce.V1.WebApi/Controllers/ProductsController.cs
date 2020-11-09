@@ -79,5 +79,38 @@ namespace AivenEcommerce.V1.WebApi.Controllers
 
             return new OperationActionResult(result);
         }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateMainImage(UpdateProductMainImageInput input)
+        {
+            var result = await _productService.UpdateMainImageAsync(input);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateCostPrice(UpdateProductCostPriceInput input)
+        {
+            var result = await _productService.UpdateProductCostPriceAsync(input);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateCategory(UpdateProductCategorySubCategoryInput input)
+        {
+            var result = await _productService.UpdateProductCategoryAsync(input);
+
+            return new OperationActionResult(result);
+        }
     }
 }

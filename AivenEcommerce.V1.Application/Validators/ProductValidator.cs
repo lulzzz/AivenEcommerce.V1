@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Application.Validations;
 
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
-using AivenEcommerce.V1.Domain.Enums;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Validators;
 
@@ -14,10 +14,12 @@ namespace AivenEcommerce.V1.Application.Validators
     public class ProductValidator : IProductValidator
     {
         private readonly IProductRepository _productRepository;
+        private readonly IProductCategoryRepository _productCategoryRepository;
 
-        public ProductValidator(IProductRepository productRepository)
+        public ProductValidator(IProductRepository productRepository, IProductCategoryRepository productCategoryRepository)
         {
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _productCategoryRepository = productCategoryRepository ?? throw new ArgumentNullException(nameof(productCategoryRepository));
         }
 
         public ValidationResult ValidateCreateProduct(CreateProductInput input)
@@ -52,12 +54,12 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Price), "El precio no puede ser menor que el costo."));
             }
 
-            if (input.Category ==  ProductCategory.None)
+            if (string.IsNullOrWhiteSpace(input.Category))
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Category), "Debe seleccionar una categoria."));
             }
 
-            if (input.SubCategory == ProductSubCategory.None)
+            if (string.IsNullOrWhiteSpace(input.SubCategory))
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.SubCategory), "Debe seleccionar una subcategoria."));
             }
@@ -104,7 +106,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
             Product? product = await _productRepository.GetAsync(input.Id);
 
-            if(product is null)
+            if (product is null)
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Id), "El producto no existe."));
             }
@@ -139,12 +141,12 @@ namespace AivenEcommerce.V1.Application.Validators
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Price), "El precio no puede ser menor que el costo."));
                 }
 
-                if (input.Category == ProductCategory.None)
+                if (string.IsNullOrWhiteSpace(input.Category))
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Category), "Debe seleccionar una categoria."));
                 }
 
-                if (input.SubCategory == ProductSubCategory.None)
+                if (string.IsNullOrWhiteSpace(input.SubCategory))
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.SubCategory), "Debe seleccionar una subcategoria."));
                 }
@@ -152,6 +154,64 @@ namespace AivenEcommerce.V1.Application.Validators
                 if (input.Thumbnail is null)
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Thumbnail), "Debe subir una imagen para el producto."));
+                }
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductCategory(UpdateProductCategorySubCategoryInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            Product? product = await _productRepository.GetAsync(input.ProductId);
+
+            if (product is null)
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategorySubCategoryInput.ProductId), "El producto no existe."));
+            }
+            else
+            {
+                ProductCategory? category = await _productCategoryRepository.GetByNameAsync(input.Category);
+
+                if (category is null)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Id), "La categoria no existe."));
+                }
+                else if(!category.SubCategories.Any(x => x.Trim() == input.SubCategory.Trim()))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Id), "La subcategoria no existe."));
+                }
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductCostPrice(UpdateProductCostPriceInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            Product? product = await _productRepository.GetAsync(input.ProductId);
+
+            if (product is null)
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCostPriceInput.ProductId), "El producto no existe."));
+            }
+            else
+            {
+                if (input.Cost < 0)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCostPriceInput.Cost), "El costo debe ser mayor o igual a cero."));
+                }
+
+                if (input.Price <= 0)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCostPriceInput.Price), "El precio debe ser mayor a cero."));
+                }
+
+                if (input.Price < input.Cost)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCostPriceInput.Price), "El precio no puede ser menor que el costo."));
                 }
             }
 

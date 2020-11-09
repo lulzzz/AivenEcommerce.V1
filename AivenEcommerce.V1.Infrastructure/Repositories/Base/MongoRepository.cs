@@ -11,7 +11,7 @@ using MongoDB.Driver.Linq;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {
-    public class MongoRepository<T> : IRepository<T> where T : IEntity<string>
+    public class MongoRepository<T> : IRepository<T, string> where T : IEntity<string>
     {
         private readonly IMongoCollection<T> _collection;
 

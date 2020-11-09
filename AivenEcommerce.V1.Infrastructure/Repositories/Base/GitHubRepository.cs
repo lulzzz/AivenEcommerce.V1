@@ -11,7 +11,7 @@ using Octokit;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {
-    public class GitHubRepository<T> : IRepository<T> where T : IEntity<string>
+    public class GitHubRepository<T, K> : IRepository<T, K> where T : IEntity<K> where K : new()
     {
         private readonly IGitHubClient _githubClient;
 
@@ -166,12 +166,12 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             throw new System.NotImplementedException();
         }
 
-        public virtual Task<T> GetAsync(string id)
+        public virtual Task<T> GetAsync(K id)
         {
             throw new System.NotImplementedException();
         }
 
-        public virtual Task RemoveAsync(string id)
+        public virtual Task RemoveAsync(K id)
         {
             throw new System.NotImplementedException();
         }
@@ -182,6 +182,11 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
         }
 
         public virtual Task UpdateAsync(T entityIn)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task RemoveAllAsync()
         {
             throw new System.NotImplementedException();
         }

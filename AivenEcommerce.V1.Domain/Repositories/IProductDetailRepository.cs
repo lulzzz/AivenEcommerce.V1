@@ -5,7 +5,7 @@ using AivenEcommerce.V1.Domain.Enums;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
-    public interface IProductDetailRepository : IRepository<ProductDetail>
+    public interface IProductDetailRepository : IRepository<ProductDetail, string>
     {
         IEnumerable<ProductDetail> GetByProduct(Product product);
         IEnumerable<ProductDetail> GetByProduct(Product product, ProductDetailType type);

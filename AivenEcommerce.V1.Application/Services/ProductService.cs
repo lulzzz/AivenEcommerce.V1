@@ -42,7 +42,7 @@ namespace AivenEcommerce.V1.Application.Services
             {
                 return OperationResult<ProductDto>.Fail(validationResult);
             }
-            
+
         }
 
         public async Task<OperationResult> DeleteAsync(DeleteProductInput input)
@@ -66,7 +66,7 @@ namespace AivenEcommerce.V1.Application.Services
         {
             Product? product = await _repository.GetAsync(id);
 
-            if(product is null)
+            if (product is null)
             {
                 return OperationResult<ProductDto>.NotFound();
             }
@@ -88,6 +88,64 @@ namespace AivenEcommerce.V1.Application.Services
             if (validationResult.IsSuccess)
             {
                 Product product = input.ConvertToEntity();
+
+                await _repository.UpdateAsync(product);
+
+                return OperationResult<ProductDto>.Success(product.ConvertToDto());
+            }
+            else
+            {
+                return OperationResult<ProductDto>.Fail(validationResult);
+            }
+        }
+
+        public async Task<OperationResult<ProductDto>> UpdateMainImageAsync(UpdateProductMainImageInput input)
+        {
+            Product? product = await _repository.GetAsync(input.ProductId);
+
+            if (product is null)
+            {
+                return OperationResult<ProductDto>.NotFound();
+            }
+
+            product.Thumbnail = input.Image;
+
+            await _repository.UpdateAsync(product);
+
+            return OperationResult<ProductDto>.Success(product.ConvertToDto());
+        }
+
+        public async Task<OperationResult<ProductDto>> UpdateProductCostPriceAsync(UpdateProductCostPriceInput input)
+        {
+            ValidationResult validationResult = await _validator.ValidateUpdateProductCostPrice(input);
+
+            if (validationResult.IsSuccess)
+            {
+                Product? product = await _repository.GetAsync(input.ProductId);
+
+                product.Cost = input.Cost;
+                product.Price = input.Price;
+
+                await _repository.UpdateAsync(product);
+
+                return OperationResult<ProductDto>.Success(product.ConvertToDto());
+            }
+            else
+            {
+                return OperationResult<ProductDto>.Fail(validationResult);
+            }
+        }
+
+        public async Task<OperationResult<ProductDto>> UpdateProductCategoryAsync(UpdateProductCategorySubCategoryInput input)
+        {
+            ValidationResult validationResult = await _validator.ValidateUpdateProductCategory(input);
+
+            if (validationResult.IsSuccess)
+            {
+                Product? product = await _repository.GetAsync(input.ProductId);
+
+                product.Category = input.Category;
+                product.SubCategory = input.SubCategory;
 
                 await _repository.UpdateAsync(product);
 

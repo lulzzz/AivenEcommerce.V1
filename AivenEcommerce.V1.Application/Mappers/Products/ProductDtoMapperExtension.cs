@@ -38,5 +38,40 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
                 Thumbnail = source.Thumbnail
             };
         }
+
+        public static Product ConvertToEntity(this ProductDto source, Product destination)
+        {
+            destination.Id = source.Id;
+            destination.IsActive = source.IsActive;
+            destination.PercentageOff = source.PercentageOff;
+            destination.Stock = source.Stock;
+            destination.Description = source.Description;
+            destination.Category = source.Category;
+            destination.Cost = source.Cost;
+            destination.Name = source.Name;
+            destination.Price = source.Price;
+            destination.SubCategory = source.SubCategory;
+            destination.Thumbnail = source.Thumbnail;
+
+            return destination;
+        }
+
+        public static Product ConvertToEntity(this ProductDto source)
+        {
+            return new Product
+            {
+                Id = source.Id,
+                IsActive = source.IsActive,
+                PercentageOff = source.PercentageOff,
+                Stock = source.Stock,
+                Description = source.Description,
+                Category = source.Category,
+                Cost = source.Cost,
+                Name = source.Name,
+                Price = source.Price,
+                SubCategory = source.SubCategory,
+                Thumbnail = source.Thumbnail
+            };
+        }
     }
 }

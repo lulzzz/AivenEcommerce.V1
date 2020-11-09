@@ -2,12 +2,8 @@
 {
     public interface IGitHubOptions
     {
-        int BasketRepositoryId { get; set; }
-        string ClientId { get; set; }
-        string ClientSecret { get; set; }
-        int DeliveryRepositoryId { get; set; }
-        int OrderRepositoryId { get; set; }
-        int ProductRepositoryId { get; set; }
+        int ProductImageRepositoryId { get; set; }
+        int ProductCategoryRepositoryId { get; set; }
         string Token { get; set; }
     }
 }

@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AivenEcommerce.V1.Domain\AivenEcommerce.V1.Domain.csproj" />
+    <ProjectReference Include="..\AivenEcommerce.V1.Modules.ImgBB\AivenEcommerce.V1.Modules.ImgBB.csproj" />
   </ItemGroup>
 
 </Project>
