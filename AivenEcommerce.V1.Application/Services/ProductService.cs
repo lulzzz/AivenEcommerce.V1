@@ -7,34 +7,41 @@ using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
-
-using BusinessLogicEnterprise.Application.OperationResults;
 
 namespace AivenEcommerce.V1.Application.Services
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
+        private readonly IProductOverviewRepository _overviewRepository;
         private readonly IProductValidator _validator;
 
-        public ProductService(IProductRepository repository, IProductValidator validator)
+        public ProductService(IProductRepository repository, IProductOverviewRepository overviewRepository, IProductValidator validator)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _overviewRepository = overviewRepository ?? throw new ArgumentNullException(nameof(overviewRepository));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
         public async Task<OperationResult<ProductDto>> CreateAsync(CreateProductInput input)
         {
-            ValidationResult validationResult = _validator.ValidateCreateProduct(input);
+            ValidationResult validationResult = await _validator.ValidateCreateProduct(input);
 
             if (validationResult.IsSuccess)
             {
                 Product product = input.ConvertToEntity();
 
                 product = await _repository.CreateAsync(product);
+
+                await _overviewRepository.CreateAsync(new ProductOverview
+                {
+                    ProductId = product.Id,
+                    Description = input.Description
+                });
 
                 return OperationResult<ProductDto>.Success(product.ConvertToDto());
             }
@@ -148,6 +155,66 @@ namespace AivenEcommerce.V1.Application.Services
                 product.SubCategory = input.SubCategory;
 
                 await _repository.UpdateAsync(product);
+
+                return OperationResult<ProductDto>.Success(product.ConvertToDto());
+            }
+            else
+            {
+                return OperationResult<ProductDto>.Fail(validationResult);
+            }
+        }
+
+        public async Task<OperationResult<ProductDto>> UpdateProductAvailability(UpdateProductAvailabilityInput input)
+        {
+            ValidationResult validationResult = await _validator.ValidateUpdateProductAvailability(input);
+
+            if (validationResult.IsSuccess)
+            {
+                Product? product = await _repository.GetAsync(input.ProductId);
+
+                product.IsActive = input.IsActive;
+                product.Stock = input.Stock;
+
+                await _repository.UpdateAsync(product);
+
+                return OperationResult<ProductDto>.Success(product.ConvertToDto());
+            }
+            else
+            {
+                return OperationResult<ProductDto>.Fail(validationResult);
+            }
+        }
+
+        public async Task<OperationResult<ProductDto>> UpdateProductNameDescription(UpdateProductNameDescriptionInput input)
+        {
+            ValidationResult validationResult = await _validator.ValidateUpdateProductNameDescription(input);
+
+            if (validationResult.IsSuccess)
+            {
+                Product? product = await _repository.GetAsync(input.ProductId);
+
+                product.Name = input.Name;
+
+                await _repository.UpdateAsync(product);
+
+                ProductOverview productOverview = await _overviewRepository.GetByProduct(product);
+
+                if (productOverview is null)
+                {
+                    productOverview = new ProductOverview
+                    {
+                        ProductId = product.Id,
+                        Description = input.Description
+                    };
+                    await _overviewRepository.CreateAsync(productOverview);
+                }
+                else
+                {
+                    productOverview.Description = input.Description;
+                    await _overviewRepository.UpdateAsync(productOverview);
+                }
+
+                
 
                 return OperationResult<ProductDto>.Success(product.ConvertToDto());
             }

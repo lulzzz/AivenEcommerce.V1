@@ -4,8 +4,7 @@ using System.Text;
 using System.Text.Json;
 
 using AivenEcommerce.V1.Application.Validations;
-
-using BusinessLogicEnterprise.Application.OperationResults;
+using AivenEcommerce.V1.Domain.OperationResults;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;

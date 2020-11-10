@@ -11,7 +11,6 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
             return new Product
             {
                 Id = source.Id,
-                Description = source.Description,
                 Category = source.Category,
                 Cost = source.Cost,
                 Name = source.Name,
@@ -25,7 +24,6 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
         public static Product ConvertToEntity(this UpdateProductInput source, Product destination)
         {
             destination.Id = source.Id;
-            destination.Description = source.Description;
             destination.Category = source.Category;
             destination.Cost = source.Cost;
             destination.Name = source.Name;

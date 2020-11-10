@@ -2,8 +2,9 @@
 {
     public interface IGitHubOptions
     {
-        int ProductImageRepositoryId { get; set; }
-        int ProductCategoryRepositoryId { get; set; }
+        long ProductImageRepositoryId { get; set; }
+        long ProductCategoryRepositoryId { get; set; }
+        long ProductOverviewRepositoryId { get; set; }
         string Token { get; set; }
     }
 }

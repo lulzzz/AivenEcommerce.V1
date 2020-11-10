@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.ProductCategories;
+using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.WebApi.Presenter;
-
-using BusinessLogicEnterprise.Application.OperationResults;
 
 using Microsoft.AspNetCore.Mvc;
 

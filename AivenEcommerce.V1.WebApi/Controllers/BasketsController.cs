@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
-
-using BusinessLogicEnterprise.Application.OperationResults;
 
 using Microsoft.AspNetCore.Mvc;
 

@@ -2,7 +2,7 @@
 
 using AivenEcommerce.V1.Application.Validations;
 
-namespace BusinessLogicEnterprise.Application.OperationResults
+namespace AivenEcommerce.V1.Domain.OperationResults
 {
     public class OperationResult
     {

@@ -2,8 +2,9 @@
 {
     public class GitHubOptions : IGitHubOptions
     {
-        public int ProductCategoryRepositoryId { get; set; }
-        public int ProductImageRepositoryId { get; set; }
+        public long ProductCategoryRepositoryId { get; set; }
+        public long ProductImageRepositoryId { get; set; }
+        public long ProductOverviewRepositoryId { get; set; }
         public string Token { get; set; }
         
     }

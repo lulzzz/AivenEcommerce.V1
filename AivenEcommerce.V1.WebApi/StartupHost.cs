@@ -60,15 +60,18 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IBasketItemRepository, BasketItemRepository>();
             services.AddScoped<IBasketItemDetailRepository, BasketItemDetailRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddScoped<IProductOverviewRepository, ProductOverviewRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductImageService, ProductImageService>();
             services.AddScoped<IImageUploaderService, ImageUploaderService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            services.AddScoped<IProductOverviewService, ProductOverviewService>();
 
             services.AddScoped<IProductValidator, ProductValidator>();
             services.AddScoped<IProductImageValidator, ProductImageValidator>();
             services.AddScoped<IProductCategoryValidator, ProductCategoryValidator>();
+            services.AddScoped<IProductOverviewValidator, ProductOverviewValidator>();
 
         }
 

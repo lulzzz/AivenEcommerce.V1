@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.Products;
+using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.WebApi.Presenter;
-
-using BusinessLogicEnterprise.Application.OperationResults;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -109,6 +108,28 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         public async Task<IActionResult> UpdateCategory(UpdateProductCategorySubCategoryInput input)
         {
             var result = await _productService.UpdateProductCategoryAsync(input);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateAvailability(UpdateProductAvailabilityInput input)
+        {
+            var result = await _productService.UpdateProductAvailability(input);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateNameDescription(UpdateProductNameDescriptionInput input)
+        {
+            var result = await _productService.UpdateProductNameDescription(input);
 
             return new OperationActionResult(result);
         }

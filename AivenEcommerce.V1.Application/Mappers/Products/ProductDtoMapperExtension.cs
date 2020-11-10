@@ -10,7 +10,6 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
         {
             return new ProductDto(source.Id,
                 source.Name,
-                source.Description,
                 source.Cost,
                 source.Price,
                 source.PercentageOff,
@@ -29,7 +28,6 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
                 IsActive = source.IsActive,
                 PercentageOff = source.PercentageOff,
                 Stock = source.Stock,
-                Description = source.Description,
                 Category = source.Category,
                 Cost = source.Cost,
                 Name = source.Name,
@@ -45,7 +43,6 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
             destination.IsActive = source.IsActive;
             destination.PercentageOff = source.PercentageOff;
             destination.Stock = source.Stock;
-            destination.Description = source.Description;
             destination.Category = source.Category;
             destination.Cost = source.Cost;
             destination.Name = source.Name;
@@ -64,7 +61,6 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
                 IsActive = source.IsActive,
                 PercentageOff = source.PercentageOff,
                 Stock = source.Stock,
-                Description = source.Description,
                 Category = source.Category,
                 Cost = source.Cost,
                 Name = source.Name,

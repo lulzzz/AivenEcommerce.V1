@@ -22,7 +22,7 @@ namespace AivenEcommerce.V1.Application.Validators
             _productCategoryRepository = productCategoryRepository ?? throw new ArgumentNullException(nameof(productCategoryRepository));
         }
 
-        public ValidationResult ValidateCreateProduct(CreateProductInput input)
+        public async Task<ValidationResult> ValidateCreateProduct(CreateProductInput input)
         {
             ValidationResult validationResult = new ValidationResult();
 
@@ -54,19 +54,28 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Price), "El precio no puede ser menor que el costo."));
             }
 
+
+
             if (string.IsNullOrWhiteSpace(input.Category))
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Category), "Debe seleccionar una categoria."));
             }
-
-            if (string.IsNullOrWhiteSpace(input.SubCategory))
+            else
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.SubCategory), "Debe seleccionar una subcategoria."));
-            }
+                var category = await _productCategoryRepository.GetByNameAsync(input.Category);
+                if (category is null)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Category), "La categoria no existe."));
+                }
+                else if (string.IsNullOrWhiteSpace(input.SubCategory))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.SubCategory), "Debe seleccionar una subcategoria."));
+                }
+                else if (!category.SubCategories.Any(x => x == input.SubCategory))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.SubCategory), "La subcategoria no existe."));
+                }
 
-            if (input.Thumbnail is null)
-            {
-                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Thumbnail), "Debe subir una imagen para el producto."));
             }
 
             return validationResult;
@@ -125,12 +134,6 @@ namespace AivenEcommerce.V1.Application.Validators
                         validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Name), "Ya existe un producto con este nombre."));
                     }
                 }
-
-                if (string.IsNullOrWhiteSpace(input.Description))
-                {
-                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Description), "La description no puede estar vacia."));
-                }
-
                 if (input.Price <= 0)
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Price), "El precio debe ser mayor a cero."));
@@ -160,6 +163,55 @@ namespace AivenEcommerce.V1.Application.Validators
             return validationResult;
         }
 
+        public async Task<ValidationResult> ValidateUpdateProductAvailability(UpdateProductAvailabilityInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            Product? product = await _productRepository.GetAsync(input.ProductId);
+
+            if (product is null)
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductAvailabilityInput.ProductId), "El producto no existe."));
+            }
+            else if (input.IsActive)
+            {
+                if (input.Stock <= 0)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductAvailabilityInput.Stock), "No se puede activar un producto que no tiene stock."));
+                }
+                if (string.IsNullOrWhiteSpace(product.Name))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductAvailabilityInput.Stock), "No se puede activar un producto que no tiene nombre."));
+                }
+                if (string.IsNullOrWhiteSpace(product.Category))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductAvailabilityInput.Stock), "No se puede activar un producto que no tiene categoria."));
+                }
+                if (string.IsNullOrWhiteSpace(product.SubCategory))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductAvailabilityInput.Stock), "No se puede activar un producto que no tiene subcategoria."));
+                }
+                if (product.Cost < 0)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductAvailabilityInput.Stock), "No se puede activar un producto cuyo costo es menor a cero."));
+                }
+                if (product.Price <= 0)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Price), "No se puede activar un producto cuyo precio es mayor a cero."));
+                }
+                if (product.Price < product.Cost)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Price), "No se puede activar un producto cuyo precio es menor que el costo."));
+                }
+                if (product.Thumbnail is null)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Thumbnail), "No se puede activar un producto sin una imagen principal."));
+                }
+            }
+
+            return validationResult;
+        }
+
         public async Task<ValidationResult> ValidateUpdateProductCategory(UpdateProductCategorySubCategoryInput input)
         {
             ValidationResult validationResult = new ValidationResult();
@@ -178,7 +230,7 @@ namespace AivenEcommerce.V1.Application.Validators
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Id), "La categoria no existe."));
                 }
-                else if(!category.SubCategories.Any(x => x.Trim() == input.SubCategory.Trim()))
+                else if (!category.SubCategories.Any(x => x.Trim() == input.SubCategory.Trim()))
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Id), "La subcategoria no existe."));
                 }
@@ -213,6 +265,28 @@ namespace AivenEcommerce.V1.Application.Validators
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCostPriceInput.Price), "El precio no puede ser menor que el costo."));
                 }
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductNameDescription(UpdateProductNameDescriptionInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            Product? product = await _productRepository.GetAsync(input.ProductId);
+
+            if (product is null)
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductNameDescriptionInput.ProductId), "El producto no existe."));
+            }
+            else if (string.IsNullOrWhiteSpace(input.Name))
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductNameDescriptionInput.Name), "El nombre del producto no puede estar vacio."));
+            }
+            else if (string.IsNullOrWhiteSpace(input.Description))
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductNameDescriptionInput.Description), "La descripción del producto no puede estar vacio."));
             }
 
             return validationResult;

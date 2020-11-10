@@ -27,9 +27,13 @@ namespace AivenEcommerce.V1.Application.Validators
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
             }
+            else if (!input.SubCategories.Any())
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.SubCategories), "No se puede crear una categoria sin subcategorias."));
+            }
             else if (input.SubCategories.GroupBy(x => x).Any(g => g.Count() > 1))
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "No pueden ver subcategorias repetidas."));
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "No pueden haber subcategorias repetidas."));
             }
             else
             {
@@ -64,11 +68,15 @@ namespace AivenEcommerce.V1.Application.Validators
 
             if (input.Name.HasFileInvalidChars())
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategoryInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+            }
+            else if (!input.SubCategories.Any())
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategoryInput.SubCategories), "No se puede crear una categoria sin subcategorias."));
             }
             else if (input.SubCategories.GroupBy(x => x).Any(g => g.Count() > 1))
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "No pueden ver subcategorias repetidas."));
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategoryInput.SubCategories), "No pueden haber subcategorias repetidas."));
             }
 
             return validationResult;

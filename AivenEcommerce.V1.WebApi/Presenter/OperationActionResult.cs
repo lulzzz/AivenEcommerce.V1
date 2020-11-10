@@ -1,4 +1,4 @@
-﻿using BusinessLogicEnterprise.Application.OperationResults;
+﻿using AivenEcommerce.V1.Domain.OperationResults;
 
 using Microsoft.AspNetCore.Mvc;
 

@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.ProductImages;
+using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Modules.ImgBB.Extensions;
 using AivenEcommerce.V1.WebApi.Presenter;
-
-using BusinessLogicEnterprise.Application.OperationResults;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

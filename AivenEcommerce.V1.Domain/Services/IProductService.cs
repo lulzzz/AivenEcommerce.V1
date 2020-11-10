@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.Products;
-
-using BusinessLogicEnterprise.Application.OperationResults;
+using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
@@ -16,6 +15,8 @@ namespace AivenEcommerce.V1.Domain.Services
         Task<OperationResult<ProductDto>> UpdateMainImageAsync(UpdateProductMainImageInput input);
         Task<OperationResult<ProductDto>> UpdateProductCategoryAsync(UpdateProductCategorySubCategoryInput input);
         Task<OperationResult<ProductDto>> UpdateProductCostPriceAsync(UpdateProductCostPriceInput input);
+        Task<OperationResult<ProductDto>> UpdateProductAvailability(UpdateProductAvailabilityInput input);
+        Task<OperationResult<ProductDto>> UpdateProductNameDescription(UpdateProductNameDescriptionInput input);
 
     }
 }

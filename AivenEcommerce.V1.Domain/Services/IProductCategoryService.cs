@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.ProductCategories;
-
-using BusinessLogicEnterprise.Application.OperationResults;
+using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
