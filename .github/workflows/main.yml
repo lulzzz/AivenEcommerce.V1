@@ -12,7 +12,10 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-      - name: Print a greeting
+      - name: Create symbolic link DockerFile
+        run: cp "AivenEcommerce.V1.WebApi/Dockerfile" "Dockerfile"
+        
+      - name: Deploy Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           APP_NAME: aivenecommercev1apidemo
