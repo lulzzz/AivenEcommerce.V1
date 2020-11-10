@@ -11,6 +11,7 @@ using AivenEcommerce.V1.WebApi.Startup;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,11 +74,15 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IProductCategoryValidator, ProductCategoryValidator>();
             services.AddScoped<IProductOverviewValidator, ProductOverviewValidator>();
 
+            services.AddForwardedHeaders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders();
+            app.UseRedirectToProxiedHttps();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -98,6 +103,8 @@ namespace AivenEcommerce.V1.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseRedirectToProxiedHttps();
 
             app.UseEndpoints(endpoints =>
             {
