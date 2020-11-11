@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.ProductImages;
-using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services

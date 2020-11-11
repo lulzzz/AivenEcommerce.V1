@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.ProductOverViews;
@@ -27,7 +24,7 @@ namespace AivenEcommerce.V1.Application.Services
                 Id = productId
             });
 
-            return OperationResult<ProductOverviewDto>.Success(new ProductOverviewDto(productOverview.Id, productOverview.ProductId, productOverview.Description));
+            return OperationResult<ProductOverviewDto>.Success(new (productOverview.Id, productOverview.ProductId, productOverview.Description));
         }
 
     }

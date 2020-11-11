@@ -44,7 +44,7 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         [ProducesResponseType(typeof(OperationResult), 500)]
         public async Task<IActionResult> UploadFile(string productId, IFormFile file)
         {
-            if (file.Length > 0)
+            if (file is { Length: > 0 })
             {
                 var result = await _productImageService.UploadImageAsync(productId, file.OpenReadStream().ReadFully());
 

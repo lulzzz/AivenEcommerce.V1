@@ -15,8 +15,9 @@ namespace AivenEcommerce.V1.Domain.Services
         Task<OperationResult<ProductDto>> UpdateMainImageAsync(UpdateProductMainImageInput input);
         Task<OperationResult<ProductDto>> UpdateProductCategoryAsync(UpdateProductCategorySubCategoryInput input);
         Task<OperationResult<ProductDto>> UpdateProductCostPriceAsync(UpdateProductCostPriceInput input);
-        Task<OperationResult<ProductDto>> UpdateProductAvailability(UpdateProductAvailabilityInput input);
-        Task<OperationResult<ProductDto>> UpdateProductNameDescription(UpdateProductNameDescriptionInput input);
+        Task<OperationResult<ProductDto>> UpdateProductAvailabilityAsync(UpdateProductAvailabilityInput input);
+        Task<OperationResult<ProductDto>> UpdateProductNameDescriptionAsync(UpdateProductNameDescriptionInput input);
+        Task<OperationResult<ProductDto>> UpdateProductBadgeAsync(UpdateProductBadgeInput input);
 
     }
 }

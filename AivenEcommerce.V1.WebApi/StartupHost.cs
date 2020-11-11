@@ -11,7 +11,6 @@ using AivenEcommerce.V1.WebApi.Startup;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,12 +61,14 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IBasketItemDetailRepository, BasketItemDetailRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddScoped<IProductOverviewRepository, ProductOverviewRepository>();
+            services.AddScoped<IProductBadgeRepository, ProductBadgeRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductImageService, ProductImageService>();
             services.AddScoped<IImageUploaderService, ImageUploaderService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<IProductOverviewService, ProductOverviewService>();
+            services.AddScoped<IProductBadgeService, ProductBadgeService>();
 
             services.AddScoped<IProductValidator, ProductValidator>();
             services.AddScoped<IProductImageValidator, ProductImageValidator>();

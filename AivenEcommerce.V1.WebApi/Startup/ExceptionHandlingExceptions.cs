@@ -25,7 +25,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
                     context.Response.ContentType = "application/json";
 
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                    if (contextFeature != null)
+                    if (contextFeature is not null)
                     {
                         logger.LogError(contextFeature.Error, FlattenException(contextFeature.Error));
 
@@ -39,7 +39,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
                     {
                         var stringBuilder = new StringBuilder();
 
-                        while (exception != null)
+                        while (exception is not null)
                         {
                             stringBuilder.AppendLine(exception.Message);
                             stringBuilder.AppendLine(exception.StackTrace);

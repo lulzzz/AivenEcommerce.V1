@@ -81,15 +81,19 @@ namespace AivenEcommerce.V1.Application.Services
 
             Uri uriImage = await _imageService.UploadImage(image);
 
-            if (productDtoResult.Result?.Thumbnail is null)
+            ProductDto product = productDtoResult.Result;
+
+            if (product?.Thumbnail is null)
             {
-                productDtoResult = await _productService.UpdateAsync(new UpdateProductInput(productDtoResult.Result.Id, productDtoResult.Result.Name, productDtoResult.Result.Cost, productDtoResult.Result.Price, productDtoResult.Result.PercentageOff, productDtoResult.Result.Category, productDtoResult.Result.SubCategory, uriImage));
+                productDtoResult = await _productService.UpdateAsync(
+                    new (product.Id, product.Name, product.Cost, product.Price, product.PercentageOff, product.Category, product.SubCategory, uriImage)
+                    );
             }
 
             IEnumerable<ProductImage> productImages = await _repository.GetProductImages(productDtoResult.Result.ConvertToEntity());
             List<ProductImage> newProductImages = new List<ProductImage>();
 
-            if (productImages != null)
+            if (productImages is not null)
             {
                 newProductImages.AddRange(productImages);
             }

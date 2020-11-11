@@ -8,7 +8,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
 
         public static ProductDto ConvertToDto(this Product source)
         {
-            return new ProductDto(source.Id,
+            return new (source.Id,
                 source.Name,
                 source.Cost,
                 source.Price,

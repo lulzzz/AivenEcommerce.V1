@@ -33,7 +33,7 @@ namespace AivenEcommerce.V1.Application.Validators
             else
             {
                 Product? product = _productRepository.GetByName(input.Name);
-                if (product != null)
+                if (product is not null)
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductInput.Name), "Ya existe un producto con este nombre."));
                 }
@@ -207,6 +207,20 @@ namespace AivenEcommerce.V1.Application.Validators
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductInput.Thumbnail), "No se puede activar un producto sin una imagen principal."));
                 }
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductBadge(UpdateProductBadgeInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            Product? product = await _productRepository.GetAsync(input.ProductId);
+
+            if (product is null)
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductBadgeInput.ProductId), "El producto no existe."));
             }
 
             return validationResult;

@@ -118,7 +118,7 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         [ProducesResponseType(typeof(OperationResult), 500)]
         public async Task<IActionResult> UpdateAvailability(UpdateProductAvailabilityInput input)
         {
-            var result = await _productService.UpdateProductAvailability(input);
+            var result = await _productService.UpdateProductAvailabilityAsync(input);
 
             return new OperationActionResult(result);
         }
@@ -129,7 +129,18 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         [ProducesResponseType(typeof(OperationResult), 500)]
         public async Task<IActionResult> UpdateNameDescription(UpdateProductNameDescriptionInput input)
         {
-            var result = await _productService.UpdateProductNameDescription(input);
+            var result = await _productService.UpdateProductNameDescriptionAsync(input);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateBadge(UpdateProductBadgeInput input)
+        {
+            var result = await _productService.UpdateProductBadgeAsync(input);
 
             return new OperationActionResult(result);
         }

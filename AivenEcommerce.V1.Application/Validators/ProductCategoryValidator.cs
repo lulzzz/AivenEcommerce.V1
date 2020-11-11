@@ -39,7 +39,7 @@ namespace AivenEcommerce.V1.Application.Validators
             {
                 var productCategory = await _repository.GetByNameAsync(input.Name);
 
-                if (productCategory != null)
+                if (productCategory is not null)
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "La categoria ya existe."));
                 }

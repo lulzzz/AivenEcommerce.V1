@@ -7,6 +7,7 @@ using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Enums;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
@@ -18,12 +19,14 @@ namespace AivenEcommerce.V1.Application.Services
     {
         private readonly IProductRepository _repository;
         private readonly IProductOverviewRepository _overviewRepository;
+        private readonly IProductBadgeRepository _badgeRepository;
         private readonly IProductValidator _validator;
 
-        public ProductService(IProductRepository repository, IProductOverviewRepository overviewRepository, IProductValidator validator)
+        public ProductService(IProductRepository repository, IProductOverviewRepository overviewRepository, IProductBadgeRepository badgeRepository, IProductValidator validator)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _overviewRepository = overviewRepository ?? throw new ArgumentNullException(nameof(overviewRepository));
+            _badgeRepository = badgeRepository ?? throw new ArgumentNullException(nameof(badgeRepository));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
@@ -37,11 +40,19 @@ namespace AivenEcommerce.V1.Application.Services
 
                 product = await _repository.CreateAsync(product);
 
-                await _overviewRepository.CreateAsync(new ProductOverview
+                Task overviewTask = _overviewRepository.CreateAsync(new ProductOverview
                 {
                     ProductId = product.Id,
                     Description = input.Description
                 });
+
+                Task badgeTask = _badgeRepository.CreateAsync(new ProductBadge
+                {
+                    ProductId = product.Id,
+                    Badges = Enumerable.Empty<ProductBadgeName>()
+                });
+
+                Task.WaitAll(overviewTask, badgeTask);
 
                 return OperationResult<ProductDto>.Success(product.ConvertToDto());
             }
@@ -164,7 +175,7 @@ namespace AivenEcommerce.V1.Application.Services
             }
         }
 
-        public async Task<OperationResult<ProductDto>> UpdateProductAvailability(UpdateProductAvailabilityInput input)
+        public async Task<OperationResult<ProductDto>> UpdateProductAvailabilityAsync(UpdateProductAvailabilityInput input)
         {
             ValidationResult validationResult = await _validator.ValidateUpdateProductAvailability(input);
 
@@ -185,7 +196,7 @@ namespace AivenEcommerce.V1.Application.Services
             }
         }
 
-        public async Task<OperationResult<ProductDto>> UpdateProductNameDescription(UpdateProductNameDescriptionInput input)
+        public async Task<OperationResult<ProductDto>> UpdateProductNameDescriptionAsync(UpdateProductNameDescriptionInput input)
         {
             ValidationResult validationResult = await _validator.ValidateUpdateProductNameDescription(input);
 
@@ -222,6 +233,45 @@ namespace AivenEcommerce.V1.Application.Services
             {
                 return OperationResult<ProductDto>.Fail(validationResult);
             }
+        }
+
+        public async Task<OperationResult<ProductDto>> UpdateProductBadgeAsync(UpdateProductBadgeInput input)
+        {
+            ValidationResult validationResult = await _validator.ValidateUpdateProductBadge(input);
+
+            if (validationResult.IsSuccess)
+            {
+                Product? product = await _repository.GetAsync(input.ProductId);
+
+                product.PercentageOff = input.PercentageOff;
+
+                await _repository.UpdateAsync(product);
+
+                ProductBadge badge = await _badgeRepository.GetByProduct(product);
+
+                if (badge is null)
+                {
+                    badge = new ProductBadge
+                    {
+                        ProductId = input.ProductId,
+                        Badges = input.Badges
+                    };
+
+                    await _badgeRepository.CreateAsync(badge);
+                }
+                else
+                {
+                    badge.Badges = input.Badges;
+                    await _badgeRepository.UpdateAsync(badge);
+                }
+
+                return OperationResult<ProductDto>.Success(product.ConvertToDto());
+            }
+            else
+            {
+                return OperationResult<ProductDto>.Fail(validationResult);
+            }
+
         }
     }
 }

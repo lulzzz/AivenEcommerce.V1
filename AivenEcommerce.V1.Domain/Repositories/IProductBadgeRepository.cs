@@ -5,8 +5,8 @@ using AivenEcommerce.V1.Domain.Entities;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
-    public interface IProductOverviewRepository : IRepository<ProductOverview, Guid>
+    public interface IProductBadgeRepository : IRepository<ProductBadge, Guid>
     {
-        Task<ProductOverview> GetByProduct(Product product);
+        Task<ProductBadge> GetByProduct(Product product);
     }
 }

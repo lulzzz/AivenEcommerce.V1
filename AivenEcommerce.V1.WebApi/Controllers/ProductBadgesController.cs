@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using AivenEcommerce.V1.Domain.Dtos.ProductOverViews;
+using AivenEcommerce.V1.Domain.Dtos.ProductBadges;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.WebApi.Presenter;
@@ -15,17 +15,17 @@ namespace AivenEcommerce.V1.WebApi.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
     [ApiController]
-    public class ProductOverviewsController : ControllerBase
+    public class ProductBadgesController : ControllerBase
     {
-        private readonly IProductOverviewService _service;
+        private readonly IProductBadgeService _service;
 
-        public ProductOverviewsController(IProductOverviewService service)
+        public ProductBadgesController(IProductBadgeService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         [HttpGet("product/{productId:length(24)}")]
-        [ProducesResponseType(typeof(OperationResult<ProductOverviewDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult<ProductBadgeDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
         [ProducesResponseType(typeof(OperationResult), 500)]
         public async Task<IActionResult> Get(string productId)

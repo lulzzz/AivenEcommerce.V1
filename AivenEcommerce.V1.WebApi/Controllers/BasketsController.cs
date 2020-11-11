@@ -55,7 +55,7 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         [ProducesResponseType(typeof(OperationResult), 500)]
         public  ActionResult<Basket> GetOpenByUser(Guid userId)
         {
-            var basket = _basketRepository.GetBasketOpenByUser(new Domain.Entities.User
+            var basket = _basketRepository.GetBasketOpenByUser(new User
             {
                 Id = userId
             });
