@@ -34,9 +34,14 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
             return entity;
         }
 
-        public override async Task UpdateAsync(ProductBadge entityIn)
+        public override Task UpdateAsync(ProductBadge entityIn)
         {
-            await base.UpdateFileAsync(_gitHubOptions.ProductBadgeRepositoryId, "products", entityIn.ProductId, entityIn.Serialize());
+            return base.UpdateFileAsync(_gitHubOptions.ProductBadgeRepositoryId, "products", entityIn.ProductId, entityIn.Serialize());
+        }
+
+        public override Task RemoveAsync(ProductBadge entityIn)
+        {
+            return base.DeleteFileAsync(_gitHubOptions.ProductBadgeRepositoryId, "products", entityIn.ProductId);
         }
     }
 }

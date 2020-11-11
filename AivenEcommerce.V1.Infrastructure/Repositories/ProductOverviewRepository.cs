@@ -38,5 +38,10 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
             await base.UpdateFileAsync(_gitHubOptions.ProductOverviewRepositoryId, "products", entityIn.ProductId, entityIn.Serialize());
         }
+
+        public override Task RemoveAsync(ProductOverview entityIn)
+        {
+            return base.DeleteFileAsync(_gitHubOptions.ProductOverviewRepositoryId, "products", entityIn.ProductId);
+        }
     }
 }

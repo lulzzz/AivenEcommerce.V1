@@ -48,5 +48,10 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
             return productImages;
         }
+
+        public override Task RemoveAsync(ProductImage entityIn)
+        {
+            return base.DeleteFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", entityIn.ProductId);
+        }
     }
 }

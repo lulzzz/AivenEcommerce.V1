@@ -20,13 +20,15 @@ namespace AivenEcommerce.V1.Application.Services
         private readonly IProductRepository _repository;
         private readonly IProductOverviewRepository _overviewRepository;
         private readonly IProductBadgeRepository _badgeRepository;
+        private readonly IProductImageRepository _imageRepository;
         private readonly IProductValidator _validator;
 
-        public ProductService(IProductRepository repository, IProductOverviewRepository overviewRepository, IProductBadgeRepository badgeRepository, IProductValidator validator)
+        public ProductService(IProductRepository repository, IProductOverviewRepository overviewRepository, IProductBadgeRepository badgeRepository, IProductImageRepository imageRepository, IProductValidator validator)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _overviewRepository = overviewRepository ?? throw new ArgumentNullException(nameof(overviewRepository));
             _badgeRepository = badgeRepository ?? throw new ArgumentNullException(nameof(badgeRepository));
+            _imageRepository = imageRepository ?? throw new ArgumentNullException(nameof(imageRepository));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
@@ -70,6 +72,29 @@ namespace AivenEcommerce.V1.Application.Services
             if (validationResult.IsSuccess)
             {
                 await _repository.RemoveAsync(input.Id);
+
+                Task overviewTask = Task.Factory.StartNew(async () =>
+                {
+                    var overview = await _overviewRepository.GetByProduct(new Product { Id = input.Id });
+                    if (overview is not null)
+                        await _overviewRepository.RemoveAsync(overview);
+                });
+
+                Task badgeTask = Task.Factory.StartNew(async () =>
+                {
+                    var badge = await _badgeRepository.GetByProduct(new Product { Id = input.Id });
+                    if (badge is not null)
+                        await _badgeRepository.RemoveAsync(badge);
+                });
+
+                Task imageTask = Task.Factory.StartNew(async () =>
+                {
+                    var images = await _imageRepository.GetProductImages(new Product { Id = input.Id });
+                    if (images is not null)
+                        await _imageRepository.RemoveAsync(new ProductImage { ProductId = input.Id });
+                });
+
+                Task.WaitAll(overviewTask, badgeTask, imageTask);
 
                 return OperationResult.Success();
             }
@@ -225,7 +250,7 @@ namespace AivenEcommerce.V1.Application.Services
                     await _overviewRepository.UpdateAsync(productOverview);
                 }
 
-                
+
 
                 return OperationResult<ProductDto>.Success(product.ConvertToDto());
             }
