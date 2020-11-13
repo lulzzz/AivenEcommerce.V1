@@ -12,5 +12,8 @@ namespace AivenEcommerce.V1.Domain.Services
         Task<OperationResult<ProductCategoryDto>> CreateAsync(CreateProductCategoryInput input);
         Task<OperationResult<ProductCategoryDto>> UpdateAsync(UpdateProductCategoryInput input);
         Task<OperationResult> DeleteAsync(DeleteProductCategoryInput input);
+        Task<OperationResult> DeleteSubCategoryAsync(DeleteProductSubCategoryInput input);
+        Task<OperationResult<ProductCategoryDto>> UpdateCategoryNameAsync(UpdateProductCategoryNameInput input);
+        Task<OperationResult<ProductCategoryDto>> UpdateSubCategoryNameAsync(UpdateProductSubCategoryNameInput input);
     }
 }

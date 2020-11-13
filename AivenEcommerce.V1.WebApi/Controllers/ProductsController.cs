@@ -79,6 +79,28 @@ namespace AivenEcommerce.V1.WebApi.Controllers
             return new OperationActionResult(result);
         }
 
+        [HttpGet("categories/{category}")]
+        [ProducesResponseType(typeof(OperationResultEnumerable<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public IActionResult GetByCategory(string category)
+        {
+            var result = _productService.GetByCategory(category);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpGet("categories/{category}/subcategories/{subcategory}")]
+        [ProducesResponseType(typeof(OperationResultEnumerable<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public IActionResult GetByCategory(string category, string subcategory)
+        {
+            var result = _productService.GetByCategory(category, subcategory);
+
+            return new OperationActionResult(result);
+        }
+
         [HttpPut("[action]")]
         [ProducesResponseType(typeof(OperationResult<ProductDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]

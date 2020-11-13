@@ -75,7 +75,40 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         [ProducesResponseType(typeof(OperationResult), 500)]
         public async Task<IActionResult> Delete(string name)
         {
-            var result = await _service.DeleteAsync(new DeleteProductCategoryInput(name));
+            var result = await _service.DeleteAsync(new(name));
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpDelete("{categoryName}/SubCategories/{subcategoryName}")]
+        [ProducesResponseType(typeof(OperationResult<ProductCategoryDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> Delete(string categoryName, string subcategoryName)
+        {
+            var result = await _service.DeleteSubCategoryAsync(new(categoryName, subcategoryName));
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductCategoryDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateCategoryName(UpdateProductCategoryNameInput input)
+        {
+            var result = await _service.UpdateCategoryNameAsync(input);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpPut("[action]")]
+        [ProducesResponseType(typeof(OperationResult<ProductCategoryDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> UpdateSubCategoryName(UpdateProductSubCategoryNameInput input)
+        {
+            var result = await _service.UpdateSubCategoryNameAsync(input);
 
             return new OperationActionResult(result);
         }

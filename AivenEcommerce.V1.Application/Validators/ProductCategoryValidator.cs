@@ -23,7 +23,11 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new ValidationResult();
 
-            if (input.Name.HasFileInvalidChars())
+            if (string.IsNullOrWhiteSpace(input.Name))
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "Debe ingresar un nombre para la categoria."));
+            }
+            else if (input.Name.HasFileInvalidChars())
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
             }
@@ -35,6 +39,10 @@ namespace AivenEcommerce.V1.Application.Validators
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "No pueden haber subcategorias repetidas."));
             }
+            else if (SubCategoriesHasInvalidChars())
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "El nombre de las subcategorias no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+            }
             else
             {
                 var productCategory = await _repository.GetByNameAsync(input.Name);
@@ -43,6 +51,17 @@ namespace AivenEcommerce.V1.Application.Validators
                 {
                     validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "La categoria ya existe."));
                 }
+            }
+
+            bool SubCategoriesHasInvalidChars()
+            {
+                foreach (var item in input.SubCategories)
+                {
+                    if (item.HasFileInvalidChars())
+                        return true;
+                }
+
+                return false;
             }
 
             return validationResult;
@@ -57,6 +76,24 @@ namespace AivenEcommerce.V1.Application.Validators
             if (productCategory is null)
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "La categoria no existe."));
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateDeleteProductSubCategory(DeleteProductSubCategoryInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            var productCategory = await _repository.GetByNameAsync(input.CategoryName);
+
+            if (productCategory is null)
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductSubCategoryNameInput.CategoryName), "La categoria no existe."));
+            }
+            else if (!productCategory.SubCategories.Any(x => x == input.SubCategoryName))
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "La subcategoria no existe en esta categoria."));
             }
 
             return validationResult;
@@ -77,6 +114,60 @@ namespace AivenEcommerce.V1.Application.Validators
             else if (input.SubCategories.GroupBy(x => x).Any(g => g.Count() > 1))
             {
                 validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategoryInput.SubCategories), "No pueden haber subcategorias repetidas."));
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductCategoryNameCategory(UpdateProductCategoryNameInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            if (string.IsNullOrWhiteSpace(input.NewCategoryName))
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "Debe ingresar un nombre para la categoria."));
+            }
+            else if (input.NewCategoryName.HasFileInvalidChars())
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+            }
+            else
+            {
+                var productCategory = await _repository.GetByNameAsync(input.NewCategoryName);
+
+                if (productCategory is not null)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "La categoria ya existe."));
+                }
+            }
+
+            return validationResult;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductSubCategoryNameCategory(UpdateProductSubCategoryNameInput input)
+        {
+            ValidationResult validationResult = new ValidationResult();
+
+            if (string.IsNullOrWhiteSpace(input.NewSubCategoryName))
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductSubCategoryNameInput.NewSubCategoryName), "Debe ingresar un nombre para la subcategoria."));
+            }
+            else if (input.NewSubCategoryName.HasFileInvalidChars())
+            {
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductSubCategoryNameInput.NewSubCategoryName), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+            }
+            else
+            {
+                var productCategory = await _repository.GetByNameAsync(input.CategoryName);
+
+                if (productCategory is null)
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductSubCategoryNameInput.CategoryName), "La categoria no existe."));
+                }
+                else if(productCategory.SubCategories.Any(x => x == input.NewSubCategoryName))
+                {
+                    validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductCategoryInput.Name), "La subcategoria ya existe en esta categoria."));
+                }
             }
 
             return validationResult;

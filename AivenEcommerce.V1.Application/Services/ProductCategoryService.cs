@@ -14,11 +14,13 @@ namespace AivenEcommerce.V1.Application.Services
     public class ProductCategoryService : IProductCategoryService
     {
         private readonly IProductCategoryRepository _productCategoryRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IProductCategoryValidator _productCategoryValidator;
 
-        public ProductCategoryService(IProductCategoryRepository productCategoryRepository, IProductCategoryValidator productCategoryValidator)
+        public ProductCategoryService(IProductCategoryRepository productCategoryRepository, IProductRepository productRepository, IProductCategoryValidator productCategoryValidator)
         {
             _productCategoryRepository = productCategoryRepository ?? throw new ArgumentNullException(nameof(productCategoryRepository));
+            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _productCategoryValidator = productCategoryValidator ?? throw new ArgumentNullException(nameof(productCategoryValidator));
         }
 
@@ -46,6 +48,29 @@ namespace AivenEcommerce.V1.Application.Services
                 var entity = await _productCategoryRepository.GetByNameAsync(input.Name);
 
                 await _productCategoryRepository.RemoveAsync(entity);
+
+                await _productRepository.InactiveProductsByCategory(entity.Name);
+
+                return OperationResult.Success();
+            }
+
+            return OperationResult.Fail(validationResult);
+
+        }
+
+        public async Task<OperationResult> DeleteSubCategoryAsync(DeleteProductSubCategoryInput input)
+        {
+            var validationResult = await _productCategoryValidator.ValidateDeleteProductSubCategory(input);
+
+            if (validationResult.IsSuccess)
+            {
+                var entity = await _productCategoryRepository.GetByNameAsync(input.CategoryName);
+
+                entity.SubCategories = entity.SubCategories.Where(x => x != input.SubCategoryName).ToList();
+
+                await _productCategoryRepository.UpdateAsync(entity);
+
+                await _productRepository.InactiveProductsByCategory(input.CategoryName, input.SubCategoryName);
 
                 return OperationResult.Success();
             }
@@ -82,6 +107,50 @@ namespace AivenEcommerce.V1.Application.Services
                 var entity = await _productCategoryRepository.GetAsync(input.Id);
 
                 await _productCategoryRepository.UpdateAsync(entity);
+
+                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+            }
+
+            return OperationResult<ProductCategoryDto>.Fail(validationResult);
+        }
+
+        public async Task<OperationResult<ProductCategoryDto>> UpdateCategoryNameAsync(UpdateProductCategoryNameInput input)
+        {
+            var validationResult = await _productCategoryValidator.ValidateUpdateProductCategoryNameCategory(input);
+
+            if (validationResult.IsSuccess)
+            {
+                var entity = await _productCategoryRepository.GetByNameAsync(input.OldCategoryName);
+
+                await _productCategoryRepository.RemoveAsync(entity);
+
+                entity.Name = input.NewCategoryName;
+                await _productCategoryRepository.CreateAsync(entity);
+
+                await _productRepository.UpdateCategoryName(input.OldCategoryName, input.NewCategoryName);
+
+                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+            }
+
+            return OperationResult<ProductCategoryDto>.Fail(validationResult);
+        }
+
+        public async Task<OperationResult<ProductCategoryDto>> UpdateSubCategoryNameAsync(UpdateProductSubCategoryNameInput input)
+        {
+            var validationResult = await _productCategoryValidator.ValidateUpdateProductSubCategoryNameCategory(input);
+
+            if (validationResult.IsSuccess)
+            {
+                var entity = await _productCategoryRepository.GetByNameAsync(input.CategoryName);
+
+                var list = entity.SubCategories.Where(x => x != input.OldSubCategoryName).ToList();
+                list.Add(input.NewSubCategoryName);
+
+                entity.SubCategories = list;
+
+                await _productCategoryRepository.UpdateAsync(entity);
+
+                await _productRepository.UpdateSubCategoryName(input.OldSubCategoryName, input.NewSubCategoryName);
 
                 return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
             }

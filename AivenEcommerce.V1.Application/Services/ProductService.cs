@@ -298,5 +298,15 @@ namespace AivenEcommerce.V1.Application.Services
             }
 
         }
+
+        public OperationResultEnumerable<ProductDto> GetByCategory(string category)
+        {
+            return OperationResultEnumerable<ProductDto>.Success( _repository.GetAllProductsByCategory(category).Select(x => x.ConvertToDto()));
+        }
+
+        public OperationResultEnumerable<ProductDto> GetByCategory(string category, string subcategory)
+        {
+            return OperationResultEnumerable<ProductDto>.Success(_repository.GetAllProductsByCategory(category, subcategory).Select(x => x.ConvertToDto()));
+        }
     }
 }

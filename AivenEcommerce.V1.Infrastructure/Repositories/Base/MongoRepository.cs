@@ -13,7 +13,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {
     public class MongoRepository<T> : IRepository<T, string> where T : IEntity<string>
     {
-        private readonly IMongoCollection<T> _collection;
+        protected readonly IMongoCollection<T> _collection;
 
         public MongoRepository(IMongoOptions options)
         {

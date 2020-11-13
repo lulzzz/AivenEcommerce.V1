@@ -92,7 +92,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             try
             {
                 IReadOnlyList<RepositoryContent> contents = await _githubClient.Repository.Content.GetAllContents(repositoryId, Path.Combine(path, fileName));
-                RepositoryContent content = contents.First();
+                RepositoryContent content = contents[0];
                 return new GhFileContent()
                 {
                     Name = content.Name,
