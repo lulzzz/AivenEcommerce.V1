@@ -6,9 +6,9 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductCategories
 {
     public static class ProductCategoryDtoMappingExtensions
     {
-        public static ProductCategoryDto ConvertToDto(this ProductCategory source)
+        public static ProductCategoryDto ConvertToDto(this ProductCategory source, int productCount)
         {
-            return new ProductCategoryDto(source.Id, source.Name, source.SubCategories);
+            return new ProductCategoryDto(source.Id, source.Name, productCount, source.SubCategories);
         }
 
         public static ProductCategory ConvertToEntity(this ProductCategoryDto source)

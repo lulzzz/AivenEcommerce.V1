@@ -8,6 +8,7 @@ using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
@@ -72,6 +73,16 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         public IEnumerable<Product> GetAllProductsByCategory(string category, string subcategory)
         {
             return base.GetQueryable().Where(x => x.Category == category && x.SubCategory == subcategory).ToList();
+        }
+
+        public Task<int> CountByCategory(string categoryName)
+        {
+            return base.GetQueryable().CountAsync(x => x.Category == categoryName && x.IsActive);
+        }
+
+        public Task<int> CountBySubCategory(string categoryName, string subcategoryName)
+        {
+            return base.GetQueryable().CountAsync(x => x.Category == categoryName && x.SubCategory == subcategoryName && x.IsActive);
         }
     }
 }

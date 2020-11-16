@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace AivenEcommerce.V1.Application.Services
 
                 entity = await _productCategoryRepository.CreateAsync(entity);
 
-                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto(0));
             }
 
             return OperationResult<ProductCategoryDto>.Fail(validationResult);
@@ -83,7 +84,15 @@ namespace AivenEcommerce.V1.Application.Services
         {
             var categories = await _productCategoryRepository.GetAllAsync();
 
-            return OperationResultEnumerable<ProductCategoryDto>.Success(categories.Select(x => x.ConvertToDto()));
+            List<ProductCategoryDto> categoryDtos = new List<ProductCategoryDto>();
+
+            foreach (var item in categories)
+            {
+                var productCount = await _productRepository.CountByCategory(item.Name);
+                categoryDtos.Add(item.ConvertToDto(productCount));
+            }
+
+            return OperationResultEnumerable<ProductCategoryDto>.Success(categoryDtos);
         }
 
         public async Task<OperationResult<ProductCategoryDto>> GetAsync(string name)
@@ -95,7 +104,25 @@ namespace AivenEcommerce.V1.Application.Services
                 return OperationResult<ProductCategoryDto>.NotFound();
             }
 
-            return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+            var productCount = await _productRepository.CountByCategory(name);
+
+            return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto(productCount));
+        }
+
+        public async Task<OperationResultEnumerable<ProductSubCategoryDto>> GetSubCategories(string categoryName)
+        {
+            var entity = await _productCategoryRepository.GetByNameAsync(categoryName);
+
+            List<ProductSubCategoryDto> subcategories = new List<ProductSubCategoryDto>();
+
+            foreach (var item in entity.SubCategories)
+            {
+                var productCount = await _productRepository.CountBySubCategory(categoryName, item);
+
+                subcategories.Add(new(categoryName, item, productCount));
+            }
+
+            return OperationResultEnumerable<ProductSubCategoryDto>.Success(subcategories);
         }
 
         public async Task<OperationResult<ProductCategoryDto>> UpdateAsync(UpdateProductCategoryInput input)
@@ -108,7 +135,9 @@ namespace AivenEcommerce.V1.Application.Services
 
                 await _productCategoryRepository.UpdateAsync(entity);
 
-                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+                var productCount = await _productRepository.CountByCategory(entity.Name);
+
+                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto(productCount));
             }
 
             return OperationResult<ProductCategoryDto>.Fail(validationResult);
@@ -129,7 +158,9 @@ namespace AivenEcommerce.V1.Application.Services
 
                 await _productRepository.UpdateCategoryName(input.OldCategoryName, input.NewCategoryName);
 
-                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+                var productCount = await _productRepository.CountByCategory(entity.Name);
+
+                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto(productCount));
             }
 
             return OperationResult<ProductCategoryDto>.Fail(validationResult);
@@ -152,7 +183,9 @@ namespace AivenEcommerce.V1.Application.Services
 
                 await _productRepository.UpdateSubCategoryName(input.OldSubCategoryName, input.NewSubCategoryName);
 
-                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto());
+                var productCount = await _productRepository.CountByCategory(entity.Name);
+
+                return OperationResult<ProductCategoryDto>.Success(entity.ConvertToDto(productCount));
             }
 
             return OperationResult<ProductCategoryDto>.Fail(validationResult);

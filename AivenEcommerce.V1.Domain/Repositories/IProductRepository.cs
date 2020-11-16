@@ -17,5 +17,8 @@ namespace AivenEcommerce.V1.Domain.Repositories
         Task UpdateSubCategoryName(string oldName, string newName);
         Task InactiveProductsByCategory(string category);
         Task InactiveProductsByCategory(string category, string subcategory);
+        Task<int> CountByCategory(string categoryName);
+        Task<int> CountBySubCategory(string categoryName, string subcategoryName);
+
     }
 }

@@ -9,6 +9,7 @@ namespace AivenEcommerce.V1.Domain.Services
     {
         Task<OperationResult<ProductCategoryDto>> GetAsync(string name);
         Task<OperationResultEnumerable<ProductCategoryDto>> GetAllAsync();
+        Task<OperationResultEnumerable<ProductSubCategoryDto>> GetSubCategories(string categoryName);
         Task<OperationResult<ProductCategoryDto>> CreateAsync(CreateProductCategoryInput input);
         Task<OperationResult<ProductCategoryDto>> UpdateAsync(UpdateProductCategoryInput input);
         Task<OperationResult> DeleteAsync(DeleteProductCategoryInput input);

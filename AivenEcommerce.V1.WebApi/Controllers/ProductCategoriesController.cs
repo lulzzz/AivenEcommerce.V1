@@ -69,6 +69,17 @@ namespace AivenEcommerce.V1.WebApi.Controllers
             return new OperationActionResult(result);
         }
 
+        [HttpGet("{name}/Subcategories")]
+        [ProducesResponseType(typeof(OperationResult<ProductCategoryDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> GetSubcategories(string name)
+        {
+            var result = await _service.GetSubCategories(name);
+
+            return new OperationActionResult(result);
+        }
+
         [HttpDelete("{name}")]
         [ProducesResponseType(typeof(OperationResult<ProductCategoryDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
