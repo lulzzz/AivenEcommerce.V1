@@ -8,12 +8,12 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductCategories
     {
         public static ProductCategoryDto ConvertToDto(this ProductCategory source, int productCount)
         {
-            return new ProductCategoryDto(source.Id, source.Name, productCount, source.SubCategories);
+            return new(source.Id, source.Name, productCount, source.SubCategories);
         }
 
         public static ProductCategory ConvertToEntity(this ProductCategoryDto source)
         {
-            return new ProductCategory
+            return new()
             {
                 Id = source.Id,
                 Name = source.Name,

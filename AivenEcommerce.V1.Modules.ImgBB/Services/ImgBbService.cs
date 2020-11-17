@@ -26,7 +26,7 @@ namespace AivenEcommerce.V1.Modules.ImgBB.Services
             string fileBase64 = Convert.ToBase64String(image);
             // act on the Base64 data
 
-            FormUrlEncodedContent formContent = new FormUrlEncodedContent(new[]
+            FormUrlEncodedContent formContent = new(new[]
             {
                 new KeyValuePair<string, string>("image", fileBase64)
             });

@@ -39,8 +39,8 @@ namespace AivenEcommerce.V1.WebApi.Startup
                 Indented = true
             };
 
-            using var stream = new MemoryStream();
-            using (var writer = new Utf8JsonWriter(stream, options))
+            using MemoryStream stream = new();
+            using (Utf8JsonWriter writer = new(stream, options))
             {
                 writer.WriteStartObject();
                 writer.WriteString("status", result.Status.ToString());

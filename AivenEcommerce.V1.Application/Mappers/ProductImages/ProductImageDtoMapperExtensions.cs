@@ -8,12 +8,12 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductImages
     {
         public static ProductImageDto ConvertToDto(this ProductImage source)
         {
-            return new ProductImageDto(source.Id, source.ProductId, source.Image);
+            return new(source.Id, source.ProductId, source.Image);
         }
 
         public static ProductImage ConvertToEntity(this ProductImageDto source)
         {
-            return new ProductImage
+            return new()
             {
                 Id = source.Id,
                 Image = source.Image,

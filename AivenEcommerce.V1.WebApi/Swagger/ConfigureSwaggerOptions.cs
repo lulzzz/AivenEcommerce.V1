@@ -42,8 +42,8 @@
                 Title = "AivenEcommerce.V1 v1",
                 Version = description.ApiVersion.ToString(),
                 Description = "A application with Swagger, Swashbuckle, and API versioning.",
-                Contact = new OpenApiContact() { Name = "AivenWeb", Email = "info@aivenweb.com" },
-                License = new OpenApiLicense() { Name = "AivenWeb", Url = new Uri("https://AivenWeb.com") }
+                Contact = new () { Name = "AivenWeb", Email = "info@aivenweb.com" },
+                License = new () { Name = "AivenWeb", Url = new ("https://AivenWeb.com") }
             };
 
             if (description.IsDeprecated)

@@ -7,7 +7,7 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductCategories
     {
         public static ProductCategory ConvertToEntity(this CreateProductCategoryInput source)
         {
-            return new ProductCategory
+            return new()
             {
                 Name = source.Name,
                 SubCategories = source.SubCategories

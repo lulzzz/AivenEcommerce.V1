@@ -6,6 +6,7 @@ using AivenEcommerce.V1.WebApi.Swagger;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -25,7 +26,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
                  {
                      // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
                      options.ReportApiVersions = true;
-                     options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                     options.DefaultApiVersion = new(1, 0);
                      options.AssumeDefaultVersionWhenUnspecified = true;
                  });
             services.AddVersionedApiExplorer(
@@ -43,7 +44,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
             services.AddSwaggerGen(
                 options =>
                 {
-                    var securityScheme = new OpenApiSecurityScheme
+                    OpenApiSecurityScheme securityScheme = new()
                     {
                         Name = "JWT Authentication",
                         Description = "Enter JWT Bearer token **_only_**",
@@ -51,7 +52,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
                         Type = SecuritySchemeType.Http,
                         Scheme = "bearer", // must be lower case
                         BearerFormat = "JWT",
-                        Reference = new OpenApiReference
+                        Reference = new()
                         {
                             Id = JwtBearerDefaults.AuthenticationScheme,
                             Type = ReferenceType.SecurityScheme
@@ -60,9 +61,9 @@ namespace AivenEcommerce.V1.WebApi.Startup
 
                     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
 
-                    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    options.AddSecurityRequirement(new()
                     {
-                        {securityScheme, new string[] { }}
+                        { securityScheme, new string[] { } }
                     });
 
                     // add a custom operation filter which sets default values
@@ -82,7 +83,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
                 c.PreSerializeFilters.Add((swagger, httpReq) =>
 
                 {
-                    swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}" } };
+                    swagger.Servers = new List<OpenApiServer> { new() { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}" } };
                 });
             });
 

@@ -13,7 +13,7 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductVariants
     {
         public static ProductVariant ConvertToEntity(this CreateProductVariantInput source)
         {
-            return new ProductVariant
+            return new()
             {
                 Name = source.Name,
                 Values = source.Values,

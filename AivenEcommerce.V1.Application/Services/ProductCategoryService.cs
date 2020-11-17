@@ -84,7 +84,7 @@ namespace AivenEcommerce.V1.Application.Services
         {
             var categories = await _productCategoryRepository.GetAllAsync();
 
-            List<ProductCategoryDto> categoryDtos = new List<ProductCategoryDto>();
+            List<ProductCategoryDto> categoryDtos = new();
 
             foreach (var item in categories)
             {
@@ -113,7 +113,7 @@ namespace AivenEcommerce.V1.Application.Services
         {
             var entity = await _productCategoryRepository.GetByNameAsync(categoryName);
 
-            List<ProductSubCategoryDto> subcategories = new List<ProductSubCategoryDto>();
+            List<ProductSubCategoryDto> subcategories = new();
 
             foreach (var item in entity.SubCategories)
             {

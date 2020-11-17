@@ -16,8 +16,9 @@ namespace AivenEcommerce.V1.WebApi.Startup
 
         public static IApplicationBuilder UseRedirectToProxiedHttps(this IApplicationBuilder app)
         {
-            var options = new RewriteOptions()
-               .AddRedirectToProxiedHttps()
+            RewriteOptions options = new();
+
+            options.AddRedirectToProxiedHttps()
                .AddRedirect("(.*)/$", "$1");  // remove trailing slash
             app.UseRewriter(options);
             return app;

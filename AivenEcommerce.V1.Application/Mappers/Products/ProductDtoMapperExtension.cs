@@ -8,7 +8,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
 
         public static ProductDto ConvertToDto(this Product source)
         {
-            return new (source.Id,
+            return new(source.Id,
                 source.Name,
                 source.Cost,
                 source.Price,
@@ -55,7 +55,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
 
         public static Product ConvertToEntity(this ProductDto source)
         {
-            return new Product
+            return new()
             {
                 Id = source.Id,
                 IsActive = source.IsActive,

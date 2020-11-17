@@ -91,14 +91,14 @@ namespace AivenEcommerce.V1.Application.Services
             }
 
             IEnumerable<ProductImage> productImages = await _repository.GetProductImages(productDtoResult.Result.ConvertToEntity());
-            List<ProductImage> newProductImages = new List<ProductImage>();
+            List<ProductImage> newProductImages = new ();
 
             if (productImages is not null)
             {
                 newProductImages.AddRange(productImages);
             }
 
-            ProductImage productImage = new ProductImage
+            ProductImage productImage = new()
             {
                 Id = Guid.NewGuid(),
                 ProductId = productId,

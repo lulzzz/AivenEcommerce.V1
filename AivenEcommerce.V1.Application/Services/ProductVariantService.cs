@@ -46,7 +46,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                var entity = await _productVariantRepository.GetByNameAsync(new Product { Id = input.ProductId }, input.Name);
+                var entity = await _productVariantRepository.GetByNameAsync(new() { Id = input.ProductId }, input.Name);
 
                 await _productVariantRepository.RemoveAsync(entity);
 
@@ -58,14 +58,14 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResultEnumerable<ProductVariantDto>> GetAllAsync(string productId)
         {
-            var entity = await _productVariantRepository.GetByProduct(new Product { Id = productId });
+            var entity = await _productVariantRepository.GetByProduct(new() { Id = productId });
 
             return OperationResultEnumerable<ProductVariantDto>.Success(entity.Select(x => x.ConvertToDto()));
         }
 
         public async Task<OperationResult<ProductVariantDto>> GetAsync(string productId, string name)
         {
-            var entity = await _productVariantRepository.GetByNameAsync(new Product { Id = productId }, name);
+            var entity = await _productVariantRepository.GetByNameAsync(new() { Id = productId }, name);
 
             if (entity is null)
             {
@@ -80,7 +80,7 @@ namespace AivenEcommerce.V1.Application.Services
             var validationResult = await _productVariantValidator.ValidateUpdateProductVariant(input);
             if (validationResult.IsSuccess)
             {
-                var entity = await _productVariantRepository.GetByNameAsync(new Product { Id = input.ProductId }, input.Name);
+                var entity = await _productVariantRepository.GetByNameAsync(new() { Id = input.ProductId }, input.Name);
 
                 entity.Values = input.Values;
 

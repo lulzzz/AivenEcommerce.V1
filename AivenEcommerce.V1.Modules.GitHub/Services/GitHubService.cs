@@ -23,7 +23,7 @@ namespace AivenEcommerce.V1.Modules.GitHub.Services
             await _githubClient.Repository.Content.CreateFile(
                     repositoryId,
                     Path.Combine(path, fileName),
-                    new CreateFileRequest($"Create {fileName}",
+                    new($"Create {fileName}",
                                           content,
                                           "main"));
         }
@@ -36,7 +36,7 @@ namespace AivenEcommerce.V1.Modules.GitHub.Services
             await _githubClient.Repository.Content.DeleteFile(
                 repositoryId,
                     Path.Combine(path, fileName),
-                    new DeleteFileRequest($"Delete {fileName}",
+                    new($"Delete {fileName}",
                                           repositoryContent.Sha,
                                           "main")
                     );
@@ -50,7 +50,7 @@ namespace AivenEcommerce.V1.Modules.GitHub.Services
             await _githubClient.Repository.Content.UpdateFile(
                 repositoryId,
                     Path.Combine(path, fileName),
-                    new UpdateFileRequest($"Update {fileName}",
+                    new($"Update {fileName}",
                                           content,
                                           repositoryContent.Sha,
                                           "main")
@@ -90,7 +90,7 @@ namespace AivenEcommerce.V1.Modules.GitHub.Services
             {
                 IReadOnlyList<RepositoryContent> contents = await _githubClient.Repository.Content.GetAllContents(repositoryId, Path.Combine(path, fileName));
                 RepositoryContent content = contents[0];
-                return new GhFileContent()
+                return new()
                 {
                     Name = content.Name,
                     Content = content.Content,

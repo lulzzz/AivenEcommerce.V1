@@ -8,7 +8,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
     {
         public static Product ConvertToEntity(this UpdateProductInput source)
         {
-            return new Product
+            return new()
             {
                 Id = source.Id,
                 Category = source.Category,

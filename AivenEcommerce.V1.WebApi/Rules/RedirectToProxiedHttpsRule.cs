@@ -25,8 +25,9 @@ namespace AivenEcommerce.V1.WebApi.Rules
             // #2) If so, redirect to HTTPS equivalent
             if (reqProtocol is not "https")
             {
-                var newUrl = new StringBuilder()
-                    .Append("https://").Append(request.Host)
+                StringBuilder newUrl = new();
+
+                newUrl.Append("https://").Append(request.Host)
                     .Append(request.PathBase).Append(request.Path)
                     .Append(request.QueryString);
 

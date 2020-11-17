@@ -8,12 +8,12 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductVariants
     {
         public static ProductVariantDto ConvertToDto(this ProductVariant source)
         {
-            return new ProductVariantDto(source.Id, source.ProductId, source.Name, source.Values);
+            return new(source.Id, source.ProductId, source.Name, source.Values);
         }
 
         public static ProductVariant ConvertToEntity(this ProductVariantDto source)
         {
-            return new ProductVariant
+            return new()
             {
                 Id = source.Id,
                 ProductId = source.ProductId,

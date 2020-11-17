@@ -29,15 +29,15 @@ namespace AivenEcommerce.V1.WebApi.Startup
                     {
                         logger.LogError(contextFeature.Error, FlattenException(contextFeature.Error));
 
-                        ValidationResult validationResult = new ValidationResult();
-                        validationResult.Messages.Add(new ValidationMessage("Internal Server Error: " + contextFeature.Error.Message));
+                        ValidationResult validationResult = new();
+                        validationResult.Messages.Add(new("Internal Server Error: " + contextFeature.Error.Message));
 
                         await context.Response.WriteAsync(JsonSerializer.Serialize(OperationResult.Error(validationResult)));
                     }
 
                     static string FlattenException(Exception exception)
                     {
-                        var stringBuilder = new StringBuilder();
+                        StringBuilder stringBuilder = new();
 
                         while (exception is not null)
                         {

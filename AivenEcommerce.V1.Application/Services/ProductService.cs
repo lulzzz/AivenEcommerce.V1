@@ -42,13 +42,13 @@ namespace AivenEcommerce.V1.Application.Services
 
                 product = await _repository.CreateAsync(product);
 
-                Task overviewTask = _overviewRepository.CreateAsync(new ProductOverview
+                Task overviewTask = _overviewRepository.CreateAsync(new()
                 {
                     ProductId = product.Id,
                     Description = input.Description
                 });
 
-                Task badgeTask = _badgeRepository.CreateAsync(new ProductBadge
+                Task badgeTask = _badgeRepository.CreateAsync(new()
                 {
                     ProductId = product.Id,
                     Badges = Enumerable.Empty<ProductBadgeName>()
@@ -75,21 +75,21 @@ namespace AivenEcommerce.V1.Application.Services
 
                 Task overviewTask = Task.Factory.StartNew(async () =>
                 {
-                    var overview = await _overviewRepository.GetByProduct(new Product { Id = input.Id });
+                    var overview = await _overviewRepository.GetByProduct(new() { Id = input.Id });
                     if (overview is not null)
                         await _overviewRepository.RemoveAsync(overview);
                 });
 
                 Task badgeTask = Task.Factory.StartNew(async () =>
                 {
-                    var badge = await _badgeRepository.GetByProduct(new Product { Id = input.Id });
+                    var badge = await _badgeRepository.GetByProduct(new() { Id = input.Id });
                     if (badge is not null)
                         await _badgeRepository.RemoveAsync(badge);
                 });
 
                 Task imageTask = Task.Factory.StartNew(async () =>
                 {
-                    var images = await _imageRepository.GetProductImages(new Product { Id = input.Id });
+                    var images = await _imageRepository.GetProductImages(new() { Id = input.Id });
                     if (images is not null)
                         await _imageRepository.RemoveAsync(new ProductImage { ProductId = input.Id });
                 });
@@ -237,7 +237,7 @@ namespace AivenEcommerce.V1.Application.Services
 
                 if (productOverview is null)
                 {
-                    productOverview = new ProductOverview
+                    productOverview = new()
                     {
                         ProductId = product.Id,
                         Description = input.Description
@@ -276,7 +276,7 @@ namespace AivenEcommerce.V1.Application.Services
 
                 if (badge is null)
                 {
-                    badge = new ProductBadge
+                    badge = new()
                     {
                         ProductId = input.ProductId,
                         Badges = input.Badges
@@ -301,7 +301,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public OperationResultEnumerable<ProductDto> GetByCategory(string category)
         {
-            return OperationResultEnumerable<ProductDto>.Success( _repository.GetAllProductsByCategory(category).Select(x => x.ConvertToDto()));
+            return OperationResultEnumerable<ProductDto>.Success(_repository.GetAllProductsByCategory(category).Select(x => x.ConvertToDto()));
         }
 
         public OperationResultEnumerable<ProductDto> GetByCategory(string category, string subcategory)

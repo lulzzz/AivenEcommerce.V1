@@ -20,13 +20,13 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateCreateProductOverview(CreateProductOverviewInput input)
         {
-            ValidationResult validationResult = new ValidationResult();
+            ValidationResult validationResult = new ();
 
             Product? product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(CreateProductOverviewInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new (nameof(CreateProductOverviewInput.ProductId), "El producto no existe."));
             }
 
             return validationResult;
@@ -34,13 +34,13 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateUpdateProductOverview(UpdateProductOverviewInput input)
         {
-            ValidationResult validationResult = new ValidationResult();
+            ValidationResult validationResult = new ();
 
             Product? product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductOverviewInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new (nameof(UpdateProductOverviewInput.ProductId), "El producto no existe."));
             }
 
             return validationResult;
