@@ -7,11 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
-    <PackageReference Include="Octokit" Version="0.48.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AivenEcommerce.V1.Application\AivenEcommerce.V1.Application.csproj" />
+    <ProjectReference Include="..\AivenEcommerce.V1.Modules.GitHub\AivenEcommerce.V1.Modules.GitHub.csproj" />
   </ItemGroup>
 
 </Project>

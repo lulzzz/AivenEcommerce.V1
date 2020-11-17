@@ -6,24 +6,23 @@ using System.Threading.Tasks;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
-using AivenEcommerce.V1.Infrastructure.Options;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
-
-using Octokit;
+using AivenEcommerce.V1.Modules.GitHub.Options;
+using AivenEcommerce.V1.Modules.GitHub.Services;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductCategoryRepository : GitHubRepository<ProductCategory, Guid>, IProductCategoryRepository
     {
         private readonly IGitHubOptions _gitHubOptions;
-        public ProductCategoryRepository(IGitHubClient githubClient, IGitHubOptions gitHubOptions) : base(githubClient)
+        public ProductCategoryRepository(IGitHubService githubService, IGitHubOptions gitHubOptions) : base(githubService)
         {
             _gitHubOptions = gitHubOptions;
         }
 
         public async Task<ProductCategory> GetByNameAsync(string productCategoryName)
         {
-            var fileContent = await base.GetFileContentAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", productCategoryName);
+            var fileContent = await base._githubService.GetFileContentAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", productCategoryName);
 
             if (fileContent is null)
             {
@@ -35,7 +34,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public override async Task<IEnumerable<ProductCategory>> GetAllAsync()
         {
-            var files = await base.GetAllFilesWithContentAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories");
+            var files = await base._githubService.GetAllFilesWithContentAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories");
 
             if (files is null)
             {
@@ -47,7 +46,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public async Task<IEnumerable<ProductCategory>> GetAllNamesAsync()
         {
-            var files = await base.GetAllFilesAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories");
+            var files = await base._githubService.GetAllFilesAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories");
 
             if (files is null)
             {
@@ -61,19 +60,19 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
             entity.Id = Guid.NewGuid();
 
-            await base.CreateFileAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", entity.Name, entity.Serialize());
+            await base._githubService.CreateFileAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", entity.Name, entity.Serialize());
 
             return entity;
         }
 
         public override Task UpdateAsync(ProductCategory entityIn)
         {
-            return base.UpdateFileAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", entityIn.Name, entityIn.Serialize());
+            return base._githubService.UpdateFileAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", entityIn.Name, entityIn.Serialize());
         }
 
         public override Task RemoveAsync(ProductCategory entityIn)
         {
-            return base.DeleteFileAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", entityIn.Name);
+            return base._githubService.DeleteFileAsync(_gitHubOptions.ProductCategoryRepositoryId, "categories", entityIn.Name);
         }
     }
 }

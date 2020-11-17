@@ -1,4 +1,4 @@
-﻿namespace AivenEcommerce.V1.Domain.GitHub
+﻿namespace AivenEcommerce.V1.Modules.GitHub.Dto
 {
     public class GhFileContent
     {

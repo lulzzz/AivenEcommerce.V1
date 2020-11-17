@@ -1,4 +1,4 @@
-﻿namespace AivenEcommerce.V1.Infrastructure.Options
+﻿namespace AivenEcommerce.V1.Modules.GitHub.Options
 {
     public interface IGitHubOptions
     {

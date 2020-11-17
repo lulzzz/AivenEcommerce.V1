@@ -8,6 +8,8 @@ using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Options;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
+using AivenEcommerce.V1.Modules.GitHub.Options;
+using AivenEcommerce.V1.Modules.GitHub.Services;
 
 using Octokit;
 
@@ -16,7 +18,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
     public class ProductImageRepository : GitHubRepository<ProductImage, Guid>, IProductImageRepository
     {
         private readonly IGitHubOptions _gitHubOptions;
-        public ProductImageRepository(IGitHubClient githubClient, IGitHubOptions gitHubOptions) : base(githubClient)
+        public ProductImageRepository(IGitHubService githubService, IGitHubOptions gitHubOptions) : base(githubService)
         {
             _gitHubOptions = gitHubOptions;
         }
@@ -24,14 +26,14 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         public async Task<IEnumerable<ProductImage>> UpdateProductImages(IEnumerable<ProductImage> productImages)
         {
             string json = productImages.Serialize();
-            await UpdateFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", productImages.First().ProductId, json);
+            await base._githubService.UpdateFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", productImages.First().ProductId, json);
 
             return productImages;
         }
 
         public async Task<IEnumerable<ProductImage>> GetProductImages(Product product)
         {
-            var file = await GetFileContentAsync(_gitHubOptions.ProductImageRepositoryId, "products", product.Id);
+            var file = await base._githubService.GetFileContentAsync(_gitHubOptions.ProductImageRepositoryId, "products", product.Id);
 
             if (file is null)
             {
@@ -44,14 +46,14 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         public async Task<IEnumerable<ProductImage>> CreateProductImages(IEnumerable<ProductImage> productImages)
         {
             string json = productImages.Serialize();
-            await CreateFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", productImages.First().ProductId, json);
+            await base._githubService.CreateFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", productImages.First().ProductId, json);
 
             return productImages;
         }
 
         public override Task RemoveAsync(ProductImage entityIn)
         {
-            return base.DeleteFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", entityIn.ProductId);
+            return base._githubService.DeleteFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", entityIn.ProductId);
         }
     }
 }

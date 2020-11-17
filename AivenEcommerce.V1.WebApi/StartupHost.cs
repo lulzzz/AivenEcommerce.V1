@@ -7,6 +7,7 @@ using AivenEcommerce.V1.Domain.Validators;
 using AivenEcommerce.V1.Infrastructure.Options;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories;
+using AivenEcommerce.V1.Modules.ImgBB.AspNetCore.Extensions;
 using AivenEcommerce.V1.WebApi.Startup;
 
 using Microsoft.AspNetCore.Builder;
@@ -43,11 +44,10 @@ namespace AivenEcommerce.V1.WebApi
             services.AddOptions<IMongoBasketOptions, MongoBasketOptions>(Configuration);
             services.AddOptions<IMongoBasketItemOptions, MongoBasketItemOptions>(Configuration);
             services.AddOptions<IMongoBasketItemDetailOptions, MongoBasketItemDetailOptions>(Configuration);
-            services.AddOptions<IGitHubOptions, GitHubOptions>(Configuration);
 
 
             services.AddGitHubClient();
-            services.AddImgBb(Configuration);
+            services.AddImgBb();
 
             services.AddHealthChecks(Configuration);
 
