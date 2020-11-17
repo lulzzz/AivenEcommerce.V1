@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 using AivenEcommerce.V1.Domain.Entities.Base;
 
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
 namespace AivenEcommerce.V1.Domain.Entities
 {
     public class ProductVariant : IEntity<Guid>

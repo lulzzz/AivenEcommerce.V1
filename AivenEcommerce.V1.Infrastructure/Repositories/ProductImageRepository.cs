@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
-using AivenEcommerce.V1.Infrastructure.Options;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 using AivenEcommerce.V1.Modules.GitHub.Options;
 using AivenEcommerce.V1.Modules.GitHub.Services;
-
-using Octokit;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {

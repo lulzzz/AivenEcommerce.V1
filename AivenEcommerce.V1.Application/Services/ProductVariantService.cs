@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Application.Mappers.ProductVariants;
 using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
-using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;

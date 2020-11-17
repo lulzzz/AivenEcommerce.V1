@@ -4,7 +4,6 @@ using AivenEcommerce.V1.Application.Validators;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
-using AivenEcommerce.V1.Infrastructure.Options;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories;
 using AivenEcommerce.V1.Modules.ImgBB.AspNetCore.Extensions;

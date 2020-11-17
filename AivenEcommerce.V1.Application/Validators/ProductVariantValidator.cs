@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Application.Extensions;
 using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
-using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Validators;
 

@@ -1,6 +1,5 @@
 ﻿namespace AivenEcommerce.V1.WebApi.Swagger
 {
-    using System;
 
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.DependencyInjection;
