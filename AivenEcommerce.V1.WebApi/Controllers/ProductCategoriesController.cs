@@ -70,7 +70,7 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         }
 
         [HttpGet("{name}/Subcategories")]
-        [ProducesResponseType(typeof(OperationResult<ProductCategoryDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult<ProductSubCategoryDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
         [ProducesResponseType(typeof(OperationResult), 500)]
         public async Task<IActionResult> GetSubcategories(string name)

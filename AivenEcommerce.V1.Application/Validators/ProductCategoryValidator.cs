@@ -103,9 +103,9 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new ValidationResult();
 
-            if (input.Name.HasFileInvalidChars())
+            if (input.NewName.HasFileInvalidChars())
             {
-                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategoryInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+                validationResult.Messages.Add(new ValidationMessage(nameof(UpdateProductCategoryInput.NewName), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
             }
             else if (!input.SubCategories.Any())
             {

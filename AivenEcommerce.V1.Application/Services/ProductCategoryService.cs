@@ -131,9 +131,13 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                var entity = await _productCategoryRepository.GetAsync(input.Id);
+                var entity = await _productCategoryRepository.GetByNameAsync(input.OldName);
+                await _productCategoryRepository.RemoveAsync(entity);
 
-                await _productCategoryRepository.UpdateAsync(entity);
+                entity.Name = input.NewName;
+                entity.SubCategories = input.SubCategories;
+
+                await _productCategoryRepository.CreateAsync(entity);
 
                 var productCount = await _productRepository.CountByCategory(entity.Name);
 
