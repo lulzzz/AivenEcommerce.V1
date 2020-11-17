@@ -6,6 +6,7 @@
         public long ProductImageRepositoryId { get; set; }
         public long ProductOverviewRepositoryId { get; set; }
         public long ProductBadgeRepositoryId { get; set; }
+        public long ProductVariantRepositoryId { get; set; }
         public string Token { get; set; }
     }
 }
