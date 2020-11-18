@@ -68,13 +68,13 @@ namespace AivenEcommerce.V1.WebApi.Controllers
             return new OperationActionResult(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{name}/products/{productId}")]]
         [ProducesResponseType(typeof(OperationResult<ProductVariantDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
         [ProducesResponseType(typeof(OperationResult), 500)]
-        public async Task<IActionResult> Delete(DeleteProductVariantInput input)
+        public async Task<IActionResult> Delete(string name, string productId)
         {
-            var result = await _service.DeleteAsync(input);
+            var result = await _service.DeleteAsync(new(productId, name));
 
             return new OperationActionResult(result);
         }
