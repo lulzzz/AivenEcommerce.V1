@@ -105,55 +105,49 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            if (string.IsNullOrWhiteSpace(input.Name))
+            foreach (var item in input.Variants)
             {
-                validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Name), "Debe ingresar un nombre para la variante."));
-            }
-            else if (input.Name.HasFileInvalidChars())
-            {
-                validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Name), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
-            }
-            else if (!input.Values.Any())
-            {
-                validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Values), "No se puede crear una variante sin valores."));
-            }
-            else if (input.Values.GroupBy(x => x).Any(g => g.Count() > 1))
-            {
-                validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Values), "No pueden haber valores de una variante repetidos."));
-            }
-            else if (SubCategoriesHasInvalidChars())
-            {
-                validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Values), "El nombre de los valores no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
-            }
-            else
-            {
-                var product = await _productRepository.GetAsync(input.ProductId);
-
-                if (product is null)
+                if (string.IsNullOrWhiteSpace(item.Name))
                 {
-                    validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.ProductId), "El producto no existe."));
+                    validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Variants), "Debe ingresar un nombre para la variante."));
                 }
-                else
+                else if (item.Name.HasFileInvalidChars())
                 {
-                    var productVariant = await _productVariantRepository.GetByNameAsync(product, input.Name);
+                    validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Variants), "El nombre no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+                }
+                else if (!item.Values.Any())
+                {
+                    validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Variants), "No se puede crear una variante sin valores."));
+                }
+                else if (item.Values.GroupBy(x => x).Any(g => g.Count() > 1))
+                {
+                    validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Variants), "No pueden haber valores de una variante repetidos."));
+                }
+                else if (SubCategoriesHasInvalidChars())
+                {
+                    validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Variants), "El nombre de los valores no puede contener caracteres invalidos (<, >, :, \", /, \\, |, ?, *)."));
+                }
 
-                    if (productVariant is null)
+                bool SubCategoriesHasInvalidChars()
+                {
+                    foreach (var value in item.Values)
                     {
-                        validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.Name), "La variante no existe."));
+                        if (value.HasFileInvalidChars())
+                            return true;
                     }
+
+                    return false;
                 }
             }
 
-            bool SubCategoriesHasInvalidChars()
+            var product = await _productRepository.GetAsync(input.ProductId);
+
+            if (product is null)
             {
-                foreach (var item in input.Values)
-                {
-                    if (item.HasFileInvalidChars())
-                        return true;
-                }
-
-                return false;
+                validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.ProductId), "El producto no existe."));
             }
+
+            
 
             return validationResult;
         }

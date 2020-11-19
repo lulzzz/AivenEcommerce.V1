@@ -72,21 +72,58 @@ namespace AivenEcommerce.V1.Application.Services
             return OperationResult<ProductVariantDto>.Success(entity.ConvertToDto());
         }
 
-        public async Task<OperationResult<ProductVariantDto>> UpdateAsync(UpdateProductVariantInput input)
+        public async Task<OperationResultEnumerable<ProductVariantDto>> UpdateAsync(UpdateProductVariantInput input)
         {
             var validationResult = await _productVariantValidator.ValidateUpdateProductVariant(input);
+
             if (validationResult.IsSuccess)
             {
-                var entity = await _productVariantRepository.GetByNameAsync(new() { Id = input.ProductId }, input.Name);
 
-                entity.Values = input.Values;
+                var taskGetVariants = _productVariantRepository.GetByProduct(new() { Id = input.ProductId });
 
-                await _productVariantRepository.UpdateAsync(entity);
+                foreach (var variant in input.Variants)
+                {
+                    var entity = await _productVariantRepository.GetByNameAsync(new() { Id = input.ProductId }, variant.Name);
 
-                return OperationResult<ProductVariantDto>.Success(entity.ConvertToDto());
+                    if (entity is null)
+                    {
+                        await _productVariantRepository.CreateAsync(new()
+                        {
+                            Name = variant.Name,
+                            ProductId = input.ProductId,
+                            Values = variant.Values
+                        });
+                    }
+                    else
+                    {
+                        await _productVariantRepository.UpdateAsync(new()
+                        {
+                            Id = entity.Id,
+                            Name = variant.Name,
+                            ProductId = input.ProductId,
+                            Values = variant.Values
+                        });
+                    }
+                }
+
+
+                var variants = await taskGetVariants;
+
+                var variantsToDelete = variants.Where(x => !input.Variants.Select(y => y.Name).Contains(x.Name));
+
+                foreach (var item in variantsToDelete)
+                {
+                    await _productVariantRepository.RemoveAsync(item);
+                }
+
+                variants = await _productVariantRepository.GetByProduct(new() { Id = input.ProductId });
+
+                return OperationResultEnumerable<ProductVariantDto>.Success(variants.Select(x => x.ConvertToDto()));
+
+
             }
 
-            return OperationResult<ProductVariantDto>.Fail(validationResult);
+            return OperationResultEnumerable<ProductVariantDto>.Fail(validationResult);
         }
     }
 }

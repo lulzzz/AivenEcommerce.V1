@@ -68,7 +68,7 @@ namespace AivenEcommerce.V1.WebApi.Controllers
             return new OperationActionResult(result);
         }
 
-        [HttpDelete("{name}/products/{productId}")]]
+        [HttpDelete("{name}/products/{productId}")]
         [ProducesResponseType(typeof(OperationResult<ProductVariantDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
         [ProducesResponseType(typeof(OperationResult), 500)]

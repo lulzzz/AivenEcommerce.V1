@@ -10,7 +10,7 @@ namespace AivenEcommerce.V1.Domain.Services
         Task<OperationResult<ProductVariantDto>> GetAsync(string productId, string name);
         Task<OperationResultEnumerable<ProductVariantDto>> GetAllAsync(string productId);
         Task<OperationResult<ProductVariantDto>> CreateAsync(CreateProductVariantInput input);
-        Task<OperationResult<ProductVariantDto>> UpdateAsync(UpdateProductVariantInput input);
+        Task<OperationResultEnumerable<ProductVariantDto>> UpdateAsync(UpdateProductVariantInput input);
         Task<OperationResult> DeleteAsync(DeleteProductVariantInput input);
     }
 }
