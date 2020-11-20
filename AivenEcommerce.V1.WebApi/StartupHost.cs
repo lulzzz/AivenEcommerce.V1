@@ -39,10 +39,6 @@ namespace AivenEcommerce.V1.WebApi
             services.AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration);
             services.AddOptions<IMongoProductDetailOptions, MongoProductDetailOptions>(Configuration);
             services.AddOptions<IMongoOrderOptions, MongoOrderOptions>(Configuration);
-            services.AddOptions<IMongoDeliveryOptions, MongoDeliveryOptions>(Configuration);
-            services.AddOptions<IMongoBasketOptions, MongoBasketOptions>(Configuration);
-            services.AddOptions<IMongoBasketItemOptions, MongoBasketItemOptions>(Configuration);
-            services.AddOptions<IMongoBasketItemDetailOptions, MongoBasketItemDetailOptions>(Configuration);
 
 
             services.AddGitHubClient();
@@ -54,13 +50,10 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddScoped<IProductVariantRepository, ProductVariantRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IDeliveryRepository, DeliveryRepository>();
-            services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IBasketItemRepository, BasketItemRepository>();
-            services.AddScoped<IBasketItemDetailRepository, BasketItemDetailRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddScoped<IProductOverviewRepository, ProductOverviewRepository>();
             services.AddScoped<IProductBadgeRepository, ProductBadgeRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductImageService, ProductImageService>();
@@ -69,12 +62,14 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IProductOverviewService, ProductOverviewService>();
             services.AddScoped<IProductBadgeService, ProductBadgeService>();
             services.AddScoped<IProductVariantService, ProductVariantService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddScoped<IProductValidator, ProductValidator>();
             services.AddScoped<IProductImageValidator, ProductImageValidator>();
             services.AddScoped<IProductCategoryValidator, ProductCategoryValidator>();
             services.AddScoped<IProductOverviewValidator, ProductOverviewValidator>();
             services.AddScoped<IProductVariantValidator, ProductVariantValidator>();
+            services.AddScoped<ICustomerValidator, CustomerValidator>();
 
             services.AddForwardedHeaders();
         }

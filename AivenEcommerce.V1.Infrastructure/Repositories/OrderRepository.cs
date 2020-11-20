@@ -16,11 +16,6 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
         }
 
-        public Order GetOrder(Basket basket)
-        {
-           return base.GetQueryable().Where(x => x.BasketId == basket.Id).SingleOrDefault();
-        }
-
         public IEnumerable<Order> GetOrdersByUser(User user)
         {
             //TODO: fieohfoi

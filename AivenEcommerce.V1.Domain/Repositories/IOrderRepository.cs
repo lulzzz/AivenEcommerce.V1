@@ -9,7 +9,6 @@ namespace AivenEcommerce.V1.Domain.Repositories
 {
     public interface IOrderRepository : IRepository<Order, string>
     {
-        Order GetOrder(Basket basket);
         IEnumerable<Order> GetOrdersByUser(User user);
         Task<Order> UpdateLinkAsync(Order order, Uri uri);
 

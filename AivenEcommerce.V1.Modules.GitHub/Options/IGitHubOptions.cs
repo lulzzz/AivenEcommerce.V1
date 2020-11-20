@@ -7,6 +7,7 @@
         long ProductOverviewRepositoryId { get; set; }
         long ProductBadgeRepositoryId { get; set; }
         long ProductVariantRepositoryId { get; set; }
+        long CustomerRepositoryId { get; set; }
         string Token { get; set; }
     }
 }
