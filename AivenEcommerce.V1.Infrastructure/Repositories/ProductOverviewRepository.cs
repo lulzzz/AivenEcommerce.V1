@@ -12,35 +12,32 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductOverviewRepository : GitHubRepository<ProductOverview, Guid>, IProductOverviewRepository
     {
-        private readonly IGitHubOptions _gitHubOptions;
-
-        public ProductOverviewRepository(IGitHubOptions gitHubOptions, IGitHubService gitHubService) : base(gitHubService)
+        public ProductOverviewRepository(IGitHubOptions options, IGitHubService gitHubService) : base(gitHubService, options.ProductOverviewRepositoryId, "products")
         {
-            _gitHubOptions = gitHubOptions ?? throw new ArgumentNullException(nameof(gitHubOptions));
         }
 
         public async Task<ProductOverview> GetByProduct(Product product)
         {
-            var file = await base._githubService.GetFileContentAsync(_gitHubOptions.ProductOverviewRepositoryId, "products", product.Id);
+            var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, product.Id);
             return file.Content.Deserialize<ProductOverview>();
         }
 
         public override async Task<ProductOverview> CreateAsync(ProductOverview entity)
         {
             entity.Id = Guid.NewGuid();
-            await base._githubService.CreateFileAsync(_gitHubOptions.ProductOverviewRepositoryId, "products", entity.ProductId, entity.Serialize());
+            await base.GithubService.CreateFileAsync(base.RepositoryId, base.Path, entity.ProductId, entity.Serialize());
 
             return entity;
         }
 
         public override async Task UpdateAsync(ProductOverview entityIn)
         {
-            await base._githubService.UpdateFileAsync(_gitHubOptions.ProductOverviewRepositoryId, "products", entityIn.ProductId, entityIn.Serialize());
+            await base.GithubService.UpdateFileAsync(base.RepositoryId, base.Path, entityIn.ProductId, entityIn.Serialize());
         }
 
         public override Task RemoveAsync(ProductOverview entityIn)
         {
-            return base._githubService.DeleteFileAsync(_gitHubOptions.ProductOverviewRepositoryId, "products", entityIn.ProductId);
+            return base.GithubService.DeleteFileAsync(base.RepositoryId, base.Path, entityIn.ProductId);
         }
     }
 }

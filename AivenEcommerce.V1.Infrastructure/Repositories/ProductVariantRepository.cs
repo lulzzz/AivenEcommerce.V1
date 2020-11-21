@@ -14,34 +14,32 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductVariantRepository : GitHubRepository<ProductVariant, Guid>, IProductVariantRepository
     {
-        private readonly IGitHubOptions _gitHubOptions;
-        public ProductVariantRepository(IGitHubService githubService, IGitHubOptions gitHubOptions) : base(githubService)
+        public ProductVariantRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.ProductVariantRepositoryId)
         {
-            _gitHubOptions = gitHubOptions;
         }
 
         public override async Task<ProductVariant> CreateAsync(ProductVariant entity)
         {
             entity.Id = Guid.NewGuid();
 
-            await base._githubService.CreateFileAsync(_gitHubOptions.ProductVariantRepositoryId, $"variants/{entity.ProductId}", entity.Name, entity.Serialize());
+            await base.GithubService.CreateFileAsync(base.RepositoryId, $"variants/{entity.ProductId}", entity.Name, entity.Serialize());
 
             return entity;
         }
 
         public override Task UpdateAsync(ProductVariant entityIn)
         {
-            return base._githubService.UpdateFileAsync(_gitHubOptions.ProductVariantRepositoryId, $"variants/{entityIn.ProductId}", entityIn.Name, entityIn.Serialize());
+            return base.GithubService.UpdateFileAsync(base.RepositoryId, $"variants/{entityIn.ProductId}", entityIn.Name, entityIn.Serialize());
         }
 
         public override Task RemoveAsync(ProductVariant entityIn)
         {
-            return base._githubService.DeleteFileAsync(_gitHubOptions.ProductVariantRepositoryId, $"variants/{entityIn.ProductId}", entityIn.Name);
+            return base.GithubService.DeleteFileAsync(base.RepositoryId, $"variants/{entityIn.ProductId}", entityIn.Name);
         }
 
         public async Task<IEnumerable<ProductVariant>> GetByProduct(Product product)
         {
-            var files = await base._githubService.GetAllFilesWithContentAsync(_gitHubOptions.ProductVariantRepositoryId, $"variants/{product.Id}");
+            var files = await base.GithubService.GetAllFilesWithContentAsync(base.RepositoryId, $"variants/{product.Id}");
 
             if (files is null)
             {
@@ -53,7 +51,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public async Task<ProductVariant> GetByNameAsync(Product product, string variantName)
         {
-            var fileContent = await base._githubService.GetFileContentAsync(_gitHubOptions.ProductVariantRepositoryId, $"variants/{product.Id}", variantName);
+            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, $"variants/{product.Id}", variantName);
 
             if (fileContent is null)
             {

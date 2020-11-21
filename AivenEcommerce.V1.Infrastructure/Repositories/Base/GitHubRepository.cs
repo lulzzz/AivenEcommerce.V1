@@ -1,20 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Entities.Base;
 using AivenEcommerce.V1.Domain.Repositories;
+using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Modules.GitHub.Services;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {
     public class GitHubRepository<T, K> : IRepository<T, K> where T : IEntity<K> where K : new()
     {
-        protected readonly IGitHubService _githubService;
+        protected IGitHubService GithubService { get; private set; }
+        protected long RepositoryId { get; private set; }
+        protected string Path { get; private set; }
 
-        public GitHubRepository(IGitHubService githubService)
+        public GitHubRepository(IGitHubService githubService, long repositoryId)
         {
-            _githubService = githubService ?? throw new ArgumentNullException(nameof(githubService));
+            GithubService = githubService ?? throw new ArgumentNullException(nameof(githubService));
+            RepositoryId = repositoryId;
+        }
+
+        public GitHubRepository(IGitHubService githubService, long repositoryId, string path)
+        {
+            GithubService = githubService ?? throw new ArgumentNullException(nameof(githubService));
+            Path = path ?? throw new ArgumentNullException(nameof(path));
+            RepositoryId = repositoryId;
         }
 
         public virtual Task<T> CreateAsync(T entity)
@@ -22,9 +34,16 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             throw new System.NotImplementedException();
         }
 
-        public virtual Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            var files = await GithubService.GetAllFilesWithContentAsync(RepositoryId, Path);
+
+            if (files is null)
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            return files.Select(x => x.Content.Deserialize<T>());
         }
 
         public virtual Task<T> GetAsync(K id)
@@ -47,9 +66,20 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
             throw new System.NotImplementedException();
         }
 
-        public Task RemoveAllAsync()
+        public async Task RemoveAllAsync()
         {
-            throw new System.NotImplementedException();
+            var directories = await GithubService.GetAllDirectoriesAsync(RepositoryId, Path);
+
+            foreach (var dir in directories)
+            {
+                var files = await GithubService.GetAllFilesAsync(RepositoryId, System.IO.Path.Combine(Path, dir.Name));
+                foreach (var file in files)
+                {
+                    await GithubService.DeleteFileAsync(RepositoryId, Path, file.Name);
+                }
+            }
+
+            
         }
     }
 }

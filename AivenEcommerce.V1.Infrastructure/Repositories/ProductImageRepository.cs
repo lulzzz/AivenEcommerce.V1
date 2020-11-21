@@ -14,23 +14,21 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductImageRepository : GitHubRepository<ProductImage, Guid>, IProductImageRepository
     {
-        private readonly IGitHubOptions _gitHubOptions;
-        public ProductImageRepository(IGitHubService githubService, IGitHubOptions gitHubOptions) : base(githubService)
+        public ProductImageRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.ProductImageRepositoryId, "products")
         {
-            _gitHubOptions = gitHubOptions;
         }
 
         public async Task<IEnumerable<ProductImage>> UpdateProductImages(IEnumerable<ProductImage> productImages)
         {
             string json = productImages.Serialize();
-            await base._githubService.UpdateFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", productImages.First().ProductId, json);
+            await base.GithubService.UpdateFileAsync(base.RepositoryId, base.Path, productImages.First().ProductId, json);
 
             return productImages;
         }
 
         public async Task<IEnumerable<ProductImage>> GetProductImages(Product product)
         {
-            var file = await base._githubService.GetFileContentAsync(_gitHubOptions.ProductImageRepositoryId, "products", product.Id);
+            var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, product.Id);
 
             if (file is null)
             {
@@ -43,14 +41,14 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         public async Task<IEnumerable<ProductImage>> CreateProductImages(IEnumerable<ProductImage> productImages)
         {
             string json = productImages.Serialize();
-            await base._githubService.CreateFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", productImages.First().ProductId, json);
+            await base.GithubService.CreateFileAsync(base.RepositoryId, base.Path, productImages.First().ProductId, json);
 
             return productImages;
         }
 
         public override Task RemoveAsync(ProductImage entityIn)
         {
-            return base._githubService.DeleteFileAsync(_gitHubOptions.ProductImageRepositoryId, "products", entityIn.ProductId);
+            return base.GithubService.DeleteFileAsync(base.RepositoryId, base.Path, entityIn.ProductId);
         }
     }
 }

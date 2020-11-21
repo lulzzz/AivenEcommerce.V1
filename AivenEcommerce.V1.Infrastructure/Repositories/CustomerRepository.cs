@@ -14,17 +14,14 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class CustomerRepository : GitHubRepository<Customer, Guid>, ICustomerRepository
     {
-        const string PATH = "customers";
-
-        private readonly IGitHubOptions _options;
-        public CustomerRepository(IGitHubOptions options, IGitHubService githubService) : base(githubService)
+        public CustomerRepository(IGitHubOptions options, IGitHubService githubService) : base(githubService, options.CustomerRepositoryId, "customers")
         {
-            _options = options;
+
         }
 
         public async Task<Customer> GetCustomer(string email)
         {
-            var fileContent = await base._githubService.GetFileContentAsync(_options.CustomerRepositoryId, PATH, email);
+            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, email);
 
             if (fileContent is null)
             {
@@ -34,34 +31,22 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
             return fileContent.Content.Deserialize<Customer>();
         }
 
-        public override async Task<IEnumerable<Customer>> GetAllAsync()
-        {
-            var files = await base._githubService.GetAllFilesWithContentAsync(_options.CustomerRepositoryId, PATH);
-
-            if (files is null)
-            {
-                return Enumerable.Empty<Customer>();
-            }
-
-            return files.Select(x => x.Content.Deserialize<Customer>());
-        }
-
         public override async Task<Customer> CreateAsync(Customer entity)
         {
             entity.Id = Guid.NewGuid();
-            await base._githubService.CreateFileAsync(_options.CustomerRepositoryId, PATH, entity.Email, entity.Serialize());
+            await base.GithubService.CreateFileAsync(base.RepositoryId, base.Path, entity.Email, entity.Serialize());
 
             return entity;
         }
 
         public override Task UpdateAsync(Customer entityIn)
         {
-            return base._githubService.UpdateFileAsync(_options.CustomerRepositoryId, PATH, entityIn.Email, entityIn.Serialize());
+            return base.GithubService.UpdateFileAsync( base.RepositoryId, base.Path, entityIn.Email, entityIn.Serialize());
         }
 
         public override Task RemoveAsync(Customer entityIn)
         {
-            return base._githubService.DeleteFileAsync(_options.CustomerRepositoryId, PATH, entityIn.Email);
+            return base.GithubService.DeleteFileAsync( base.RepositoryId, base.Path, entityIn.Email);
         }
     }
 }
