@@ -26,4 +26,4 @@ RUN dotnet publish "AivenEcommerce.V1.WebApi.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AivenEcommerce.V1.WebApi.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet AivenEcommerce.V1.WebApi.dll 
