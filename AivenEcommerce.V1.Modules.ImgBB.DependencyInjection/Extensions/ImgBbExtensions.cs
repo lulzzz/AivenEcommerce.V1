@@ -4,7 +4,7 @@ using AivenEcommerce.V1.Modules.ImgBB.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AivenEcommerce.V1.Modules.ImgBB.AspNetCore.Extensions
+namespace AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.Extensions
 {
     public static class ImgBbExtensions
     {

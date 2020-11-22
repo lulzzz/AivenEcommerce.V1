@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Octokit;
 
-namespace AivenEcommerce.V1.WebApi.Startup
+namespace AivenEcommerce.V1.Modules.GitHub.DependencyInjection.Extensions
 {
     public static class GitHubExtensions
     {

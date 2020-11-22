@@ -19,11 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.G
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImgBB", "ImgBB", "{2BFC16B7-72CF-40D3-BC13-E7684DEB777E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.ImgBB.AspNetCore", "AivenEcommerce.V1.Modules.ImgBB.AspNetCore\AivenEcommerce.V1.Modules.ImgBB.AspNetCore.csproj", "{E6C1585D-F079-47D5-A6B1-3BE3EEB143DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection", "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection\AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.csproj", "{E6C1585D-F079-47D5-A6B1-3BE3EEB143DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{0705F958-33EC-459E-A679-F6D757B14C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.GitHub.AspNetCore", "AivenEcommerce.V1.Modules.GitHub.AspNetCore\AivenEcommerce.V1.Modules.GitHub.AspNetCore.csproj", "{3110556E-CED9-4A10-AF12-596F7CED694B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.GitHub.DependencyInjection", "AivenEcommerce.V1.Modules.GitHub.DependencyInjection\AivenEcommerce.V1.Modules.GitHub.DependencyInjection.csproj", "{3110556E-CED9-4A10-AF12-596F7CED694B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
