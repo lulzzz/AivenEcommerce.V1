@@ -4,10 +4,5 @@ using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
 
 namespace AivenEcommerce.V1.Domain.Dtos.Products
 {
-    public class ProductDefinitive
-    {
-        public string ProductId { get; set; }
-        public IEnumerable<ProductVariantPair> Variants { get; set; }
-        public int Quantity { get; set; }
-    }
+    public record ProductDefinitive(string ProductId, IEnumerable<ProductVariantPair> Variants, int Quantity);
 }
