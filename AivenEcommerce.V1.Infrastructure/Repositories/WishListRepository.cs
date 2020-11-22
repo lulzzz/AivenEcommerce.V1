@@ -10,13 +10,13 @@ using AivenEcommerce.V1.Modules.GitHub.Services;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
-    public class BasketRepository : GitHubRepository<Basket, Guid>, IBasketRepository
+    public class WishListRepository : GitHubRepository<WishList, Guid>, IWishListRepository
     {
-        public BasketRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.BasketRepositoryId, "baskets")
+        public WishListRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.WishListRepositoryId, "wishlists")
         {
         }
 
-        public async Task<Basket> GetByCustomerAsync(string customerEmail)
+        public async Task<WishList> GetByCustomerAsync(string customerEmail)
         {
             var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customerEmail);
 
@@ -25,10 +25,10 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
                 return null;
             }
 
-            return fileContent.Content.Deserialize<Basket>();
+            return fileContent.Content.Deserialize<WishList>();
         }
 
-        public override async Task<Basket> CreateAsync(Basket entity)
+        public override async Task<WishList> CreateAsync(WishList entity)
         {
             entity.Id = Guid.NewGuid();
             await base.GithubService.CreateFileAsync(base.RepositoryId, base.Path, entity.CustomerEmail, entity.Serialize());
@@ -36,12 +36,12 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
             return entity;
         }
 
-        public override Task UpdateAsync(Basket entityIn)
+        public override Task UpdateAsync(WishList entityIn)
         {
             return base.GithubService.UpdateFileAsync(base.RepositoryId, base.Path, entityIn.CustomerEmail, entityIn.Serialize());
         }
 
-        public override Task RemoveAsync(Basket entityIn)
+        public override Task RemoveAsync(WishList entityIn)
         {
             return base.GithubService.DeleteFileAsync(base.RepositoryId, base.Path, entityIn.CustomerEmail);
         }

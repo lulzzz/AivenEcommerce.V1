@@ -16,11 +16,11 @@ namespace AivenEcommerce.V1.WebApi.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
     [ApiController]
-    public class BasketController : ControllerBase
+    public class BasketsController : ControllerBase
     {
         private readonly IBasketService _service;
 
-        public BasketController(IBasketService service)
+        public BasketsController(IBasketService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
@@ -29,9 +29,20 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         [ProducesResponseType(typeof(OperationResult<BasketDto>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
         [ProducesResponseType(typeof(OperationResult), 500)]
-        public async Task<IActionResult> GetAllByProduct(string customerEmail)
+        public async Task<IActionResult> Get(string customerEmail)
         {
             var result = await _service.GetBasketAsync(customerEmail);
+
+            return new OperationActionResult(result);
+        }
+
+        [HttpGet("{customerEmail}/products")]
+        [ProducesResponseType(typeof(OperationResult<BasketProductsDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult), 400)]
+        [ProducesResponseType(typeof(OperationResult), 500)]
+        public async Task<IActionResult> GetProductInfo(string customerEmail)
+        {
+            var result = await _service.GetBasketProductsAsync(customerEmail);
 
             return new OperationActionResult(result);
         }

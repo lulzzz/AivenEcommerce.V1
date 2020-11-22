@@ -16,7 +16,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Baskets
             return new()
             {
                 Id = source.Id,
-                Products = source.Products,
+                Products = source.ProductDefinitives,
                 CustomerEmail = source.CustomerEmail
             };
         }

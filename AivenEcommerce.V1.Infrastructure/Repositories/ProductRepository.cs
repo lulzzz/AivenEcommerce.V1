@@ -84,5 +84,10 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
             return base.GetQueryable().CountAsync(x => x.Category == categoryName && x.SubCategory == subcategoryName && x.IsActive);
         }
+
+        public IEnumerable<Product> GetProducts(IEnumerable<string> products)
+        {
+            return base.GetQueryable().Where(x => products.Contains(x.Id)).ToList();
+        }
     }
 }

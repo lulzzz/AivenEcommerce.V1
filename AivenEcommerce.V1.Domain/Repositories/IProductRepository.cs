@@ -12,6 +12,7 @@ namespace AivenEcommerce.V1.Domain.Repositories
         IEnumerable<Product> GetAvailableProductsByCategory(string category, string subcategory);
         IEnumerable<Product> GetAllProductsByCategory(string category);
         IEnumerable<Product> GetAllProductsByCategory(string category, string subcategory);
+        IEnumerable<Product> GetProducts(IEnumerable<string> products);
         Product? GetByName(string productName);
         Task UpdateCategoryName(string oldName, string newName);
         Task UpdateSubCategoryName(string oldName, string newName);

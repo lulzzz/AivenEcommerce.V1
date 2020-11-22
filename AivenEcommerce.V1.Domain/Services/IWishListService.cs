@@ -7,10 +7,11 @@ namespace AivenEcommerce.V1.Domain.Services
 {
     public interface IWishListService
     {
-        Task<OperationResult<WishListDto>> GetWishList(string customerEmail);
-        Task<OperationResult<WishListDto>> AddProductToWishList(AddProductToWishListInput input);
-        Task<OperationResult<WishListDto>> RemoveProductToWishList(RemoveProductToWishListInput input);
-        Task<OperationResult<WishListDto>> RemoveAllWishList(RemoveAllWishListInput input);
-        Task<OperationResult<WishListDto>> UpdateWishList(UpdateWishListInput input);
+        Task<OperationResult<WishListDto>> GetWishListAsync(string customerEmail);
+        Task<OperationResult<WishListProductsDto>> GetWishListWithProductInfoAsync(string customerEmail);
+        Task<OperationResult<WishListDto>> AddProductToWishListAsync(AddProductToWishListInput input);
+        Task<OperationResult<WishListDto>> RemoveProductToWishListAsync(RemoveProductToWishListInput input);
+        Task<OperationResult<WishListDto>> RemoveAllWishListAsync(RemoveAllWishListInput input);
+        Task<OperationResult<WishListDto>> UpdateWishListAsync(UpdateWishListInput input);
     }
 }

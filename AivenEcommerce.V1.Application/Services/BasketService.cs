@@ -17,11 +17,13 @@ namespace AivenEcommerce.V1.Application.Services
     public class BasketService : IBasketService
     {
         private readonly IBasketRepository _repository;
+        private readonly IProductRepository _productRepository;
         private readonly IBasketValidator _validator;
 
-        public BasketService(IBasketRepository repository, IBasketValidator validator)
+        public BasketService(IBasketRepository repository, IProductRepository productRepository, IBasketValidator validator)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         }
 
@@ -53,6 +55,20 @@ namespace AivenEcommerce.V1.Application.Services
 
             return basket is null ? OperationResult<BasketDto>.NotFound()
                 : OperationResult<BasketDto>.Success(basket.ConvertToDto());
+        }
+
+        public async Task<OperationResult<BasketProductsDto>> GetBasketProductsAsync(string customerEmail)
+        {
+            var basket = await _repository.GetByCustomerAsync(customerEmail);
+
+            if (basket is null)
+            {
+                return OperationResult<BasketProductsDto>.NotFound();
+            }
+
+            var products = _productRepository.GetProducts(basket.Products.Select(x => x.ProductId));
+
+            return OperationResult<BasketProductsDto>.Success(basket.ConvertToDto(products));
         }
 
         public async Task<OperationResult> RemoveAllBasketAsync(RemoveAllBasketInput input)

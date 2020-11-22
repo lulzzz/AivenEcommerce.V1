@@ -56,6 +56,7 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IProductBadgeRepository, ProductBadgeRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IWishListRepository, WishListRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductImageService, ProductImageService>();
@@ -66,6 +67,7 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IProductVariantService, ProductVariantService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IWishListService, WishListService>();
 
             services.AddScoped<IProductValidator, ProductValidator>();
             services.AddScoped<IProductImageValidator, ProductImageValidator>();
@@ -74,6 +76,7 @@ namespace AivenEcommerce.V1.WebApi
             services.AddScoped<IProductVariantValidator, ProductVariantValidator>();
             services.AddScoped<ICustomerValidator, CustomerValidator>();
             services.AddScoped<IBasketValidator, BasketValidator>();
+            services.AddScoped<IWishListValidator, WishListValidator>();
 
             services.AddForwardedHeaders();
         }
