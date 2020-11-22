@@ -9,5 +9,9 @@
         public long ProductVariantRepositoryId { get; set; }
         public long CustomerRepositoryId { get; set; }
         public string Token { get; set; }
+        public long BasketRepositoryId { get; set; }
+        public long WishListRepositoryId { get; set; }
+        public long CouponCodeRepositoryId { get; set; }
+        public long OrderDetailRepositoryId { get; set; }
     }
 }

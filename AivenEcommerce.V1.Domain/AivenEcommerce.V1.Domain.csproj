@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="OperationResults\OperationResultGeneric.cs~RF7bd0f2e2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.11.4" />
   </ItemGroup>
 

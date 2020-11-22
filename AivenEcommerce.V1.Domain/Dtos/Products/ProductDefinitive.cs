@@ -6,7 +6,8 @@ namespace AivenEcommerce.V1.Domain.Dtos.Products
 {
     public class ProductDefinitive
     {
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         public IEnumerable<ProductVariantPair> Variants { get; set; }
+        public int Quantity { get; set; }
     }
 }

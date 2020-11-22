@@ -10,13 +10,11 @@ namespace AivenEcommerce.V1.Domain.OperationResults
 
         public bool IsSuccess { get; protected set; }
 
-        public string? Message { get; protected set; }
-
-        public ValidationResult? Validations { get; protected set; }
+        public ValidationResult Validations { get; protected set; }
 
         public static OperationResult Success() =>
 
-            new OperationResult
+            new()
             {
                 Status = HttpStatusCode.OK,
                 IsSuccess = true
@@ -25,30 +23,28 @@ namespace AivenEcommerce.V1.Domain.OperationResults
 
         public static OperationResult Fail() =>
 
-             new OperationResult
+             new()
              {
                  Status = HttpStatusCode.BadRequest,
                  IsSuccess = false
              };
 
-
-        public static OperationResult Error() =>
-
-             new OperationResult
-             {
-                 Status = HttpStatusCode.InternalServerError,
-                 IsSuccess = false
-             };
-
         public static OperationResult Fail(ValidationResult validations) =>
 
-             new OperationResult
+             new()
              {
                  Validations = validations,
                  Status = HttpStatusCode.BadRequest,
                  IsSuccess = false
              };
 
+        public static OperationResult Error() =>
+
+             new()
+             {
+                 Status = HttpStatusCode.InternalServerError,
+                 IsSuccess = false
+             };
 
         public static OperationResult Error(ValidationResult validations) =>
 

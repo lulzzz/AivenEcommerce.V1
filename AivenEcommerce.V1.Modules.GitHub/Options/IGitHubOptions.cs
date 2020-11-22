@@ -8,6 +8,10 @@
         long ProductBadgeRepositoryId { get; set; }
         long ProductVariantRepositoryId { get; set; }
         long CustomerRepositoryId { get; set; }
+        long BasketRepositoryId { get; set; }
+        long WishListRepositoryId { get; set; }
+        long CouponCodeRepositoryId { get; set; }
+        long OrderDetailRepositoryId { get; set; }
         string Token { get; set; }
     }
 }
