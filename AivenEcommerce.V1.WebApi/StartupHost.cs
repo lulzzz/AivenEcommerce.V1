@@ -1,11 +1,4 @@
-
-using AivenEcommerce.V1.Application.Services;
-using AivenEcommerce.V1.Application.Validators;
-using AivenEcommerce.V1.Domain.Repositories;
-using AivenEcommerce.V1.Domain.Services;
-using AivenEcommerce.V1.Domain.Validators;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
-using AivenEcommerce.V1.Infrastructure.Repositories;
 using AivenEcommerce.V1.Modules.GitHub.DependencyInjection.Extensions;
 using AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.Extensions;
 using AivenEcommerce.V1.WebApi.Startup;
@@ -34,58 +27,29 @@ namespace AivenEcommerce.V1.WebApi
         {
 
             services.AddControllers();
-            services.AddSwaggerApiVersioning();
+            services.AddSwaggerApiVersioning()
 
 
-            services.AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration);
-            services.AddOptions<IMongoProductDetailOptions, MongoProductDetailOptions>(Configuration);
-            services.AddOptions<IMongoOrderOptions, MongoOrderOptions>(Configuration);
+            .AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration)
+            .AddOptions<IMongoProductDetailOptions, MongoProductDetailOptions>(Configuration)
+            .AddOptions<IMongoOrderOptions, MongoOrderOptions>(Configuration)
 
 
-            services.AddGitHubClient();
-            services.AddImgBb();
+            .AddGitHubClient()
+            .AddImgBb()
 
-            services.AddHealthChecks(Configuration);
+            .AddHealthChecks(Configuration)
 
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            services.AddScoped<IProductVariantRepository, ProductVariantRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
-            services.AddScoped<IProductOverviewRepository, ProductOverviewRepository>();
-            services.AddScoped<IProductBadgeRepository, ProductBadgeRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IWishListRepository, WishListRepository>();
+            .AddApplicationServices()
 
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductImageService, ProductImageService>();
-            services.AddScoped<IImageUploaderService, ImageUploaderService>();
-            services.AddScoped<IProductCategoryService, ProductCategoryService>();
-            services.AddScoped<IProductOverviewService, ProductOverviewService>();
-            services.AddScoped<IProductBadgeService, ProductBadgeService>();
-            services.AddScoped<IProductVariantService, ProductVariantService>();
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IBasketService, BasketService>();
-            services.AddScoped<IWishListService, WishListService>();
-
-            services.AddScoped<IProductValidator, ProductValidator>();
-            services.AddScoped<IProductImageValidator, ProductImageValidator>();
-            services.AddScoped<IProductCategoryValidator, ProductCategoryValidator>();
-            services.AddScoped<IProductOverviewValidator, ProductOverviewValidator>();
-            services.AddScoped<IProductVariantValidator, ProductVariantValidator>();
-            services.AddScoped<ICustomerValidator, CustomerValidator>();
-            services.AddScoped<IBasketValidator, BasketValidator>();
-            services.AddScoped<IWishListValidator, WishListValidator>();
-
-            services.AddForwardedHeaders();
+            .AddForwardedHeaders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory)
         {
-            app.UseForwardedHeaders();
-            app.UseRedirectToProxiedHttps();
+            app.UseForwardedHeaders()
+            .UseRedirectToProxiedHttps();
 
             if (env.IsDevelopment())
             {
@@ -96,21 +60,21 @@ namespace AivenEcommerce.V1.WebApi
                 app.UseHsts();
             }
 
-            app.UseExceptionHandlingOperationResult(loggerFactory.CreateLogger("ExceptionHandler"));
+            app.UseExceptionHandlingOperationResult(loggerFactory.CreateLogger("ExceptionHandler"))
 
-            app.UseAllowAnyCors();
+            .UseAllowAnyCors()
 
-            app.UseSwaggerApiVersioning(provider);
+            .UseSwaggerApiVersioning(provider)
 
-            app.UseHttpsRedirection();
+            .UseHttpsRedirection()
 
-            app.UseRouting();
+            .UseRouting()
 
-            app.UseAuthorization();
+            .UseAuthorization()
 
-            app.UseRedirectToProxiedHttps();
+            .UseRedirectToProxiedHttps()
 
-            app.UseEndpoints(endpoints =>
+            .UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks();
                 endpoints.MapControllers();

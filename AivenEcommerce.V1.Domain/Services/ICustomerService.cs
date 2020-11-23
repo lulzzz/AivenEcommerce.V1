@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.Customers;
 using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
-    public interface ICustomerService
+    public interface ICustomerService : IScopedService
     {
         Task<OperationResultEnumerable<CustomerDto>> GetAllAsync();
         Task<OperationResult<CustomerDto>> GetCustomerAsync(string email);

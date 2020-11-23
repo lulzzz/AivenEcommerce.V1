@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.WishLists;
 using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
-    public interface IWishListService
+    public interface IWishListService : IScopedService
     {
         Task<OperationResult<WishListDto>> GetWishListAsync(string customerEmail);
         Task<OperationResult<WishListProductsDto>> GetWishListWithProductInfoAsync(string customerEmail);

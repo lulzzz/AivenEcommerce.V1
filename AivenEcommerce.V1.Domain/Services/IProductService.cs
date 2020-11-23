@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
-    public interface IProductService
+    public interface IProductService : IScopedService
     {
         Task<OperationResult<ProductDto>> GetAsync(string id);
         OperationResultEnumerable<ProductDto> GetByCategory(string category);

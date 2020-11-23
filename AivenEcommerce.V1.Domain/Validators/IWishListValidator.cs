@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Application.Validations;
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.WishLists;
 
 namespace AivenEcommerce.V1.Domain.Validators
 {
-    public interface IWishListValidator
+    public interface IWishListValidator : IScopedService
     {
         Task<ValidationResult> ValidateAddProductToWishList(AddProductToWishListInput input);
         Task<ValidationResult> ValidateRemoveProductToWishList(RemoveProductToWishListInput input);

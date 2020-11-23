@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Application.Validations;
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 
 namespace AivenEcommerce.V1.Domain.Validators
 {
-    public interface IProductValidator
+    public interface IProductValidator : IScopedService
     {
         Task<ValidationResult> ValidateCreateProduct(CreateProductInput input);
         Task<ValidationResult> ValidateUpdateProduct(UpdateProductInput input);

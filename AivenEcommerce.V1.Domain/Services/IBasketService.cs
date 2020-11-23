@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.Baskets;
 using AivenEcommerce.V1.Domain.OperationResults;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
-    public interface IBasketService
+    public interface IBasketService : IScopedService
     {
         Task<OperationResult<BasketDto>> GetBasketAsync(string customerEmail);
         Task<OperationResult<BasketProductsDto>> GetBasketProductsAsync(string customerEmail);

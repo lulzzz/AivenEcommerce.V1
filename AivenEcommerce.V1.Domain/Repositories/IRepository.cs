@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Entities.Base;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
-    public interface IRepository<T, K> where T : IEntity<K>
+    public interface IRepository<T, K> : IScopedService where T : IEntity<K>
     {
         Task<T> CreateAsync(T entity);
         Task<IEnumerable<T>> GetAllAsync();
