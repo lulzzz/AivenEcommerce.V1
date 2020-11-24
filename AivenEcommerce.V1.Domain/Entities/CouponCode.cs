@@ -19,7 +19,7 @@ namespace AivenEcommerce.V1.Domain.Entities
         public IEnumerable<ProductCategoryPair> SubCategories { get; set; }
         public IEnumerable<string> Products { get; set; }
         public IEnumerable<string> Customers { get; set; }
-        public DateTime? DateStart { get; set; }
+        public DateTime DateStart { get; set; }
         public DateTime? DateExpire { get; set; }
     }
 }

@@ -85,7 +85,7 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(CreateCouponCodeInput.MaxAmount), "El monto máximo del código no puede ser menor al monto mínimo."));
             }
 
-            if (input.DateStart.HasValue && input.DateStart.Value.ToUniversalTime().Date < DateTime.Today)
+            if (input.DateStart.ToUniversalTime().Date < DateTime.Today)
             {
                 validationResult.Messages.Add(new(nameof(CreateCouponCodeInput.DateStart), "La fecha de inicio no puede ser anterior al día de hoy."));
             }
@@ -95,7 +95,7 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(CreateCouponCodeInput.DateExpire), "La fecha de expiración no puede ser anterior al día de hoy."));
             }
 
-            if (input.DateStart.HasValue && input.DateExpire.HasValue && input.DateExpire.Value.ToUniversalTime().Date < input.DateStart.Value.ToUniversalTime().Date)
+            if (input.DateExpire.HasValue && input.DateExpire.Value.ToUniversalTime().Date < input.DateStart.ToUniversalTime().Date)
             {
                 validationResult.Messages.Add(new(nameof(CreateCouponCodeInput.DateExpire), "La fecha de expiración no puedo ser anterior a la fecha de inicio."));
             }
@@ -230,7 +230,7 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.MaxAmount), "El monto máximo del código no puede ser menor al monto mínimo."));
             }
 
-            if (input.DateStart.HasValue && input.DateStart.Value.ToUniversalTime().Date < DateTime.Today)
+            if (input.DateStart.ToUniversalTime().Date < DateTime.Today)
             {
                 validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.DateStart), "La fecha de inicio no puede ser anterior al día de hoy."));
             }
@@ -240,7 +240,7 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.DateExpire), "La fecha de expiración no puede ser anterior al día de hoy."));
             }
 
-            if (input.DateStart.HasValue && input.DateExpire.HasValue && input.DateExpire.Value.ToUniversalTime().Date < input.DateStart.Value.ToUniversalTime().Date)
+            if (input.DateExpire.HasValue && input.DateExpire.Value.ToUniversalTime().Date < input.DateStart.ToUniversalTime().Date)
             {
                 validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.DateExpire), "La fecha de expiración no puedo ser anterior a la fecha de inicio."));
             }
