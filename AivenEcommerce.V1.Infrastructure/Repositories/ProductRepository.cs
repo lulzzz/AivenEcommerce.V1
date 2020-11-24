@@ -22,6 +22,10 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
             return base.GetQueryable().Where(x => x.IsActive && x.Stock > 0).ToList();
         }
+        public IEnumerable<Product> GetAvailableProducts(IEnumerable<string> products)
+        {
+            return base.GetQueryable().Where(x => products.Contains(x.Id) && x.IsActive && x.Stock > 0).ToList();
+        }
 
         public Product? GetByName(string productName)
         {

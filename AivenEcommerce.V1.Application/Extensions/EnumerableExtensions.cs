@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AivenEcommerce.V1.Application.Extensions
 {
@@ -17,6 +18,11 @@ namespace AivenEcommerce.V1.Application.Extensions
             }
 
             yield return value;
+        }
+
+        public static IEnumerable<string> WhereIsNotEmply(this IEnumerable<string> enumerable)
+        {
+            return enumerable.Where(x => !string.IsNullOrWhiteSpace(x));
         }
     }
 }

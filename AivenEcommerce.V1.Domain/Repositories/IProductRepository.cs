@@ -8,6 +8,7 @@ namespace AivenEcommerce.V1.Domain.Repositories
     public interface IProductRepository : IRepository<Product, string>
     {
         IEnumerable<Product> GetAvailableProducts();
+        IEnumerable<Product> GetAvailableProducts(IEnumerable<string> products);
         IEnumerable<Product> GetAvailableProductsByCategory(string category);
         IEnumerable<Product> GetAvailableProductsByCategory(string category, string subcategory);
         IEnumerable<Product> GetAllProductsByCategory(string category);
