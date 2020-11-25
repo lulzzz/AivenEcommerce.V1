@@ -25,7 +25,7 @@ jobs:
           # value to set. string. e.g. 'v1.2.3'
           value: ${{ secrets.MONGO_PRODUCT_CONNECTION_STRING }}
 
-      - name: Set Mongo Basket ConnectionString JSON Field
+      - name: Set Mongo Order ConnectionString JSON Field
         uses: jossef/action-set-json-field@v1
         with:
           # file name/path to edit. e.g 'package.json'
