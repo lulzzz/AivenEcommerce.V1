@@ -230,11 +230,6 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.MaxAmount), "El monto máximo del código no puede ser menor al monto mínimo."));
             }
 
-            if (input.DateExpire.HasValue && input.DateExpire.Value.ToUniversalTime().Date < DateTime.Today)
-            {
-                validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.DateExpire), "La fecha de expiración no puede ser anterior al día de hoy."));
-            }
-
             if (input.DateExpire.HasValue && input.DateExpire.Value.ToUniversalTime().Date < input.DateStart.ToUniversalTime().Date)
             {
                 validationResult.Messages.Add(new(nameof(UpdateCouponCodeInput.DateExpire), "La fecha de expiración no puedo ser anterior a la fecha de inicio."));
