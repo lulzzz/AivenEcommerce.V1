@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
+using AivenEcommerce.V1.Modules.GitHub.DependencyInjection.HealthChecks;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -28,8 +29,9 @@ namespace AivenEcommerce.V1.WebApi.Startup
             configuration.GetSection(nameof(MongoOrderOptions)).Bind(mongoOrderOptions);
 
             services.AddHealthChecks()
-                .AddMongoHealthCheck("mongodb-products", mongoProductOptions.ConnectionString)
-                .AddMongoHealthCheck("mongodb-orders", mongoOrderOptions.ConnectionString);
+                .AddMongoHealthCheck("mongodbproducts", mongoProductOptions.ConnectionString)
+                .AddMongoHealthCheck("mongodborders", mongoOrderOptions.ConnectionString)
+                .AddCheck<GitHubHealthCheck>("githubapi");
 
             return services;
         }
