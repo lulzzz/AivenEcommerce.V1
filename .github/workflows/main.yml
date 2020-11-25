@@ -31,9 +31,9 @@ jobs:
           # file name/path to edit. e.g 'package.json'
           file: "AivenEcommerce.V1.WebApi/appsettings.json"
           # field to edit. can be nested fields. e.g 'version' or 'metadata.scripts.build'
-          field: "MongoBasketOptions.ConnectionString"
+          field: "MongoOrderOptions.ConnectionString"
           # value to set. string. e.g. 'v1.2.3'
-          value: ${{ secrets.MONGO_BASKET_CONNECTION_STRING }}
+          value: ${{ secrets.MONGO_ORDER_CONNECTION_STRING }}
           
       - name: Set ImgBB ApiKey JSON Field
         uses: jossef/action-set-json-field@v1
