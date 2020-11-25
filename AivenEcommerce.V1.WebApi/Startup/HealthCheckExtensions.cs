@@ -3,6 +3,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Infrastructure.Options.Mongo;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
@@ -11,13 +13,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
+using MongoDB.HealthCheck;
+
 namespace AivenEcommerce.V1.WebApi.Startup
 {
     public static class HealthCheckExtensions
     {
         public static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHealthChecks();
+            IMongoProductOptions mongoProductOptions = new MongoProductOptions();
+            IMongoOrderOptions mongoOrderOptions = new MongoOrderOptions();
+
+            configuration.GetSection(nameof(MongoProductOptions)).Bind(mongoProductOptions);
+            configuration.GetSection(nameof(MongoOrderOptions)).Bind(mongoOrderOptions);
+
+            services.AddHealthChecks()
+                .AddMongoHealthCheck("mongodb-products", mongoProductOptions.ConnectionString)
+                .AddMongoHealthCheck("mongodb-orders", mongoOrderOptions.ConnectionString);
+
             return services;
         }
 
