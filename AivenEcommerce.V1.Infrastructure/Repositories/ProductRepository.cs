@@ -108,8 +108,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
                 var sort = parameters.SortDirection switch
                 {
                     Domain.Enums.SortDirection.Asc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
-                    Domain.Enums.SortDirection.Desc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
-                    _ => Builders<Product>.Sort.Ascending("id")
+                    Domain.Enums.SortDirection.Desc => Builders<Product>.Sort.Descending(parameters.SortColumn)
                 };
 
                 findFluent = findFluent.Sort(sort);
