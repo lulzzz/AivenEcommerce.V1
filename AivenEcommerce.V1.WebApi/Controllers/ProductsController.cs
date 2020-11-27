@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.OperationResults;
+using AivenEcommerce.V1.Domain.Paginations;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.WebApi.Presenter;
 
@@ -69,12 +70,12 @@ namespace AivenEcommerce.V1.WebApi.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(OperationResultEnumerable<ProductDto>), 200)]
+        [ProducesResponseType(typeof(OperationResult<PagedResult<ProductDto>>), 200)]
         [ProducesResponseType(typeof(OperationResult), 400)]
         [ProducesResponseType(typeof(OperationResult), 500)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] ProductParameters parameters)
         {
-            var result = await _productService.GetAllAsync();
+            var result = await _productService.GetAllAsync(parameters);
 
             return new OperationActionResult(result);
         }

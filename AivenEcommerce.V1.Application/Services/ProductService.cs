@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Application.Mappers.Paginations;
 using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Enums;
 using AivenEcommerce.V1.Domain.OperationResults;
+using AivenEcommerce.V1.Domain.Paginations;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
@@ -122,6 +124,15 @@ namespace AivenEcommerce.V1.Application.Services
             IEnumerable<Product> products = await _repository.GetAllAsync();
 
             return OperationResultEnumerable<ProductDto>.Success(products.Select(x => x.ConvertToDto()));
+        }
+
+        public async Task<OperationResult<PagedResult<ProductDto>>> GetAllAsync(ProductParameters parameters)
+        {
+            PagedData<Product> pagedData = await _repository.GetAllAsync(parameters);
+
+            PagedData<ProductDto> pagedDataDto = pagedData.ConvertToDto(x => x.ConvertToDto());
+
+            return OperationResult<PagedResult<ProductDto>>.Success(new(pagedDataDto, parameters));
         }
 
         public async Task<OperationResult<ProductDto>> UpdateAsync(UpdateProductInput input)
@@ -308,5 +319,7 @@ namespace AivenEcommerce.V1.Application.Services
         {
             return OperationResultEnumerable<ProductDto>.Success(_repository.GetAllProductsByCategory(category, subcategory).Select(x => x.ConvertToDto()));
         }
+
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Paginations;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {
@@ -14,13 +16,14 @@ namespace AivenEcommerce.V1.Domain.Repositories
         IEnumerable<Product> GetAllProductsByCategory(string category);
         IEnumerable<Product> GetAllProductsByCategory(string category, string subcategory);
         IEnumerable<Product> GetProducts(IEnumerable<string> products);
-        Product? GetByName(string productName);
+        Product GetByName(string productName);
         Task UpdateCategoryName(string oldName, string newName);
         Task UpdateSubCategoryName(string oldName, string newName);
         Task InactiveProductsByCategory(string category);
         Task InactiveProductsByCategory(string category, string subcategory);
         Task<int> CountByCategory(string categoryName);
         Task<int> CountBySubCategory(string categoryName, string subcategoryName);
+        Task<PagedData<Product>> GetAllAsync(ProductParameters parameters);
 
     }
 }

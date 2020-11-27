@@ -2,11 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 
+using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Paginations;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -27,7 +30,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
             return base.GetQueryable().Where(x => products.Contains(x.Id) && x.IsActive && x.Stock > 0).ToList();
         }
 
-        public Product? GetByName(string productName)
+        public Product GetByName(string productName)
         {
             return base.GetQueryable().Where(x => x.Name == productName).SingleOrDefault();
         }
@@ -92,6 +95,41 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         public IEnumerable<Product> GetProducts(IEnumerable<string> products)
         {
             return base.GetQueryable().Where(x => products.Contains(x.Id)).ToList();
+        }
+
+        public async Task<PagedData<Product>> GetAllAsync(ProductParameters parameters)
+        {
+            var taskCount = base._collection.Find(new BsonDocument()).CountDocumentsAsync();
+
+            var findFluent = base._collection.Find(new BsonDocument());
+
+            if(parameters.SortDirection > Domain.Enums.SortDirection.None)
+            {
+                var sort = parameters.SortDirection switch
+                {
+                    Domain.Enums.SortDirection.Asc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
+                    Domain.Enums.SortDirection.Desc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
+                    _ => Builders<Product>.Sort.Ascending("id")
+                };
+
+                findFluent = findFluent.Sort(sort);
+            }
+
+            if (parameters.PageSize.HasValue)
+            {
+                findFluent = findFluent.Skip((parameters.PageNumber - 1) * parameters.PageSize).Limit(parameters.PageSize);
+            }
+
+            var products = await findFluent.ToListAsync();
+
+            PagedData<Product> paged = new()
+            {
+                TotalCount = await taskCount,
+                Items = products
+            };
+
+            return paged;
+
         }
     }
 }

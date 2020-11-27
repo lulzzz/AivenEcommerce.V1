@@ -3,6 +3,7 @@
 using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.OperationResults;
+using AivenEcommerce.V1.Domain.Paginations;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
@@ -12,6 +13,7 @@ namespace AivenEcommerce.V1.Domain.Services
         OperationResultEnumerable<ProductDto> GetByCategory(string category);
         OperationResultEnumerable<ProductDto> GetByCategory(string category, string subcategory);
         Task<OperationResultEnumerable<ProductDto>> GetAllAsync();
+        Task<OperationResult<PagedResult<ProductDto>>> GetAllAsync(ProductParameters parameters);
         Task<OperationResult<ProductDto>> CreateAsync(CreateProductInput input);
         Task<OperationResult<ProductDto>> UpdateAsync(UpdateProductInput input);
         Task<OperationResult> DeleteAsync(DeleteProductInput input);
