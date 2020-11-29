@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Validations;
+﻿using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.ProductOverViews;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Validators
 {
@@ -20,13 +20,13 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateCreateProductOverview(CreateProductOverviewInput input)
         {
-            ValidationResult validationResult = new ();
+            ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new (nameof(CreateProductOverviewInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new(nameof(CreateProductOverviewInput.ProductId), "El producto no existe."));
             }
 
             return validationResult;
@@ -34,13 +34,13 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateUpdateProductOverview(UpdateProductOverviewInput input)
         {
-            ValidationResult validationResult = new ();
+            ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new (nameof(UpdateProductOverviewInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new(nameof(UpdateProductOverviewInput.ProductId), "El producto no existe."));
             }
 
             return validationResult;

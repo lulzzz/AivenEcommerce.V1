@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Entities.Base;
+﻿using AivenEcommerce.V1.Domain.Entities.Base;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {

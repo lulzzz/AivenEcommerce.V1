@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Mappers.Paginations;
+﻿using AivenEcommerce.V1.Application.Mappers.Paginations;
 using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.Products;
@@ -14,6 +9,11 @@ using AivenEcommerce.V1.Domain.Paginations;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Services
 {
@@ -109,7 +109,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<ProductDto>> GetAsync(string id)
         {
-            Product? product = await _repository.GetAsync(id);
+            Product product = await _repository.GetAsync(id);
 
             if (product is null)
             {
@@ -155,7 +155,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<ProductDto>> UpdateMainImageAsync(UpdateProductMainImageInput input)
         {
-            Product? product = await _repository.GetAsync(input.ProductId);
+            Product product = await _repository.GetAsync(input.ProductId);
 
             if (product is null)
             {
@@ -175,7 +175,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                Product? product = await _repository.GetAsync(input.ProductId);
+                Product product = await _repository.GetAsync(input.ProductId);
 
                 product.Cost = input.Cost;
                 product.Price = input.Price;
@@ -196,7 +196,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                Product? product = await _repository.GetAsync(input.ProductId);
+                Product product = await _repository.GetAsync(input.ProductId);
 
                 product.Category = input.Category;
                 product.SubCategory = input.SubCategory;
@@ -217,7 +217,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                Product? product = await _repository.GetAsync(input.ProductId);
+                Product product = await _repository.GetAsync(input.ProductId);
 
                 product.IsActive = input.IsActive;
                 product.Stock = input.Stock;
@@ -238,7 +238,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                Product? product = await _repository.GetAsync(input.ProductId);
+                Product product = await _repository.GetAsync(input.ProductId);
 
                 product.Name = input.Name;
 
@@ -277,7 +277,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             if (validationResult.IsSuccess)
             {
-                Product? product = await _repository.GetAsync(input.ProductId);
+                Product product = await _repository.GetAsync(input.ProductId);
 
                 product.PercentageOff = input.PercentageOff;
 

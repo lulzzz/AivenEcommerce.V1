@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 using Octokit;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Modules.GitHub.DependencyInjection.HealthChecks
 {

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AivenEcommerce.V1.Modules.ImgBB.Dto;
+using AivenEcommerce.V1.Modules.ImgBB.Options;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Modules.ImgBB.Dto;
-using AivenEcommerce.V1.Modules.ImgBB.Options;
 
 namespace AivenEcommerce.V1.Modules.ImgBB.Services
 {

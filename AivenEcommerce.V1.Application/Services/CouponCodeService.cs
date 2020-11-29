@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Mappers.CouponCodes;
+﻿using AivenEcommerce.V1.Application.Mappers.CouponCodes;
 using AivenEcommerce.V1.Domain.Dtos.CouponCodes;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Services
 {

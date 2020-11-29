@@ -1,15 +1,15 @@
-﻿using System;
-using System.Net;
-using System.Text;
-using System.Text.Json;
-
-using AivenEcommerce.V1.Application.Validations;
+﻿using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.OperationResults;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+
+using System;
+using System.Net;
+using System.Text;
+using System.Text.Json;
 
 namespace AivenEcommerce.V1.WebApi.Startup
 {

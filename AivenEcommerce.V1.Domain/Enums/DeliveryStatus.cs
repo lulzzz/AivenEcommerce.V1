@@ -1,6 +1,6 @@
 ﻿namespace AivenEcommerce.V1.Domain.Enums
 {
-    public enum DeliveryStatus
+    public enum DeliveryStatus : short
     {
         Created,
         Delivered,

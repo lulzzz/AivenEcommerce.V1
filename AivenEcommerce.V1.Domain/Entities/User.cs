@@ -1,7 +1,7 @@
 ﻿
-using System;
-
 using AivenEcommerce.V1.Domain.Enums;
+
+using System;
 
 namespace AivenEcommerce.V1.Domain.Entities
 {

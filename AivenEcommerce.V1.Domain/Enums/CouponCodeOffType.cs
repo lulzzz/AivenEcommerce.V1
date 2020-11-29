@@ -1,6 +1,6 @@
 ﻿namespace AivenEcommerce.V1.Domain.Enums
 {
-    public enum CouponCodeOffType
+    public enum CouponCodeOffType : short
     {
         Percentage,
         SpecificAmount

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Mappers.ProductCategories;
+﻿using AivenEcommerce.V1.Application.Mappers.ProductCategories;
 using AivenEcommerce.V1.Domain.Dtos.ProductCategories;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Services
 {

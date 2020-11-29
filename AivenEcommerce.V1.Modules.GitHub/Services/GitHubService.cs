@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using AivenEcommerce.V1.Modules.GitHub.Dto;
+
+using Octokit;
+
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Modules.GitHub.Dto;
-
-using Octokit;
 
 namespace AivenEcommerce.V1.Modules.GitHub.Services
 {

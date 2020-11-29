@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 using AivenEcommerce.V1.Modules.GitHub.Options;
 using AivenEcommerce.V1.Modules.GitHub.Services;
+
+using System;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
@@ -39,12 +39,12 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public override Task UpdateAsync(Customer entityIn)
         {
-            return base.GithubService.UpdateFileAsync( base.RepositoryId, base.Path, entityIn.Email, entityIn.Serialize());
+            return base.GithubService.UpdateFileAsync(base.RepositoryId, base.Path, entityIn.Email, entityIn.Serialize());
         }
 
         public override Task RemoveAsync(Customer entityIn)
         {
-            return base.GithubService.DeleteFileAsync( base.RepositoryId, base.Path, entityIn.Email);
+            return base.GithubService.DeleteFileAsync(base.RepositoryId, base.Path, entityIn.Email);
         }
     }
 }

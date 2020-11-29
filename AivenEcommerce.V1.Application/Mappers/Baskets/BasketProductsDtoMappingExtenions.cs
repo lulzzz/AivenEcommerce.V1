@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using AivenEcommerce.V1.Application.Mappers.Products;
+﻿using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Domain.Dtos.Baskets;
 using AivenEcommerce.V1.Domain.Entities;
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AivenEcommerce.V1.Application.Mappers.Baskets
 {

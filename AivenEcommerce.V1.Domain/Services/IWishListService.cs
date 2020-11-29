@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Common;
+﻿using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.WishLists;
 using AivenEcommerce.V1.Domain.OperationResults;
+
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Domain.Services
 {

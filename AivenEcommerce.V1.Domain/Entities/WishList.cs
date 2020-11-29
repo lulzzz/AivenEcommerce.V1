@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AivenEcommerce.V1.Domain.Entities.Base;
 
-using AivenEcommerce.V1.Domain.Entities.Base;
+using System;
+using System.Collections.Generic;
 
 namespace AivenEcommerce.V1.Domain.Entities
 {
@@ -9,6 +9,6 @@ namespace AivenEcommerce.V1.Domain.Entities
     {
         public Guid Id { get; set; }
         public string CustomerEmail { get; set; }
-        public IEnumerable<string> Products{ get; set; }
+        public IEnumerable<string> Products { get; set; }
     }
 }

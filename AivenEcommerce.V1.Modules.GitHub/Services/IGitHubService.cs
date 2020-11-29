@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using AivenEcommerce.V1.Modules.GitHub.Dto;
 
-using AivenEcommerce.V1.Modules.GitHub.Dto;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Modules.GitHub.Services
 {

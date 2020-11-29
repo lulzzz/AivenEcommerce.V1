@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using AivenEcommerce.V1.Modules.ImgBB.Dto;
 
-using AivenEcommerce.V1.Modules.ImgBB.Dto;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Modules.ImgBB.Services
 {

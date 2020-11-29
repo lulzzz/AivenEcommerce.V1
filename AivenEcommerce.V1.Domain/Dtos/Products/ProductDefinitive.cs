@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
 
-using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
+using System.Collections.Generic;
 
 namespace AivenEcommerce.V1.Domain.Dtos.Products
 {

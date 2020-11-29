@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Extensions;
+﻿using AivenEcommerce.V1.Application.Extensions;
 using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Validators
 {
@@ -147,7 +147,7 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(UpdateProductVariantInput.ProductId), "El producto no existe."));
             }
 
-            
+
 
             return validationResult;
         }

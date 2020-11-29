@@ -1,6 +1,6 @@
 ﻿namespace AivenEcommerce.V1.Domain.Enums
 {
-    public enum BasketStatus
+    public enum BasketStatus : short
     {
         Open,
         Close

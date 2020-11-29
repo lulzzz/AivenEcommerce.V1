@@ -1,9 +1,4 @@
-﻿using System.IO;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Infrastructure.Options.Mongo;
+﻿using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Modules.GitHub.DependencyInjection.HealthChecks;
 
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 using MongoDB.HealthCheck;
+
+using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.WebApi.Startup
 {

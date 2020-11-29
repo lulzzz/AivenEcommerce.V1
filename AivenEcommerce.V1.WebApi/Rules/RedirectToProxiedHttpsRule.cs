@@ -1,6 +1,6 @@
-﻿using System.Text;
+﻿using Microsoft.AspNetCore.Rewrite;
 
-using Microsoft.AspNetCore.Rewrite;
+using System.Text;
 
 namespace AivenEcommerce.V1.WebApi.Rules
 {

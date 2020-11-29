@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AivenEcommerce.V1.Domain.Entities;
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Entities;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {

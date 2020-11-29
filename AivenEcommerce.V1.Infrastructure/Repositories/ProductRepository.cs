@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿using AivenEcommerce.V1.Application.Extensions;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Paginations;
@@ -12,6 +9,10 @@ using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
@@ -103,12 +104,13 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
             var findFluent = base._collection.Find(new BsonDocument());
 
-            if(parameters.SortDirection > Domain.Enums.SortDirection.None)
+            if (parameters.SortDirection > Domain.Enums.SortDirection.None)
             {
                 var sort = parameters.SortDirection switch
                 {
                     Domain.Enums.SortDirection.Asc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
-                    Domain.Enums.SortDirection.Desc => Builders<Product>.Sort.Descending(parameters.SortColumn)
+                    Domain.Enums.SortDirection.Desc => Builders<Product>.Sort.Descending(parameters.SortColumn),
+                    _ => Builders<Product>.Sort.Ascending(parameters.SortColumn)
                 };
 
                 findFluent = findFluent.Sort(sort);
@@ -116,7 +118,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
             if (parameters.PageSize.HasValue)
             {
-                findFluent = findFluent.Skip((parameters.PageNumber - 1) * parameters.PageSize).Limit(parameters.PageSize);
+                findFluent = findFluent.Skip(parameters.CalculateSkip()).Limit(parameters.PageSize);
             }
 
             var products = await findFluent.ToListAsync();

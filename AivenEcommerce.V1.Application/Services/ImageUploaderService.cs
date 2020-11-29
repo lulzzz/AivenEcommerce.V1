@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Services;
+﻿using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Modules.ImgBB.Services;
+
+using System;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Services
 {

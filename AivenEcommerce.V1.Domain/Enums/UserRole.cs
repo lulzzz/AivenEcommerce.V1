@@ -1,6 +1,6 @@
 ﻿namespace AivenEcommerce.V1.Domain.Enums
 {
-    public enum UserRole
+    public enum UserRole : short
     {
         Customer,
         Deliverer,

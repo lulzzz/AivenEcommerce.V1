@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Dtos.Products;
+﻿using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Paginations;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Domain.Repositories
 {

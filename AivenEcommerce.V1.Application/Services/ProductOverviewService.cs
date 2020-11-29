@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Dtos.ProductOverViews;
+﻿using AivenEcommerce.V1.Domain.Dtos.ProductOverViews;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+
+using System;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Services
 {

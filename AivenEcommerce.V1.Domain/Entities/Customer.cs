@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AivenEcommerce.V1.Domain.Entities.Base;
 
-using AivenEcommerce.V1.Domain.Entities.Base;
+using System;
 
 namespace AivenEcommerce.V1.Domain.Entities
 {

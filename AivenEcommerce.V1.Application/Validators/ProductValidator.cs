@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Validations;
-
+﻿using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Validators
 {
@@ -32,7 +31,7 @@ namespace AivenEcommerce.V1.Application.Validators
             }
             else
             {
-                Product? product = _productRepository.GetByName(input.Name);
+                Product product = _productRepository.GetByName(input.Name);
                 if (product is not null)
                 {
                     validationResult.Messages.Add(new(nameof(CreateProductInput.Name), "Ya existe un producto con este nombre."));
@@ -85,7 +84,7 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.Id);
+            Product product = await _productRepository.GetAsync(input.Id);
 
             if (product is null)
             {
@@ -99,7 +98,7 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.Id);
+            Product product = await _productRepository.GetAsync(input.Id);
 
             if (product is null)
             {
@@ -113,7 +112,7 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.Id);
+            Product product = await _productRepository.GetAsync(input.Id);
 
             if (product is null)
             {
@@ -167,7 +166,7 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
@@ -216,7 +215,7 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
@@ -228,25 +227,25 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateUpdateProductCategory(UpdateProductCategorySubCategoryInput input)
         {
-            ValidationResult validationResult = new ();
+            ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new (nameof(UpdateProductCategorySubCategoryInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new(nameof(UpdateProductCategorySubCategoryInput.ProductId), "El producto no existe."));
             }
             else
             {
-                ProductCategory? category = await _productCategoryRepository.GetByNameAsync(input.Category);
+                ProductCategory category = await _productCategoryRepository.GetByNameAsync(input.Category);
 
                 if (category is null)
                 {
-                    validationResult.Messages.Add(new (nameof(UpdateProductInput.Id), "La categoria no existe."));
+                    validationResult.Messages.Add(new(nameof(UpdateProductInput.Id), "La categoria no existe."));
                 }
                 else if (!category.SubCategories.Any(x => x.Trim() == input.SubCategory.Trim()))
                 {
-                    validationResult.Messages.Add(new (nameof(UpdateProductInput.Id), "La subcategoria no existe."));
+                    validationResult.Messages.Add(new(nameof(UpdateProductInput.Id), "La subcategoria no existe."));
                 }
             }
 
@@ -255,29 +254,29 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateUpdateProductCostPrice(UpdateProductCostPriceInput input)
         {
-            ValidationResult validationResult = new ();
+            ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new (nameof(UpdateProductCostPriceInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new(nameof(UpdateProductCostPriceInput.ProductId), "El producto no existe."));
             }
             else
             {
                 if (input.Cost < 0)
                 {
-                    validationResult.Messages.Add(new (nameof(UpdateProductCostPriceInput.Cost), "El costo debe ser mayor o igual a cero."));
+                    validationResult.Messages.Add(new(nameof(UpdateProductCostPriceInput.Cost), "El costo debe ser mayor o igual a cero."));
                 }
 
                 if (input.Price <= 0)
                 {
-                    validationResult.Messages.Add(new (nameof(UpdateProductCostPriceInput.Price), "El precio debe ser mayor a cero."));
+                    validationResult.Messages.Add(new(nameof(UpdateProductCostPriceInput.Price), "El precio debe ser mayor a cero."));
                 }
 
                 if (input.Price < input.Cost)
                 {
-                    validationResult.Messages.Add(new (nameof(UpdateProductCostPriceInput.Price), "El precio no puede ser menor que el costo."));
+                    validationResult.Messages.Add(new(nameof(UpdateProductCostPriceInput.Price), "El precio no puede ser menor que el costo."));
                 }
             }
 
@@ -286,21 +285,21 @@ namespace AivenEcommerce.V1.Application.Validators
 
         public async Task<ValidationResult> ValidateUpdateProductNameDescription(UpdateProductNameDescriptionInput input)
         {
-            ValidationResult validationResult = new ();
+            ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.ProductId);
+            Product product = await _productRepository.GetAsync(input.ProductId);
 
             if (product is null)
             {
-                validationResult.Messages.Add(new (nameof(UpdateProductNameDescriptionInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new(nameof(UpdateProductNameDescriptionInput.ProductId), "El producto no existe."));
             }
             else if (string.IsNullOrWhiteSpace(input.Name))
             {
-                validationResult.Messages.Add(new (nameof(UpdateProductNameDescriptionInput.Name), "El nombre del producto no puede estar vacio."));
+                validationResult.Messages.Add(new(nameof(UpdateProductNameDescriptionInput.Name), "El nombre del producto no puede estar vacio."));
             }
             else if (string.IsNullOrWhiteSpace(input.Description))
             {
-                validationResult.Messages.Add(new (nameof(UpdateProductNameDescriptionInput.Description), "La descripción del producto no puede estar vacio."));
+                validationResult.Messages.Add(new(nameof(UpdateProductNameDescriptionInput.Description), "La descripción del producto no puede estar vacio."));
             }
 
             return validationResult;

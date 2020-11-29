@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using AivenEcommerce.V1.Domain.Paginations;
 
-using AivenEcommerce.V1.Domain.Paginations;
+using System;
+using System.Linq;
 
 namespace AivenEcommerce.V1.Application.Mappers.Paginations
 {
@@ -9,10 +9,10 @@ namespace AivenEcommerce.V1.Application.Mappers.Paginations
     {
         public static PagedData<TDto> ConvertToDto<TEntity, TDto>(this PagedData<TEntity> data, Func<TEntity, TDto> selector)
             => new()
-                {
-                    Items = data.Items.Select(selector),
-                    TotalCount = data.TotalCount
-                };
+            {
+                Items = data.Items.Select(selector),
+                TotalCount = data.TotalCount
+            };
 
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
+﻿using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
 using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.WebApi.Presenter;
 
 using Microsoft.AspNetCore.Mvc;
+
+using System;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.WebApi.Controllers
 {

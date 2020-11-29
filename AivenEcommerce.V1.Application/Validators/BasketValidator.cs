@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Validations;
+﻿using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Dtos.Baskets;
 using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Validators
 {
@@ -32,7 +32,7 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product? product = await _productRepository.GetAsync(input.Product.ProductId);
+            Product product = await _productRepository.GetAsync(input.Product.ProductId);
             if (product is not null)
             {
                 if (!product.IsActive)
@@ -40,14 +40,14 @@ namespace AivenEcommerce.V1.Application.Validators
                     validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product), $"El producto '{product.Name}' no esta activo."));
                 }
 
-                if(input.Product.Quantity <= 0)
+                if (input.Product.Quantity <= 0)
                 {
                     validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.Quantity), $"La cantidad debe ser mayor a cero."));
                 }
 
                 Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
 
-                if(customer is null)
+                if (customer is null)
                 {
                     validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
                 }
@@ -83,7 +83,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
             Basket basket = await _basketRepository.GetByCustomerAsync(input.CustomerEmail);
 
-            if(basket is null)
+            if (basket is null)
             {
                 validationResult.Messages.Add(new(nameof(RemoveAllBasketInput.CustomerEmail), $"El carrito no existe."));
             }
@@ -108,7 +108,7 @@ namespace AivenEcommerce.V1.Application.Validators
             {
                 validationResult.Messages.Add(new(nameof(RemoveBasketProductInput.CustomerEmail), $"El carrito no existe."));
             }
-            else if(!basket.Products.Any(x => x.ProductId == input.ProductId))
+            else if (!basket.Products.Any(x => x.ProductId == input.ProductId))
             {
                 validationResult.Messages.Add(new(nameof(RemoveBasketProductInput.CustomerEmail), $"El producto no esta en el carrito."));
             }
@@ -129,7 +129,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
             foreach (ProductDefinitive productInput in input.Products)
             {
-                Product? product = await _productRepository.GetAsync(productInput.ProductId);
+                Product product = await _productRepository.GetAsync(productInput.ProductId);
                 if (product is null)
                 {
                     validationResult.Messages.Add(new(nameof(UpdateBasketInput.Products), "El producto no existe."));
@@ -145,7 +145,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
                     foreach (ProductVariantPair variantInput in productInput.Variants)
                     {
-                        if(!variants.Any(x => x.Name == variantInput.Name && x.Values.Contains(variantInput.Value)))
+                        if (!variants.Any(x => x.Name == variantInput.Name && x.Values.Contains(variantInput.Value)))
                         {
                             validationResult.Messages.Add(new(nameof(UpdateBasketInput.Products), $"La variante '{variantInput.Name}' con valor '{variantInput.Value}' del producto '{product.Name}' no existe."));
                         }

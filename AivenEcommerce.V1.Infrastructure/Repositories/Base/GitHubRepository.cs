@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Domain.Entities.Base;
+﻿using AivenEcommerce.V1.Domain.Entities.Base;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Modules.GitHub.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
 {
@@ -79,7 +79,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Base
                 }
             }
 
-            
+
         }
     }
 }

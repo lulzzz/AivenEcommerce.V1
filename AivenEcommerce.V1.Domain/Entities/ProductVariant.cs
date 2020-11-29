@@ -1,8 +1,8 @@
 ﻿
+using AivenEcommerce.V1.Domain.Entities.Base;
+
 using System;
 using System.Collections.Generic;
-
-using AivenEcommerce.V1.Domain.Entities.Base;
 
 namespace AivenEcommerce.V1.Domain.Entities
 {

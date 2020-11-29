@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Mappers.ProductImages;
+﻿using AivenEcommerce.V1.Application.Mappers.ProductImages;
 using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Domain.Dtos.ProductImages;
 using AivenEcommerce.V1.Domain.Dtos.Products;
@@ -12,6 +7,11 @@ using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
 using AivenEcommerce.V1.Domain.Validators;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Application.Services
 {
@@ -86,12 +86,12 @@ namespace AivenEcommerce.V1.Application.Services
             if (product?.Thumbnail is null)
             {
                 productDtoResult = await _productService.UpdateAsync(
-                    new (product.Id, product.Name, product.Cost, product.Price, product.PercentageOff, product.Category, product.SubCategory, uriImage)
+                    new(product.Id, product.Name, product.Cost, product.Price, product.PercentageOff, product.Category, product.SubCategory, uriImage)
                     );
             }
 
             IEnumerable<ProductImage> productImages = await _repository.GetProductImages(productDtoResult.Result.ConvertToEntity());
-            List<ProductImage> newProductImages = new ();
+            List<ProductImage> newProductImages = new();
 
             if (productImages is not null)
             {

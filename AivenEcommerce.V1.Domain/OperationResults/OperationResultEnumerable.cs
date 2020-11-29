@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using AivenEcommerce.V1.Application.Validations;
 
-using AivenEcommerce.V1.Application.Validations;
+using System.Collections.Generic;
+using System.Net;
 
 namespace AivenEcommerce.V1.Domain.OperationResults
 {
@@ -29,7 +29,7 @@ namespace AivenEcommerce.V1.Domain.OperationResults
             };
         }
 
-        public static OperationResultEnumerable<T> Fail(ValidationResult validations) =>
+        public static new OperationResultEnumerable<T> Fail(ValidationResult validations) =>
 
              new()
              {
@@ -39,7 +39,7 @@ namespace AivenEcommerce.V1.Domain.OperationResults
              };
 
 
-        public static OperationResultEnumerable<T> Error(ValidationResult validations) =>
+        public static new OperationResultEnumerable<T> Error(ValidationResult validations) =>
 
              new()
              {

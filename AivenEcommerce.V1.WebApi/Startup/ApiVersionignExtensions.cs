@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-
-using AivenEcommerce.V1.WebApi.Swagger;
+﻿using AivenEcommerce.V1.WebApi.Swagger;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +9,10 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.SwaggerGen;
+
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace AivenEcommerce.V1.WebApi.Startup
 {

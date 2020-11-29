@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-
-using AivenEcommerce.V1.Domain.Dtos.ProductCategories;
+﻿using AivenEcommerce.V1.Domain.Dtos.ProductCategories;
 using AivenEcommerce.V1.Domain.Enums;
+
+using System;
+using System.Collections.Generic;
 
 namespace AivenEcommerce.V1.Domain.Dtos.CouponCodes
 {
     public record CouponCodeDto(
-        Guid Id, 
-        string Code, 
-        CouponCodeOffType Type, 
-        decimal Value, 
+        Guid Id,
+        string Code,
+        CouponCodeOffType Type,
+        decimal Value,
         int MinAmount,
         int? MaxAmount,
         IEnumerable<string> Categories,

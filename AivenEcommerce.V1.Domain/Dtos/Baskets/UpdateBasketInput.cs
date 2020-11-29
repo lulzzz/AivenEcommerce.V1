@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AivenEcommerce.V1.Domain.Dtos.Products;
 
-using AivenEcommerce.V1.Domain.Dtos.Products;
+using System.Collections.Generic;
 
 namespace AivenEcommerce.V1.Domain.Dtos.Baskets
 {

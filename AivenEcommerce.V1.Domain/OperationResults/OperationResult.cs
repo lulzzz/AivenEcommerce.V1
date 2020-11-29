@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using AivenEcommerce.V1.Application.Validations;
 
-using AivenEcommerce.V1.Application.Validations;
+using System.Net;
 
 namespace AivenEcommerce.V1.Domain.OperationResults
 {

@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-
-using AivenEcommerce.V1.Application.Validations;
+﻿using AivenEcommerce.V1.Application.Validations;
 using AivenEcommerce.V1.Domain.Common;
 using AivenEcommerce.V1.Domain.Dtos.WishLists;
+
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Domain.Validators
 {

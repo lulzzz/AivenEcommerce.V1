@@ -1,6 +1,6 @@
 ﻿namespace AivenEcommerce.V1.Domain.Enums
 {
-    public enum SortDirection
+    public enum SortDirection : short
     {
         None,
         Asc,

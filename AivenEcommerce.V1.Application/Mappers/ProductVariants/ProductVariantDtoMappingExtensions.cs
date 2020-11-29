@@ -1,8 +1,8 @@
 ﻿
-using System;
-
 using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
 using AivenEcommerce.V1.Domain.Entities;
+
+using System;
 
 namespace AivenEcommerce.V1.Application.Mappers.ProductVariants
 {
