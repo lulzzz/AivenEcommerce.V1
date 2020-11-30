@@ -12,19 +12,22 @@ jobs:
 
     steps:
     
+    
+        
+    - name: Checkout 
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 100 # avoid shallow clone so nbgv can do its work.
+        
+        
     - uses: marceloprado/has-changed-path@v1
       id: changed-domain-shared
       with:
         paths: AivenEcommerce.V1.Domain.Shared
         
-    - name: Checkout 
-      #if: steps.changed-domain-shared.outputs.changed == 'true'
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
-        
+      
     - name: Setup .NET Core
-      if: ${{ success() }}
+      if: steps.changed-domain-shared.outputs.changed == 'true'
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
