@@ -6,14 +6,9 @@ on:
 
 jobs:
   build:
-  
     runs-on: ubuntu-latest
-
-
     steps:
     
-    
-        
     - name: Checkout 
       uses: actions/checkout@v2
       with:
@@ -33,13 +28,14 @@ jobs:
         dotnet-version: 5.0.100
         
     - name: Deploy Pack
-      if: ${{ success() }}
+      if: success()
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
       
     - name: Install gpr
-      if: ${{ success() }}
+      if: success()
       run: dotnet tool install gpr --global
+    
     - name: gpr upload
-      if: ${{ success() }}
+      if: success()
       run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
       
