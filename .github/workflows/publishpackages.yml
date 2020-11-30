@@ -1,1 +1,42 @@
+name: Publish Packages
 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+  
+    runs-on: ubuntu-latest
+
+
+    steps:
+    
+    - uses: marceloprado/has-changed-path@v1
+      id: changed-domain-shared
+      with:
+        paths: AivenEcommerce.V1.Domain.Shared
+        
+    - name: Checkout 
+      #if: steps.changed-domain-shared.outputs.changed == 'true'
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+        
+    - name: Setup .NET Core
+      if: ${{ success() }}
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.100
+        
+    - name: Deploy Pack
+      if: ${{ success() }}
+      run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
+      
+    - name: Install gpr
+      if: ${{ success() }}
+      run: dotnet tool install gpr --global
+    - name: gpr upload
+      if: ${{ success() }}
+      run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
+      
