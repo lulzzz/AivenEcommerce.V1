@@ -24,6 +24,7 @@
     <ProjectReference Include="..\AivenEcommerce.V1.Infrastructure\AivenEcommerce.V1.Infrastructure.csproj" />
     <ProjectReference Include="..\AivenEcommerce.V1.Modules.GitHub.DependencyInjection\AivenEcommerce.V1.Modules.GitHub.DependencyInjection.csproj" />
     <ProjectReference Include="..\AivenEcommerce.V1.Modules.ImgBB.DependencyInjection\AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.csproj" />
+    <ProjectReference Include="..\AivenEcommerce.V1.Modules.PayPal.DependencyInjection\AivenEcommerce.V1.Modules.PayPal.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

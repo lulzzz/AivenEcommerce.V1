@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AivenEcommerce.V1.Domain.Shared.Dtos.Orders
 {
-    public record CreateOrderInput(
+    public record CreateSaleInput(
         string CustomerEmail,
         string CouponCode,
         IEnumerable<ProductDefinitive> Products,

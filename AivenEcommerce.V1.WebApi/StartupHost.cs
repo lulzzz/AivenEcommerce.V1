@@ -1,6 +1,7 @@
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Modules.GitHub.DependencyInjection.Extensions;
 using AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.Extensions;
+using AivenEcommerce.V1.Modules.PayPal.DependencyInjection.Extensions;
 using AivenEcommerce.V1.WebApi.Startup;
 
 using Microsoft.AspNetCore.Builder;
@@ -31,12 +32,13 @@ namespace AivenEcommerce.V1.WebApi
 
 
             .AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration)
-            .AddOptions<IMongoProductDetailOptions, MongoProductDetailOptions>(Configuration)
+            .AddOptions<IMongoSaleOptions, MongoSaleOptions>(Configuration)
             .AddOptions<IMongoOrderOptions, MongoOrderOptions>(Configuration)
 
 
             .AddGitHubClient()
             .AddImgBb()
+            .AddPayPal()
 
             .AddHealthChecks(Configuration)
 

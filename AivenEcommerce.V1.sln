@@ -27,6 +27,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Modules.G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Domain.Shared", "AivenEcommerce.V1.Domain.Shared\AivenEcommerce.V1.Domain.Shared.csproj", "{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PayPal", "PayPal", "{CAD0C05B-C6C2-49A6-8687-F939772D6BAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.PayPal", "AivenEcommerce.V1.Modules.PayPal\AivenEcommerce.V1.Modules.PayPal.csproj", "{48D7F17E-2DFB-4BEC-A6E9-77F96AF4F557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.PayPal.DependencyInjection", "AivenEcommerce.V1.Modules.PayPal.DependencyInjection\AivenEcommerce.V1.Modules.PayPal.DependencyInjection.csproj", "{5816C8DF-953C-42C5-B1F5-53248E8107AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +75,14 @@ Global
 		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D7F17E-2DFB-4BEC-A6E9-77F96AF4F557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D7F17E-2DFB-4BEC-A6E9-77F96AF4F557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D7F17E-2DFB-4BEC-A6E9-77F96AF4F557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D7F17E-2DFB-4BEC-A6E9-77F96AF4F557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5816C8DF-953C-42C5-B1F5-53248E8107AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5816C8DF-953C-42C5-B1F5-53248E8107AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5816C8DF-953C-42C5-B1F5-53248E8107AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5816C8DF-953C-42C5-B1F5-53248E8107AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +94,9 @@ Global
 		{E6C1585D-F079-47D5-A6B1-3BE3EEB143DE} = {2BFC16B7-72CF-40D3-BC13-E7684DEB777E}
 		{0705F958-33EC-459E-A679-F6D757B14C61} = {811EAF70-75D4-418B-8C89-E0EFB72FB11D}
 		{3110556E-CED9-4A10-AF12-596F7CED694B} = {0705F958-33EC-459E-A679-F6D757B14C61}
+		{CAD0C05B-C6C2-49A6-8687-F939772D6BAC} = {811EAF70-75D4-418B-8C89-E0EFB72FB11D}
+		{48D7F17E-2DFB-4BEC-A6E9-77F96AF4F557} = {CAD0C05B-C6C2-49A6-8687-F939772D6BAC}
+		{5816C8DF-953C-42C5-B1F5-53248E8107AE} = {CAD0C05B-C6C2-49A6-8687-F939772D6BAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D1E3C23-99A2-4429-8D3F-B998DED510E3}
