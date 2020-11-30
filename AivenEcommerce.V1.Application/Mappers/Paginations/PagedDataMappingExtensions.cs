@@ -1,4 +1,4 @@
-﻿using AivenEcommerce.V1.Domain.Paginations;
+﻿using AivenEcommerce.V1.Domain.Shared.Paginations;
 
 using System;
 using System.Linq;

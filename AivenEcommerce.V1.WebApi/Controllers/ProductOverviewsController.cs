@@ -1,6 +1,6 @@
-﻿using AivenEcommerce.V1.Domain.Dtos.ProductOverViews;
-using AivenEcommerce.V1.Domain.OperationResults;
-using AivenEcommerce.V1.Domain.Services;
+﻿using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductOverViews;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 using AivenEcommerce.V1.WebApi.Presenter;
 
 using Microsoft.AspNetCore.Mvc;

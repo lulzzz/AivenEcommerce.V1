@@ -1,11 +1,11 @@
 ﻿using AivenEcommerce.V1.Application.Mappers.ProductImages;
 using AivenEcommerce.V1.Application.Mappers.Products;
-using AivenEcommerce.V1.Domain.Dtos.ProductImages;
-using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
-using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductImages;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 using AivenEcommerce.V1.Domain.Validators;
 
 using System;

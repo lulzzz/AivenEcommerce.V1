@@ -1,6 +1,6 @@
-﻿using AivenEcommerce.V1.Application.Validations;
-using AivenEcommerce.V1.Domain.Common;
-using AivenEcommerce.V1.Domain.Dtos.Baskets;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Baskets;
+using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 
 using System.Threading.Tasks;
 

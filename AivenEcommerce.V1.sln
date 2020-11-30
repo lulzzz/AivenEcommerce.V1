@@ -15,15 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{811E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Modules.ImgBB", "AivenEcommerce.V1.Modules.ImgBB\AivenEcommerce.V1.Modules.ImgBB.csproj", "{805025D8-76F6-4FFF-A53B-62DB9D614945}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.GitHub", "AivenEcommerce.V1.Modules.GitHub\AivenEcommerce.V1.Modules.GitHub.csproj", "{FFB907B0-B7FD-48A8-921B-C197A12228FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Modules.GitHub", "AivenEcommerce.V1.Modules.GitHub\AivenEcommerce.V1.Modules.GitHub.csproj", "{FFB907B0-B7FD-48A8-921B-C197A12228FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImgBB", "ImgBB", "{2BFC16B7-72CF-40D3-BC13-E7684DEB777E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection", "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection\AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.csproj", "{E6C1585D-F079-47D5-A6B1-3BE3EEB143DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection", "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection\AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.csproj", "{E6C1585D-F079-47D5-A6B1-3BE3EEB143DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{0705F958-33EC-459E-A679-F6D757B14C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Modules.GitHub.DependencyInjection", "AivenEcommerce.V1.Modules.GitHub.DependencyInjection\AivenEcommerce.V1.Modules.GitHub.DependencyInjection.csproj", "{3110556E-CED9-4A10-AF12-596F7CED694B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Modules.GitHub.DependencyInjection", "AivenEcommerce.V1.Modules.GitHub.DependencyInjection\AivenEcommerce.V1.Modules.GitHub.DependencyInjection.csproj", "{3110556E-CED9-4A10-AF12-596F7CED694B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Domain.Shared", "AivenEcommerce.V1.Domain.Shared\AivenEcommerce.V1.Domain.Shared.csproj", "{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{3110556E-CED9-4A10-AF12-596F7CED694B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3110556E-CED9-4A10-AF12-596F7CED694B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3110556E-CED9-4A10-AF12-596F7CED694B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A94B0A8-2D55-49BD-BBD3-A522356CFB7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

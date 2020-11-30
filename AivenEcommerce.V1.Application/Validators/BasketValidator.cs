@@ -1,9 +1,9 @@
-﻿using AivenEcommerce.V1.Application.Validations;
-using AivenEcommerce.V1.Domain.Dtos.Baskets;
-using AivenEcommerce.V1.Domain.Dtos.Products;
-using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Baskets;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductVariants;
+using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 using AivenEcommerce.V1.Domain.Validators;
 
 using System;

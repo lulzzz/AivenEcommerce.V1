@@ -1,6 +1,5 @@
-﻿
-using AivenEcommerce.V1.Domain.Dtos.ProductBadges;
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductBadges;
 
 namespace AivenEcommerce.V1.Application.Mappers.ProductBadges
 {

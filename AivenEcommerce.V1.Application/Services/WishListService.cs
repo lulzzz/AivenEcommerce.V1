@@ -1,10 +1,10 @@
 ﻿using AivenEcommerce.V1.Application.Extensions;
 using AivenEcommerce.V1.Application.Mappers.WishLists;
-using AivenEcommerce.V1.Domain.Dtos.WishLists;
 using AivenEcommerce.V1.Domain.Entities;
-using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.WishLists;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 using AivenEcommerce.V1.Domain.Validators;
 
 using System;

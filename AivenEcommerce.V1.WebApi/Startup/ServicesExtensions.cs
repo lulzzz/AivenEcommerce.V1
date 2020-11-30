@@ -1,5 +1,5 @@
 ﻿using AivenEcommerce.V1.Application.Extensions;
-using AivenEcommerce.V1.Domain.Common;
+using AivenEcommerce.V1.Domain.Shared.Common;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
 using Microsoft.Extensions.DependencyInjection;

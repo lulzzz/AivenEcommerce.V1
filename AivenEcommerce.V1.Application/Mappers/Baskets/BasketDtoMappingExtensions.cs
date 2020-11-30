@@ -1,6 +1,5 @@
-﻿
-using AivenEcommerce.V1.Domain.Dtos.Baskets;
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Baskets;
 
 namespace AivenEcommerce.V1.Application.Mappers.Baskets
 {

@@ -1,6 +1,6 @@
 ﻿
 using AivenEcommerce.V1.Domain.Entities.Base;
-using AivenEcommerce.V1.Domain.Enums;
+using AivenEcommerce.V1.Domain.Shared.Enums;
 
 using System;
 

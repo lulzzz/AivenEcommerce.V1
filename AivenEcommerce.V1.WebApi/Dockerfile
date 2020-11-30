@@ -13,6 +13,7 @@ COPY ["AivenEcommerce.V1.Modules.GitHub/AivenEcommerce.V1.Modules.GitHub.csproj"
 COPY ["AivenEcommerce.V1.Application/AivenEcommerce.V1.Application.csproj", "AivenEcommerce.V1.Application/"]
 COPY ["AivenEcommerce.V1.Modules.ImgBB/AivenEcommerce.V1.Modules.ImgBB.csproj", "AivenEcommerce.V1.Modules.ImgBB/"]
 COPY ["AivenEcommerce.V1.Domain/AivenEcommerce.V1.Domain.csproj", "AivenEcommerce.V1.Domain/"]
+COPY ["AivenEcommerce.V1.Domain/AivenEcommerce.V1.Domain.Shared.csproj", "AivenEcommerce.V1.Domain.Shared/"]
 COPY ["AivenEcommerce.V1.Modules.GitHub.DependencyInjection/AivenEcommerce.V1.Modules.GitHub.DependencyInjection.csproj", "AivenEcommerce.V1.Modules.GitHub.DependencyInjection/"]
 COPY ["AivenEcommerce.V1.Modules.ImgBB.DependencyInjection/AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.csproj", "AivenEcommerce.V1.Modules.ImgBB.DependencyInjection/"]
 RUN dotnet restore "AivenEcommerce.V1.WebApi/AivenEcommerce.V1.WebApi.csproj"

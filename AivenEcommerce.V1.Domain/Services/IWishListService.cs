@@ -1,6 +1,6 @@
-﻿using AivenEcommerce.V1.Domain.Common;
-using AivenEcommerce.V1.Domain.Dtos.WishLists;
-using AivenEcommerce.V1.Domain.OperationResults;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Domain.Shared.Dtos.WishLists;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 
 using System.Threading.Tasks;
 

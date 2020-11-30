@@ -1,5 +1,5 @@
 ﻿
-using AivenEcommerce.V1.Domain.Enums;
+using AivenEcommerce.V1.Domain.Shared.Enums;
 
 using System;
 

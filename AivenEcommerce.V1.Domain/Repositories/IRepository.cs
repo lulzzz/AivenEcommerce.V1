@@ -1,5 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Common;
-using AivenEcommerce.V1.Domain.Entities.Base;
+﻿using AivenEcommerce.V1.Domain.Entities.Base;
+using AivenEcommerce.V1.Domain.Shared.Common;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;

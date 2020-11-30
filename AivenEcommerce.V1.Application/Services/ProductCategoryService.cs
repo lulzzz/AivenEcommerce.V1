@@ -1,8 +1,8 @@
 ﻿using AivenEcommerce.V1.Application.Mappers.ProductCategories;
-using AivenEcommerce.V1.Domain.Dtos.ProductCategories;
-using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductCategories;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 using AivenEcommerce.V1.Domain.Validators;
 
 using System;

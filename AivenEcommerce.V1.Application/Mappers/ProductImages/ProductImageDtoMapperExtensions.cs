@@ -1,6 +1,5 @@
-﻿
-using AivenEcommerce.V1.Domain.Dtos.ProductImages;
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductImages;
 
 namespace AivenEcommerce.V1.Application.Mappers.ProductImages
 {

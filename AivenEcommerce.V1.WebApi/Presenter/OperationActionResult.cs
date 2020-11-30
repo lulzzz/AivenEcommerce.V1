@@ -1,4 +1,4 @@
-﻿using AivenEcommerce.V1.Domain.OperationResults;
+﻿using AivenEcommerce.V1.Domain.Shared.OperationResults;
 
 using Microsoft.AspNetCore.Mvc;
 

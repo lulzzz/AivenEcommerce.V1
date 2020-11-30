@@ -1,6 +1,5 @@
-﻿
-using AivenEcommerce.V1.Domain.Dtos.WishLists;
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Shared.Dtos.WishLists;
 
 namespace AivenEcommerce.V1.Application.Mappers.WishLists
 {

@@ -1,6 +1,6 @@
-﻿using AivenEcommerce.V1.Domain.Common;
-using AivenEcommerce.V1.Domain.Dtos.ProductImages;
-using AivenEcommerce.V1.Domain.OperationResults;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductImages;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 
 using System.Threading.Tasks;
 

@@ -1,7 +1,7 @@
-﻿using AivenEcommerce.V1.Domain.Common;
-using AivenEcommerce.V1.Domain.Dtos.Products;
-using AivenEcommerce.V1.Domain.OperationResults;
-using AivenEcommerce.V1.Domain.Paginations;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
+using AivenEcommerce.V1.Domain.Shared.Paginations;
 
 using System.Threading.Tasks;
 

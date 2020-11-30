@@ -1,6 +1,6 @@
 ﻿using AivenEcommerce.V1.Application.Mappers.Products;
-using AivenEcommerce.V1.Domain.Dtos.Baskets;
 using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Baskets;
 
 using System.Collections.Generic;
 using System.Linq;

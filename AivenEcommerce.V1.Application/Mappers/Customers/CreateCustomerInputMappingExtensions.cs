@@ -1,6 +1,5 @@
-﻿
-using AivenEcommerce.V1.Domain.Dtos.Customers;
-using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Entities;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Customers;
 
 namespace AivenEcommerce.V1.Application.Mappers.Customers
 {

@@ -1,5 +1,5 @@
-﻿using AivenEcommerce.V1.Application.Validations;
-using AivenEcommerce.V1.Domain.OperationResults;
+﻿using AivenEcommerce.V1.Domain.Shared.OperationResults;
+using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;

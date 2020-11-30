@@ -1,9 +1,9 @@
 ﻿using AivenEcommerce.V1.Application.Mappers.ProductBadges;
-using AivenEcommerce.V1.Domain.Dtos.ProductBadges;
 using AivenEcommerce.V1.Domain.Entities;
-using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductBadges;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 
 using System;
 using System.Threading.Tasks;

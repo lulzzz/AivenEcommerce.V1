@@ -1,8 +1,8 @@
 ﻿using AivenEcommerce.V1.Application.Extensions;
-using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
-using AivenEcommerce.V1.Domain.Paginations;
 using AivenEcommerce.V1.Domain.Repositories;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
+using AivenEcommerce.V1.Domain.Shared.Paginations;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
@@ -104,12 +104,12 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
             var findFluent = base._collection.Find(new BsonDocument());
 
-            if (parameters.SortDirection > Domain.Enums.SortDirection.None)
+            if (parameters.SortDirection is not Domain.Shared.Enums.SortDirection.None)
             {
                 var sort = parameters.SortDirection switch
                 {
-                    Domain.Enums.SortDirection.Asc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
-                    Domain.Enums.SortDirection.Desc => Builders<Product>.Sort.Descending(parameters.SortColumn),
+                    Domain.Shared.Enums.SortDirection.Asc => Builders<Product>.Sort.Ascending(parameters.SortColumn),
+                    Domain.Shared.Enums.SortDirection.Desc => Builders<Product>.Sort.Descending(parameters.SortColumn),
                     _ => Builders<Product>.Sort.Ascending(parameters.SortColumn)
                 };
 

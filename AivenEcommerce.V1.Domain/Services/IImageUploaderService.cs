@@ -1,4 +1,4 @@
-﻿using AivenEcommerce.V1.Domain.Common;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
 
 using System;
 using System.Threading.Tasks;

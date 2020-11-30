@@ -1,8 +1,8 @@
 ﻿using AivenEcommerce.V1.Application.Mappers.ProductVariants;
-using AivenEcommerce.V1.Domain.Dtos.ProductVariants;
-using AivenEcommerce.V1.Domain.OperationResults;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductVariants;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 using AivenEcommerce.V1.Domain.Validators;
 
 using System;

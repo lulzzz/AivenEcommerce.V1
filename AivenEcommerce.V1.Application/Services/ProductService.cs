@@ -1,13 +1,13 @@
 ﻿using AivenEcommerce.V1.Application.Mappers.Paginations;
 using AivenEcommerce.V1.Application.Mappers.Products;
-using AivenEcommerce.V1.Application.Validations;
-using AivenEcommerce.V1.Domain.Dtos.Products;
 using AivenEcommerce.V1.Domain.Entities;
-using AivenEcommerce.V1.Domain.Enums;
-using AivenEcommerce.V1.Domain.OperationResults;
-using AivenEcommerce.V1.Domain.Paginations;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Services;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
+using AivenEcommerce.V1.Domain.Shared.Enums;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
+using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
+using AivenEcommerce.V1.Domain.Shared.Paginations;
 using AivenEcommerce.V1.Domain.Validators;
 
 using System;
@@ -36,7 +36,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<ProductDto>> CreateAsync(CreateProductInput input)
         {
-            ValidationResult validationResult = await _validator.ValidateCreateProduct(input);
+            var validationResult = await _validator.ValidateCreateProduct(input);
 
             if (validationResult.IsSuccess)
             {
@@ -69,7 +69,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult> DeleteAsync(DeleteProductInput input)
         {
-            ValidationResult validationResult = await _validator.ValidateDeleteProduct(input);
+            var validationResult = await _validator.ValidateDeleteProduct(input);
 
             if (validationResult.IsSuccess)
             {
@@ -137,7 +137,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<ProductDto>> UpdateAsync(UpdateProductInput input)
         {
-            ValidationResult validationResult = await _validator.ValidateUpdateProduct(input);
+            var validationResult = await _validator.ValidateUpdateProduct(input);
 
             if (validationResult.IsSuccess)
             {
@@ -171,7 +171,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<ProductDto>> UpdateProductCostPriceAsync(UpdateProductCostPriceInput input)
         {
-            ValidationResult validationResult = await _validator.ValidateUpdateProductCostPrice(input);
+            var validationResult = await _validator.ValidateUpdateProductCostPrice(input);
 
             if (validationResult.IsSuccess)
             {

@@ -1,5 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Dtos.Products;
-using AivenEcommerce.V1.Domain.Entities.Base;
+﻿using AivenEcommerce.V1.Domain.Entities.Base;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
 
 using System;
 using System.Collections.Generic;

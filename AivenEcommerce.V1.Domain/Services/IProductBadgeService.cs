@@ -1,6 +1,6 @@
-﻿using AivenEcommerce.V1.Domain.Common;
-using AivenEcommerce.V1.Domain.Dtos.ProductBadges;
-using AivenEcommerce.V1.Domain.OperationResults;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Domain.Shared.Dtos.ProductBadges;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
 
 using System.Threading.Tasks;
 
