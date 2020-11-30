@@ -28,14 +28,14 @@ jobs:
         dotnet-version: 5.0.100
         
     - name: Deploy Pack
-      if: success()
+      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
       
     - name: Install gpr
-      if: success()
+      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: dotnet tool install gpr --global
     
     - name: gpr upload
-      if: success()
+      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
       
