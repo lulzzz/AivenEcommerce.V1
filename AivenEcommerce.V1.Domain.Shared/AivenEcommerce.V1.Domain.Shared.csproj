@@ -1,7 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>AivenWeb</Authors>
+    <Company>AivenWeb</Company>
+    <Product>AivenEcommerce.V1</Product>
+    <Title>AivenEcommerce.V1.Domain.Shared</Title>
+    <PackageDescription>
+      AivenEcommerce.V1.Domain.Shared
+    </PackageDescription>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <RepositoryUrl>https://github.com/aivenweb/AivenEcommerce.V1</RepositoryUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.1.91">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
