@@ -48,5 +48,13 @@ namespace AivenEcommerce.V1.Domain.Shared.OperationResults
                  IsSuccess = false
              };
 
+        public static OperationResultEnumerable<T> NotFound() =>
+
+             new()
+             {
+                 Status = HttpStatusCode.NotFound,
+                 IsSuccess = false
+             };
+
     }
 }

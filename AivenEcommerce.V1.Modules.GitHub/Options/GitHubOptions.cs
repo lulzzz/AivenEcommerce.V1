@@ -13,5 +13,6 @@
         public long WishListRepositoryId { get; set; }
         public long CouponCodeRepositoryId { get; set; }
         public long OrderDetailRepositoryId { get; set; }
+        public long AddressRepositoryId { get; set; }
     }
 }

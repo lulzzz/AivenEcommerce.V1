@@ -1,12 +1,10 @@
-﻿
-using AivenEcommerce.V1.Domain.Entities.Base;
-using AivenEcommerce.V1.Domain.Shared.Enums;
+﻿using AivenEcommerce.V1.Domain.Shared.Enums;
 
 using System;
 
 namespace AivenEcommerce.V1.Domain.Entities
 {
-    public class Address : IEntity<Guid>
+    public class Address
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

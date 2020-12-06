@@ -12,6 +12,7 @@
         long WishListRepositoryId { get; set; }
         long CouponCodeRepositoryId { get; set; }
         long OrderDetailRepositoryId { get; set; }
+        long AddressRepositoryId { get; set; }
         string Token { get; set; }
     }
 }

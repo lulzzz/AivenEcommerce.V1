@@ -5,7 +5,7 @@ namespace AivenEcommerce.V1.Domain.Shared.Dtos.Addresses
 {
     public record DeleteAddressInput
     (
-        Guid Id,
+        Guid AddressId,
         string CustomerEmail
     );
 }

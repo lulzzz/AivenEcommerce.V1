@@ -6,7 +6,7 @@ namespace AivenEcommerce.V1.Domain.Shared.Dtos.Addresses
 {
     public record UpdateAddressInput
     (
-        Guid Id,
+        Guid AddressId,
         string Name,
         string ZipCode,
         string City,
