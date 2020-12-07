@@ -91,7 +91,7 @@ namespace AivenEcommerce.V1.Application.Validators
                     {
                         validationResult.Messages.Add(new(nameof(CreateSaleInput.Products), $"El producto {product.Name} no esta activo."));
                     }
-                    else if(product.Stock <= 0)
+                    else if (product.Stock <= 0)
                     {
                         validationResult.Messages.Add(new(nameof(CreateSaleInput.Products), $"El producto {product.Name} no tiene stock."));
                     }

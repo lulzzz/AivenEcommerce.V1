@@ -16,5 +16,6 @@
         public long AddressRepositoryId { get; set; }
         public long SaleDetailRepositoryId { get; set; }
         public long InvoiceRepositoryId { get; set; }
+        public long DeliveryRepositoryId { get; set; }
     }
 }

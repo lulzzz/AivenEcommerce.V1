@@ -2,7 +2,6 @@
 using AivenEcommerce.V1.Domain.Factories.PaymentProviders;
 using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
 using AivenEcommerce.V1.Domain.Shared.Enums;
-using AivenEcommerce.V1.Modules.PayPal.Enum;
 using AivenEcommerce.V1.Modules.PayPal.Services;
 
 using PayPalCheckoutSdk.Orders;
@@ -10,7 +9,6 @@ using PayPalCheckoutSdk.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using PaypalOrder = PayPalCheckoutSdk.Orders.Order;

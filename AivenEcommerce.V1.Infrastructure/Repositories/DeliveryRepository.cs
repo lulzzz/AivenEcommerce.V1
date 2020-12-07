@@ -10,18 +10,25 @@ using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
-    public class InvoiceRepository : GitHubRepository<Invoice, Guid>, IInvoiceRepository
+    public class DeliveryRepository : GitHubRepository<Delivery, Guid>, IDeliveryRepository
     {
-        public InvoiceRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.InvoiceRepositoryId, "invoices")
+        public DeliveryRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.DeliveryRepositoryId, "deliveries")
         {
         }
 
-        public Task<Invoice> GetInvoiceByOrderAsync(Order order)
+        public async Task<Delivery> GetDeliveryAsync(Order order)
         {
-            throw new NotImplementedException();
+            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, order.Id);
+
+            if (fileContent is null)
+            {
+                return null;
+            }
+
+            return fileContent.Content.Deserialize<Delivery>();
         }
 
-        public override async Task<Invoice> CreateAsync(Invoice entity)
+        public override async Task<Delivery> CreateAsync(Delivery entity)
         {
             entity.Id = Guid.NewGuid();
             await base.GithubService.CreateFileAsync(base.RepositoryId, base.Path, entity.OrderId, entity.Serialize());
@@ -29,12 +36,12 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
             return entity;
         }
 
-        public override Task UpdateAsync(Invoice entityIn)
+        public override Task UpdateAsync(Delivery entityIn)
         {
             return base.GithubService.UpdateFileAsync(base.RepositoryId, base.Path, entityIn.OrderId, entityIn.Serialize());
         }
 
-        public override Task RemoveAsync(Invoice entityIn)
+        public override Task RemoveAsync(Delivery entityIn)
         {
             return base.GithubService.DeleteFileAsync(base.RepositoryId, base.Path, entityIn.OrderId);
         }

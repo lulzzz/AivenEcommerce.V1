@@ -10,7 +10,8 @@ namespace AivenEcommerce.V1.Domain.Shared.Dtos.Orders
         decimal TotalAmount,
         OrderStatus Status,
         OrderType Type,
+        Currency Currency,
         DateTime CreationDate,
-        DateTime PayDate
+        DateTime? PayDate
         );
 }

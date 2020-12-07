@@ -15,6 +15,7 @@
         long OrderDetailRepositoryId { get; set; }
         long AddressRepositoryId { get; set; }
         long InvoiceRepositoryId { get; set; }
+        long DeliveryRepositoryId { get; set; }
         string Token { get; set; }
     }
 }

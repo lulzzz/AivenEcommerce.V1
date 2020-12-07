@@ -6,9 +6,6 @@ using AivenEcommerce.V1.Modules.GitHub.Options;
 using AivenEcommerce.V1.Modules.GitHub.Services;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
