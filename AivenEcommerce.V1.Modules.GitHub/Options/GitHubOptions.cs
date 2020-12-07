@@ -14,5 +14,7 @@
         public long CouponCodeRepositoryId { get; set; }
         public long OrderDetailRepositoryId { get; set; }
         public long AddressRepositoryId { get; set; }
+        public long SaleDetailRepositoryId { get; set; }
+        public long InvoiceRepositoryId { get; set; }
     }
 }

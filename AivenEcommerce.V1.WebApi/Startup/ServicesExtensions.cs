@@ -1,5 +1,6 @@
 ﻿using AivenEcommerce.V1.Application.Extensions;
 using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Infrastructure.Extensions.Factories;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,14 @@ namespace AivenEcommerce.V1.WebApi.Startup
     public static class ServicesExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddInterfaceApplicationServices();
+            services.AddPaymentProviderFactory();
+            return services;
+        }
+
+
+        private static IServiceCollection AddInterfaceApplicationServices(this IServiceCollection services)
         {
             var serviceInterfaceType = typeof(IService);
             var singletonServiceInterfaceType = typeof(ISingletonService);
@@ -49,7 +58,6 @@ namespace AivenEcommerce.V1.WebApi.Startup
                     services.AddScoped(type.Service, type.Implementation);
                 }
             }
-
             return services;
         }
     }

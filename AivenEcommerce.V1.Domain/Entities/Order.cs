@@ -17,7 +17,8 @@ namespace AivenEcommerce.V1.Domain.Entities
         public decimal TotalAmount { get; set; }
         public OrderStatus Status { get; set; }
         public OrderType Type { get; set; }
+        public Currency Currency { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime PayDate { get; set; }
+        public DateTime? PayDate { get; set; }
     }
 }

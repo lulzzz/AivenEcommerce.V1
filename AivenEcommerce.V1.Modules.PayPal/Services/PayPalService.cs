@@ -25,12 +25,12 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             _paypalOptions = paypalOptions ?? throw new ArgumentNullException(nameof(paypalOptions));
         }
 
-        public async Task CancelInvoice(string transaction)
+        public async Task CancelInvoice(string paypalOrderId)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
             var client = new PayPalHttpClient(environment);
 
-            var request = new OrderDeleteRequest(transaction);
+            var request = new OrderDeleteRequest(paypalOrderId);
 
             try
             {
@@ -42,7 +42,39 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-        public async Task<Uri> CreateUriForPayment(string customId, Currency currency, string description, int totalAmount)
+        public async Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer)
+        {
+            PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
+            var client = new PayPalHttpClient(environment);
+
+            var payment = new OrderRequest()
+            {
+                CheckoutPaymentIntent = "CAPTURE",
+                PurchaseUnits = purchaseUnits.ToList(),
+                Payer = payer,
+                ApplicationContext = CreateApplicationContext()
+            };
+
+            //https://developer.paypal.com/docs/api/orders/v2/#orders_create
+            var request = new OrdersCreateRequest();
+            request.Prefer("return=representation");
+            request.RequestBody(payment);
+
+            try
+            {
+                var response = await client.Execute(request);
+                var result = response.Result<PaypalOrder>();
+
+                return result;
+            }
+            catch (HttpException httpException)
+            {
+                var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
+                throw httpException;
+            }
+        }
+
+        public async Task<Uri> CreateUriForPayment(string customId, PayPalCurrency currency, string description, int totalAmount)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
             var client = new PayPalHttpClient(environment);
@@ -86,21 +118,20 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-        public async Task<Guid> ConfirmOrder(string token)
+        public async Task<PaypalOrder> CaptureOrder(string transaction)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
             var client = new PayPalHttpClient(environment);
 
-            var request = new OrdersCaptureRequest(token);
+            var request = new OrdersCaptureRequest(transaction);
             request.Prefer("return=representation");
             request.RequestBody(new OrderActionRequest());
             try
             {
                 HttpResponse response = await client.Execute(request);
                 PaypalOrder order = response.Result<PaypalOrder>();
-                Guid invoiceId = Guid.Parse(order.PurchaseUnits.First().CustomId);
 
-                return invoiceId;
+                return order;
             }
             catch (HttpException httpException)
             {
@@ -121,12 +152,12 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-        public async Task<Uri> UpdateAmountInvoice(string transaction, int totalAmount)
+        public async Task<Uri> UpdateAmountInvoice(string paypalOrderId, int totalAmount)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
             var client = new PayPalHttpClient(environment);
 
-            var getOrderRequest = new OrdersGetRequest(transaction);
+            var getOrderRequest = new OrdersGetRequest(paypalOrderId);
 
             try
             {
@@ -158,7 +189,7 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
                 var result = response.Result<PaypalOrder>();
                 var uri = new Uri(result.Links.Single(l => l.Rel == "approve").Href);
 
-                await CancelInvoice(transaction);
+                await CancelInvoice(paypalOrderId);
 
                 return uri;
             }
@@ -183,5 +214,25 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             };
         }
 
+        public async Task<PaypalOrder> GetOrder(string paypalOrderId)
+        {
+            PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
+            var client = new PayPalHttpClient(environment);
+
+            var request = new OrdersGetRequest(paypalOrderId);
+
+            try
+            {
+                HttpResponse response = await client.Execute(request);
+                PaypalOrder order = response.Result<PaypalOrder>();
+
+                return order;
+            }
+            catch (HttpException httpException)
+            {
+                var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
+                throw httpException;
+            }
+        }
     }
 }

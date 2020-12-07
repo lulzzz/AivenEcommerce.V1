@@ -1,15 +1,20 @@
 ﻿using AivenEcommerce.V1.Modules.PayPal.Enum;
 
+using PayPalCheckoutSdk.Orders;
+
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using PaypalOrder = PayPalCheckoutSdk.Orders.Order;
 
 namespace AivenEcommerce.V1.Modules.PayPal.Services
 {
     public interface IPayPalService
     {
-        Task CancelInvoice(string transaction);
-        Task<Guid> ConfirmOrder(string token);
-        Task<Uri> CreateUriForPayment(string customId, Currency currency, string description, int totalAmount);
-        Task<Uri> UpdateAmountInvoice(string transaction, int totalAmount);
+        Task CancelInvoice(string paypalOrderId);
+        Task<PaypalOrder> CaptureOrder(string paypalOrderId);
+        Task<PaypalOrder> GetOrder(string paypalOrderId);
+        Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer);
     }
 }
