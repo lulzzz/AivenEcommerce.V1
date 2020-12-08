@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Infrastructure.Options.Mongo;
+﻿using AivenEcommerce.V1.Infrastructure.Options.ClientConfig;
+using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Modules.GitHub.DependencyInjection.HealthChecks;
 
 using Microsoft.AspNetCore.Builder;
@@ -24,13 +25,16 @@ namespace AivenEcommerce.V1.WebApi.Startup
         {
             IMongoProductOptions mongoProductOptions = new MongoProductOptions();
             IMongoOrderOptions mongoOrderOptions = new MongoOrderOptions();
+            IMongoSaleOptions mongoSaleOptions = new MongoSaleOptions();
 
             configuration.GetSection(nameof(MongoProductOptions)).Bind(mongoProductOptions);
             configuration.GetSection(nameof(MongoOrderOptions)).Bind(mongoOrderOptions);
+            configuration.GetSection(nameof(MongoSaleOptions)).Bind(mongoSaleOptions);
 
             services.AddHealthChecks()
                 .AddMongoHealthCheck("mongodbproducts", mongoProductOptions.ConnectionString)
                 .AddMongoHealthCheck("mongodborders", mongoOrderOptions.ConnectionString)
+                .AddMongoHealthCheck("mongodbsales", mongoSaleOptions.ConnectionString)
                 .AddCheck<GitHubHealthCheck>("githubapi");
 
             return services;
@@ -47,6 +51,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
 
         private static Task WriteResponse(HttpContext context, HealthReport result)
         {
+            IClientConfigOptions clientConfigOptions = context.RequestServices.GetRequiredService<IClientConfigOptions>();
             context.Response.ContentType = "application/json; charset=utf-8";
 
             var options = new JsonWriterOptions
@@ -58,6 +63,7 @@ namespace AivenEcommerce.V1.WebApi.Startup
             using (Utf8JsonWriter writer = new(stream, options))
             {
                 writer.WriteStartObject();
+                writer.WriteString("buildVersion", clientConfigOptions.BuildVersion);
                 writer.WriteString("status", result.Status.ToString());
                 writer.WriteStartObject("results");
                 foreach (var entry in result.Entries)

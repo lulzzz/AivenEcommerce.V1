@@ -42,7 +42,7 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-        public async Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer)
+        public async Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer, ApplicationContext applicationContext)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
             var client = new PayPalHttpClient(environment);
@@ -52,7 +52,7 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
                 CheckoutPaymentIntent = "CAPTURE",
                 PurchaseUnits = purchaseUnits.ToList(),
                 Payer = payer,
-                ApplicationContext = CreateApplicationContext()
+                ApplicationContext = applicationContext
             };
 
             //https://developer.paypal.com/docs/api/orders/v2/#orders_create
@@ -74,50 +74,7 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-        public async Task<Uri> CreateUriForPayment(string customId, PayPalCurrency currency, string description, int totalAmount)
-        {
-            PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
-            var client = new PayPalHttpClient(environment);
-
-            var payment = new OrderRequest()
-            {
-                CheckoutPaymentIntent = "CAPTURE",
-                PurchaseUnits = new List<PurchaseUnitRequest>()
-                {
-                    new PurchaseUnitRequest()
-                    {
-                        CustomId = customId,
-                        Description = description,
-                        AmountWithBreakdown = new AmountWithBreakdown()
-                        {
-                            CurrencyCode = currency.ToString(),
-                            Value = totalAmount.ToString()
-                        }
-                    }
-                },
-                ApplicationContext = CreateApplicationContext()
-            };
-
-            //https://developer.paypal.com/docs/api/orders/v2/#orders_create
-            var request = new OrdersCreateRequest();
-            request.Prefer("return=representation");
-            request.RequestBody(payment);
-
-            try
-            {
-                var response = await client.Execute(request);
-                var result = response.Result<PaypalOrder>();
-                var uri = new Uri(result.Links.Single(l => l.Rel == "approve").Href);
-
-                return uri;
-            }
-            catch (HttpException httpException)
-            {
-                var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
-                throw httpException;
-            }
-        }
-
+    
         public async Task<PaypalOrder> CaptureOrder(string transaction)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
@@ -142,75 +99,11 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
 
         private PayPalCheckoutSdk.Core.PayPalEnvironment CreateEnvironment()
         {
-            if (_paypalOptions.Environment == Enum.PayPalEnvironment.Live)
+            return _paypalOptions.Environment switch
             {
-                return new LiveEnvironment(_paypalOptions.ClientId, _paypalOptions.ClientSecret);
-            }
-            else
-            {
-                return new SandboxEnvironment(_paypalOptions.ClientId, _paypalOptions.ClientSecret);
-            }
-        }
-
-        public async Task<Uri> UpdateAmountInvoice(string paypalOrderId, int totalAmount)
-        {
-            PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
-            var client = new PayPalHttpClient(environment);
-
-            var getOrderRequest = new OrdersGetRequest(paypalOrderId);
-
-            try
-            {
-                var getOrderResponse = await client.Execute(getOrderRequest);
-                var getOrderResult = getOrderResponse.Result<PaypalOrder>();
-                var payment = new OrderRequest()
-                {
-                    CheckoutPaymentIntent = "CAPTURE",
-                    PurchaseUnits = new List<PurchaseUnitRequest>()
-                    {
-                        new PurchaseUnitRequest()
-                        {
-                            CustomId = getOrderResult.PurchaseUnits[0].CustomId,
-                            Description = getOrderResult.PurchaseUnits[0].Description,
-                            AmountWithBreakdown = new AmountWithBreakdown()
-                            {
-                                CurrencyCode = getOrderResult.PurchaseUnits[0].AmountWithBreakdown.CurrencyCode,
-                                Value = totalAmount.ToString()
-                            }
-                        }
-                    },
-                    ApplicationContext = CreateApplicationContext()
-                };
-
-                var request = new OrdersCreateRequest();
-                request.Prefer("return=representation");
-                request.RequestBody(payment);
-                var response = await client.Execute(request);
-                var result = response.Result<PaypalOrder>();
-                var uri = new Uri(result.Links.Single(l => l.Rel == "approve").Href);
-
-                await CancelInvoice(paypalOrderId);
-
-                return uri;
-            }
-            catch (HttpException httpException)
-            {
-                var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
-                throw httpException;
-            }
-        }
-
-        private ApplicationContext CreateApplicationContext()
-        {
-
-            var returnUrl = _paypalOptions.ReturnUrl;
-
-            var cancelUrl = _paypalOptions.CancelUrl;
-
-            return new ApplicationContext
-            {
-                ReturnUrl = returnUrl,
-                CancelUrl = cancelUrl
+                Enum.PayPalEnvironment.Live => new LiveEnvironment(_paypalOptions.ClientId, _paypalOptions.ClientSecret),
+                Enum.PayPalEnvironment.Sandbox => new SandboxEnvironment(_paypalOptions.ClientId, _paypalOptions.ClientSecret),
+                _ => throw new ArgumentException()
             };
         }
 

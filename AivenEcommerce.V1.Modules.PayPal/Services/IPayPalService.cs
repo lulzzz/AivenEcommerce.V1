@@ -13,6 +13,6 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
         Task CancelInvoice(string paypalOrderId);
         Task<PaypalOrder> CaptureOrder(string paypalOrderId);
         Task<PaypalOrder> GetOrder(string paypalOrderId);
-        Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer);
+        Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer, ApplicationContext applicationContext);
     }
 }

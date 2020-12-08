@@ -3,6 +3,7 @@
     public enum DeliveryStatus : short
     {
         Created,
+        Pending,
         Delivered,
         Going,
         NoAddressFound,

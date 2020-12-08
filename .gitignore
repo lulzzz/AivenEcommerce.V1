@@ -339,3 +339,4 @@ sonar.bat
 *sonarqube*
 sonar-project.properties
 *scannerwork*
+/AivenEcommerce.V1.WebApi/clientconfig.Development.json

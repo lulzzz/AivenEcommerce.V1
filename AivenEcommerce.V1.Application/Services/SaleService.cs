@@ -72,7 +72,8 @@ namespace AivenEcommerce.V1.Application.Services
                 {
                     CouponCode = input.CouponCode,
                     OrderId = order.Id,
-                    Products = products.Select(x => x.Id)
+                    Products = products.Select(x => x.Id),
+                    Status = SaleStatus.PendingPayment
                 };
 
                 sale = await _saleRepository.CreateAsync(sale);

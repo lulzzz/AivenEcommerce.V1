@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AivenEcommerce.V1.Application.Factories.PaymentProviders
+namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
 {
     public class PaymentProviderFactory : IPaymentProviderFactory
     {

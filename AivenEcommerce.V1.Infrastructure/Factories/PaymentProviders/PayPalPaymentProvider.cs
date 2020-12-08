@@ -2,26 +2,30 @@
 using AivenEcommerce.V1.Domain.Factories.PaymentProviders;
 using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
 using AivenEcommerce.V1.Domain.Shared.Enums;
+using AivenEcommerce.V1.Infrastructure.Options.PaymentProvider;
 using AivenEcommerce.V1.Modules.PayPal.Services;
 
 using PayPalCheckoutSdk.Orders;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 using PaypalOrder = PayPalCheckoutSdk.Orders.Order;
 
-namespace AivenEcommerce.V1.Application.Factories.PaymentProviders
+namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
 {
     public class PayPalPaymentProvider : IPaymentProvider
     {
         private readonly IPayPalService _paypalService;
+        private readonly IPaymentProviderOptions _paymentProviderOptions;
 
-        public PayPalPaymentProvider(IPayPalService paypalService)
+        public PayPalPaymentProvider(IPayPalService paypalService, IPaymentProviderOptions paymentProviderOptions)
         {
             _paypalService = paypalService ?? throw new ArgumentNullException(nameof(paypalService));
+            _paymentProviderOptions = paymentProviderOptions ?? throw new ArgumentNullException(nameof(paymentProviderOptions));
         }
 
         public Task CancelInvoice(Invoice invoice)
@@ -95,7 +99,14 @@ namespace AivenEcommerce.V1.Application.Factories.PaymentProviders
                 }
             };
 
-            PaypalOrder payPalOrder = await _paypalService.CreatePaypalOrder(purchaseUnits, payer);
+
+            ApplicationContext applicationContext = new()
+            {
+                ReturnUrl = Path.Combine(_paymentProviderOptions.ReturnUrl, order.Id),
+                CancelUrl = _paymentProviderOptions.CancelUrl
+            };
+
+            PaypalOrder payPalOrder = await _paypalService.CreatePaypalOrder(purchaseUnits, payer, applicationContext);
 
             Uri uri = new(payPalOrder.Links.Single(l => l.Rel == "approve").Href);
 
@@ -110,11 +121,29 @@ namespace AivenEcommerce.V1.Application.Factories.PaymentProviders
 
         public async Task<Invoice> UpdateInvoice(Invoice invoice, Domain.Entities.Order order, SaleDetail saleDetail, IEnumerable<Product> products, Customer customer, Address address)
         {
-            Invoice newInvoice = await CreateInvoice(order, saleDetail, products, customer, address);
+            ApplicationContext applicationContext = new()
+            {
+                ReturnUrl = Path.Combine(_paymentProviderOptions.ReturnUrl, order.Id),
+                CancelUrl = _paymentProviderOptions.CancelUrl
+            };
+
+            PaypalOrder paypalOrder = await _paypalService.GetOrder(invoice.Transaction);
+
+
+            PaypalOrder paypalOrderNew = await _paypalService.CreatePaypalOrder(paypalOrder.PurchaseUnits.Select(x => new PurchaseUnitRequest()
+            {
+                AmountWithBreakdown = x.AmountWithBreakdown,
+                Items = x.Items,
+                CustomId = x.CustomId,
+                Description = x.Description
+            }), paypalOrder.Payer, applicationContext);
+
             await _paypalService.CancelInvoice(invoice.Transaction);
 
-            invoice.Link = newInvoice.Link;
-            invoice.Transaction = newInvoice.Transaction;
+            Uri uri = new(paypalOrderNew.Links.Single(l => l.Rel == "approve").Href);
+
+            invoice.Link = uri;
+            invoice.Transaction = paypalOrderNew.Id;
 
             return invoice;
         }

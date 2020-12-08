@@ -1,4 +1,5 @@
 ﻿using AivenEcommerce.V1.Domain.Entities.Base;
+using AivenEcommerce.V1.Domain.Shared.Enums;
 
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -15,6 +16,7 @@ namespace AivenEcommerce.V1.Domain.Entities
         public IEnumerable<string> Products { get; set; }
         public string CouponCode { get; set; }
         public string OrderId { get; set; }
+        public SaleStatus Status { get; set; }
 
     }
 }

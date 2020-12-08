@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using AivenEcommerce.V1.Domain.Shared.Common;
+using AivenEcommerce.V1.Domain.Shared.OperationResults;
+
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Domain.Services
 {
-    public interface IWebhookService
+    public interface IWebhookService : IScopedService
     {
-        Task InvoicePayPalPayed(string transaction);
+        Task<OperationResult> InvoiceWebhookPayPal(string orderId, string token);
     }
 }

@@ -17,7 +17,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         }
 
-        public async Task<SaleDetail> GetBySale(Sale sale)
+        public async Task<SaleDetail> GetBySaleAsync(Sale sale)
         {
             var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, sale.Id);
             return file.Content.Deserialize<SaleDetail>();

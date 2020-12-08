@@ -1,6 +1,7 @@
-﻿using AivenEcommerce.V1.Application.Factories.PaymentProviders;
-using AivenEcommerce.V1.Domain.Factories.PaymentProviders;
+﻿using AivenEcommerce.V1.Domain.Factories.PaymentProviders;
 using AivenEcommerce.V1.Domain.Shared.Enums;
+using AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders;
+using AivenEcommerce.V1.Infrastructure.Options.PaymentProvider;
 using AivenEcommerce.V1.Modules.PayPal.Services;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +16,9 @@ namespace AivenEcommerce.V1.Infrastructure.Extensions.Factories
             {
                 PaymentProviderFactory factory = new();
                 IPayPalService payPalService = sp.GetRequiredService<IPayPalService>();
+                IPaymentProviderOptions paymentProviderOptions = sp.GetRequiredService<IPaymentProviderOptions>();
 
-                factory.RegisterPaymentProvider(PaymentProvider.PayPal, () => new PayPalPaymentProvider(payPalService));
+                factory.RegisterPaymentProvider(PaymentProvider.PayPal, () => new PayPalPaymentProvider(payPalService, paymentProviderOptions));
 
                 return factory;
             });

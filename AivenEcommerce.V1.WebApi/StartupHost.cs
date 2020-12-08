@@ -1,4 +1,6 @@
+using AivenEcommerce.V1.Infrastructure.Options.ClientConfig;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
+using AivenEcommerce.V1.Infrastructure.Options.PaymentProvider;
 using AivenEcommerce.V1.Modules.GitHub.DependencyInjection.Extensions;
 using AivenEcommerce.V1.Modules.ImgBB.DependencyInjection.Extensions;
 using AivenEcommerce.V1.Modules.PayPal.DependencyInjection.Extensions;
@@ -31,6 +33,8 @@ namespace AivenEcommerce.V1.WebApi
             services.AddSwaggerApiVersioning()
 
 
+            .AddOptions<IClientConfigOptions, ClientConfigOptions>(Configuration)
+            .AddOptions<IPaymentProviderOptions, PaymentProviderOptions>(Configuration)
             .AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration)
             .AddOptions<IMongoSaleOptions, MongoSaleOptions>(Configuration)
             .AddOptions<IMongoOrderOptions, MongoOrderOptions>(Configuration)

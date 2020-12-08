@@ -7,7 +7,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Sales
     {
         public static SaleDto ConvertToDto(this Sale source)
         {
-            return new(source.Id, source.Products, source.CouponCode, source.OrderId);
+            return new(source.Id, source.Products, source.CouponCode, source.OrderId, source.Status);
         }
     }
 }
