@@ -10,7 +10,7 @@ Host.CreateDefaultBuilder()
     .ConfigureHostConfiguration(configurationBuilder =>
     {
         configurationBuilder.AddJsonFile("clientconfig.json", optional: false, reloadOnChange: true);
-        configurationBuilder.AddJsonFile("clientconfig.Development.json", optional: false, reloadOnChange: true);
+        configurationBuilder.AddJsonFile("clientconfig.Development.json", optional: true, reloadOnChange: true);
     })
     .ConfigureWebHostDefaults(webBuilder =>
     {
