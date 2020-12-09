@@ -55,6 +55,7 @@ namespace AivenEcommerce.V1.WebApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders()
+
             .UseRedirectToProxiedHttps();
 
             if (env.IsDevelopment())
@@ -63,7 +64,9 @@ namespace AivenEcommerce.V1.WebApi
             }
             else
             {
-                app.UseHsts();
+                app.UseHsts()
+
+                .UseIPSafe();
             }
 
             app.UseExceptionHandlingOperationResult(loggerFactory.CreateLogger("ExceptionHandler"))
