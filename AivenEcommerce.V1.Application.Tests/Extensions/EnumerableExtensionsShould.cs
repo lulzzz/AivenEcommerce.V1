@@ -32,6 +32,16 @@ namespace AivenEcommerce.V1.Application.Tests.Extensions
             Assert.True(enumerable.Last() == "newvalue");
         }
 
+        [Fact]
+        public void Add_NewValueInExistentEnumerable_ReturnEnumerableWithOneMoreItem()
+        {
+            IEnumerable<int> enumerable = new int[] { 1, 2, 3, 4 };
+
+            enumerable = enumerable.Add(5);
+
+            Assert.True(enumerable.Last() == 5);
+        }
+
 
         [Fact]
         public void WhereIsNotEmply_ListWithEmptyAndNonEmptyValues_ReturnEnumerableWithOnlyNonEmptyValues()
