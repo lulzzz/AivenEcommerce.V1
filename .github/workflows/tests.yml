@@ -6,8 +6,8 @@ on:
       - main
  
 jobs:
-  build:
-    name: Deploy
+  test:
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -33,7 +33,7 @@ jobs:
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
       - name: Generate Report
-        run: reportgenerator "-reports:TestResults\${{ env.COVERAGE_GUID }}\coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
+        run: reportgenerator "-reports:TestResults/${{ env.COVERAGE_GUID }}/coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
         working-directory: AivenEcommerce.V1.Application.Tests
 
 
