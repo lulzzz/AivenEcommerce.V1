@@ -1,7 +1,0 @@
-{
-  "ClientConfigOptions": {
-    "WebhookReturnUrl": "https://tugimnasiaonline.com",
-    "WebhookCancelUrl": "https://tugimnasiaonline.com",
-    "BuildVersion" :  "0"
-  }
-}
