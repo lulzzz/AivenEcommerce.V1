@@ -15,7 +15,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Customers
     public class CustomerDtoMappingExtensionsShould
     {
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameId()
+        public void ConvertToDto_CustomerNotNull_ReturnSameId()
         {
             Customer customer = MockCustomer();
 
@@ -25,7 +25,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Customers
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameName()
+        public void ConvertToDto_CustomerNotNull_ReturnSameName()
         {
             Customer customer = MockCustomer();
 
@@ -35,7 +35,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Customers
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameLastName()
+        public void ConvertToDto_CustomerNotNull_ReturnSameLastName()
         {
             Customer customer = MockCustomer();
 
@@ -45,7 +45,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Customers
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameEmail()
+        public void ConvertToDto_CustomerNotNull_ReturnSameEmail()
         {
             Customer customer = MockCustomer();
 
@@ -55,7 +55,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Customers
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSamePicture()
+        public void ConvertToDto_CustomerNotNull_ReturnSamePicture()
         {
             Customer customer = MockCustomer();
 

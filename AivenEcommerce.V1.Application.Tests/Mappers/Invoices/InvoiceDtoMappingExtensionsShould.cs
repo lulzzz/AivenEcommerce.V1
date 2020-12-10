@@ -15,7 +15,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Invoices
     public class InvoiceDtoMappingExtensionsShould
     {
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameId()
+        public void ConvertToDto_InvoiceNotNull_ReturnSameId()
         {
             Invoice invoice = MockInvoice();
 
@@ -25,7 +25,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Invoices
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameLink()
+        public void ConvertToDto_InvoiceNotNull_ReturnSameLink()
         {
             Invoice invoice = MockInvoice();
 
@@ -35,7 +35,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Invoices
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameTransaction()
+        public void ConvertToDto_InvoiceNotNull_ReturnSameTransaction()
         {
             Invoice invoice = MockInvoice();
 
@@ -45,7 +45,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Invoices
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSameOrderId()
+        public void ConvertToDto_InvoiceNotNull_ReturnSameOrderId()
         {
             Invoice invoice = MockInvoice();
 
@@ -55,7 +55,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Invoices
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSamePaymentProviderWebhookReceived()
+        public void ConvertToDto_InvoiceNotNull_ReturnSamePaymentProviderWebhookReceived()
         {
             Invoice invoice = MockInvoice();
 
@@ -65,7 +65,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Invoices
         }
 
         [Fact]
-        public void ConvertToDto_InputNotNull_ReturnSamePaymentProvider()
+        public void ConvertToDto_InvoiceNotNull_ReturnSamePaymentProvider()
         {
             Invoice invoice = MockInvoice();
 

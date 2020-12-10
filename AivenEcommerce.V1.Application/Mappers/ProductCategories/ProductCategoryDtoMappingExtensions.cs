@@ -9,15 +9,5 @@ namespace AivenEcommerce.V1.Application.Mappers.ProductCategories
         {
             return new(source.Id, source.Name, productCount, source.SubCategories);
         }
-
-        public static ProductCategory ConvertToEntity(this ProductCategoryDto source)
-        {
-            return new()
-            {
-                Id = source.Id,
-                Name = source.Name,
-                SubCategories = source.SubCategories
-            };
-        }
     }
 }
