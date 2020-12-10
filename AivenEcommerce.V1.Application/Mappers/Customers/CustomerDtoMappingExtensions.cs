@@ -9,17 +9,5 @@ namespace AivenEcommerce.V1.Application.Mappers.Customers
         {
             return new(source.Id, source.Name, source.LastName, source.Email, source.Picture);
         }
-
-        public static Customer ConvertToEntity(this CustomerDto source)
-        {
-            return new()
-            {
-                Id = source.Id,
-                Name = source.Name,
-                LastName = source.LastName,
-                Email = source.Email,
-                Picture = source.Picture
-            };
-        }
     }
 }
