@@ -9,15 +9,5 @@ namespace AivenEcommerce.V1.Application.Mappers.Baskets
         {
             return new(source.Id, source.Products, source.CustomerEmail);
         }
-
-        public static Basket ConvertToEntity(this BasketDto source)
-        {
-            return new()
-            {
-                Id = source.Id,
-                Products = source.ProductDefinitives,
-                CustomerEmail = source.CustomerEmail
-            };
-        }
     }
 }

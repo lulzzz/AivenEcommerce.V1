@@ -23,8 +23,4 @@
     <ProjectReference Include="..\AivenEcommerce.V1.Application\AivenEcommerce.V1.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappers\Addresses\" />
-  </ItemGroup>
-
 </Project>
