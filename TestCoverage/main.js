@@ -224,7 +224,7 @@ var assemblies = [
   {
     "name": "AivenEcommerce.V1.Application",
     "classes": [
-      { "name": "AivenEcommerce.V1.Application.Extensions.EnumerableExtensions", "rp": "AivenEcommerce.V1.Application_EnumerableExtensions.html", "cl": 9, "ucl": 4, "cal": 13, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 1, "tb": 2, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Extensions.EnumerableExtensions", "rp": "AivenEcommerce.V1.Application_EnumerableExtensions.html", "cl": 13, "ucl": 0, "cal": 13, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 2, "tb": 2, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Extensions.PaginationExtensions", "rp": "AivenEcommerce.V1.Application_PaginationExtensions.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 12, "ct": "LineCoverage", "mc": "-", "cb": 2, "tb": 2, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Extensions.StringExtensions", "rp": "AivenEcommerce.V1.Application_StringExtensions.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 17, "tb": 18, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.Addresses.AddressMappingExtensions", "rp": "AivenEcommerce.V1.Application_AddressMappingExtensions.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
