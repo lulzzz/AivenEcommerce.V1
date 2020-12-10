@@ -41,10 +41,10 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: main
+          BRANCH: gh-pages
+          TARGET_FOLDER: TestCoverage
           FOLDER: AivenEcommerce.V1.Application.Tests/coveragereport
           CLEAN: true 
-          REPOSITORY_NAME: aivenweb/AivenEcommerce.V1-TestCoverage
 
       
       
