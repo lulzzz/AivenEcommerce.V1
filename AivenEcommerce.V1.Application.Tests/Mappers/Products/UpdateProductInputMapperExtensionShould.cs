@@ -65,7 +65,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Products
         }
 
         [Fact]
-        public void ConvertToEntity_InputNotNull_ReturnIdNull()
+        public void ConvertToEntity_InputNotNull_ReturnSameId()
         {
             UpdateProductInput input = MockUpdateProductInput();
 
@@ -75,7 +75,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Products
         }
 
         [Fact]
-        public void ConvertToEntity_InputNotNull_ReturnThumbnailNull()
+        public void ConvertToEntity_InputNotNull_ReturnSameThumbnail()
         {
             UpdateProductInput input = MockUpdateProductInput();
 

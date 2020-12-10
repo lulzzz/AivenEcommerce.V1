@@ -66,7 +66,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.CouponCodes
         }
 
         [Fact]
-        public void ConvertToEntity_CouponCodeNotNull_ReturnSameId()
+        public void ConvertToEntity_CouponCodeNotNull_ReturnEmplyId()
         {
             CreateCouponCodeInput input = MockCreateCouponCodeInput();
 

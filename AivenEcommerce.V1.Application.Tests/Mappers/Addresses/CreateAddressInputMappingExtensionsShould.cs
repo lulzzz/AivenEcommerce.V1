@@ -65,7 +65,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Addresses
         }
 
         [Fact]
-        public void ConvertToEntity_AddressNotNull_ReturnSameId()
+        public void ConvertToEntity_AddressNotNull_ReturnEmplyId()
         {
             CreateAddressInput createAddressInput = MockCreateAddressInput();
 

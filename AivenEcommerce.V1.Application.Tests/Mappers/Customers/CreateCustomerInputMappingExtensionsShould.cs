@@ -54,6 +54,16 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Customers
             Assert.Equal(input.Picture, customer.Picture);
         }
 
+        [Fact]
+        public void ConvertToEntity_InputNotNull_ReturnEmplyId()
+        {
+            CreateCustomerInput input = MockCreateCustomerInput();
+
+            Customer customer = input.ConvertToEntity();
+
+            Assert.Equal(Guid.Empty, customer.Id);
+        }
+
         private CreateCustomerInput MockCreateCustomerInput() =>
         new(nameof(CreateCustomerInput.Name), nameof(CreateCustomerInput.LastName), nameof(CreateCustomerInput.Email), new("http://contoso.com"));
 
