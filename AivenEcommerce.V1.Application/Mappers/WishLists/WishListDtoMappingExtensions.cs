@@ -9,15 +9,5 @@ namespace AivenEcommerce.V1.Application.Mappers.WishLists
         {
             return new(source.Id, source.CustomerEmail, source.Products);
         }
-
-        public static WishList ConvertToEntity(this WishListDto source)
-        {
-            return new()
-            {
-                Id = source.Id,
-                Products = source.Products,
-                CustomerEmail = source.CustomerEmail
-            };
-        }
     }
 }
