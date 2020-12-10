@@ -17,7 +17,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Baskets
     public class BasketDtoMappingExtensionsShould
     {
         [Fact]
-        public void ConvertToDto_ProductNotNull_ReturnSameCustomerEmail()
+        public void ConvertToDto_BasketNotNull_ReturnSameCustomerEmail()
         {
             Basket basket = MockBasket();
 
@@ -27,7 +27,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Baskets
         }
 
         [Fact]
-        public void ConvertToDto_ProductNotNull_ReturnSameId()
+        public void ConvertToDto_BasketNotNull_ReturnSameId()
         {
             Basket basket = MockBasket();
 
@@ -37,7 +37,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Baskets
         }
 
         [Fact]
-        public void ConvertToDto_ProductNotNull_ReturnSameProducts()
+        public void ConvertToDto_BasketNotNull_ReturnSameProducts()
         {
             Basket basket = MockBasket();
 
