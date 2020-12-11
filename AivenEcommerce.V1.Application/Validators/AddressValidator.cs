@@ -59,7 +59,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
             if (!Enum.IsDefined(input.Type))
             {
-                validationResult.Messages.Add(new(nameof(CreateAddressInput.Type), "El dipo de dirección no es valido."));
+                validationResult.Messages.Add(new(nameof(CreateAddressInput.Type), "El tipo de dirección no es valido."));
             }
 
             return validationResult;
@@ -84,7 +84,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
                 AddressCustomer addressCustomer = await _addressRepository.GetByCustomerAsync(input.CustomerEmail);
 
-                if (!addressCustomer.Addresses.Any(x => x.Id == input.AddressId))
+                if (addressCustomer is null || addressCustomer.Addresses is null || !addressCustomer.Addresses.Any(x => x.Id == input.AddressId))
                 {
                     validationResult.Messages.Add(new(nameof(DeleteAddressInput.AddressId), "La dirección no existe."));
                 }
@@ -112,7 +112,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
                 AddressCustomer addressCustomer = await _addressRepository.GetByCustomerAsync(input.CustomerEmail);
 
-                if (!addressCustomer.Addresses.Any(x => x.Id == input.AddressId))
+                if (addressCustomer is null || addressCustomer.Addresses is null || !addressCustomer.Addresses.Any(x => x.Id == input.AddressId))
                 {
                     validationResult.Messages.Add(new(nameof(UpdateAddressInput.AddressId), "La dirección no existe."));
                 }
@@ -138,7 +138,7 @@ namespace AivenEcommerce.V1.Application.Validators
 
             if (!Enum.IsDefined(input.Type))
             {
-                validationResult.Messages.Add(new(nameof(UpdateAddressInput.Type), "El dipo de dirección no es valido."));
+                validationResult.Messages.Add(new(nameof(UpdateAddressInput.Type), "El tipo de dirección no es valido."));
             }
 
             return validationResult;

@@ -56,6 +56,9 @@ namespace AivenEcommerce.V1.Application.Tests.Extensions
         [InlineData("@domain")]
         [InlineData("domain.com")]
         [InlineData("domain.com.ar")]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("  ")]
         public void IsEmail_EmailInvalid_ReturnFalse(string str)
         {
             Assert.False(str.IsEmail());
