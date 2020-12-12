@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Modules.P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{017560BA-F1E8-4F7A-A7B4-196B679D6D8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AivenEcommerce.V1.Application.Tests", "AivenEcommerce.V1.Application.Tests\AivenEcommerce.V1.Application.Tests.csproj", "{7CFF146D-63F6-4F9A-9B92-2A3460D314BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AivenEcommerce.V1.Application.Tests", "AivenEcommerce.V1.Application.Tests\AivenEcommerce.V1.Application.Tests.csproj", "{7CFF146D-63F6-4F9A-9B92-2A3460D314BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

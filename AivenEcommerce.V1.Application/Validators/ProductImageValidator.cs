@@ -25,25 +25,32 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Product product = await _productRepository.GetAsync(input.ProductId);
-
-            if (product is null)
+            if (string.IsNullOrWhiteSpace(input.ProductId))
             {
-                validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductId), "El producto no existe."));
+                validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductId), "Debe ingresar el Id del Producto."));
             }
             else
             {
-                var images = await _productImageRepository.GetProductImages(product);
+                Product product = await _productRepository.GetAsync(input.ProductId);
 
-                var image = images.SingleOrDefault(x => x.Id == input.ProductImageId);
-
-                if (image is null)
+                if (product is null)
                 {
-                    validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductImageId), "La imagen no existe."));
+                    validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductId), "El producto no existe."));
                 }
-                else if (product.Thumbnail == image.Image)
+                else
                 {
-                    validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductImageId), "No se puede eliminar la imagen principal del producto."));
+                    var images = await _productImageRepository.GetProductImages(product);
+
+                    var image = images.SingleOrDefault(x => x.Id == input.ProductImageId);
+
+                    if (image is null)
+                    {
+                        validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductImageId), "La imagen no existe."));
+                    }
+                    else if (product.Thumbnail == image.Image)
+                    {
+                        validationResult.Messages.Add(new(nameof(DeleteProductImageInput.ProductImageId), "No se puede eliminar la imagen principal del producto."));
+                    }
                 }
             }
 
