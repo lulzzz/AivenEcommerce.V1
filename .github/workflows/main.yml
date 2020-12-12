@@ -49,7 +49,14 @@ jobs:
           file: "AivenEcommerce.V1.WebApi/appsettings.json"
           field: "GitHubOptions.Token"
           value: ${{ secrets.GH_TOKEN }}
-        
+         
+      #- name: Upload AppSettings 
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: my-artifact
+      #    path: AivenEcommerce.V1.WebApi/appsettings.json
+    
+    
       - name: Deploy Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
