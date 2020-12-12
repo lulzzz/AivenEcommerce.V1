@@ -7,8 +7,6 @@ using AivenEcommerce.V1.Domain.Shared.Dtos.ProductVariants;
 using AivenEcommerce.V1.Domain.Shared.Enums;
 using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 
-using FluentAssertions;
-
 using Moq;
 
 using System;

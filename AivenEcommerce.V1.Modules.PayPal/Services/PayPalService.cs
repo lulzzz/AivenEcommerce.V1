@@ -1,5 +1,4 @@
-﻿using AivenEcommerce.V1.Modules.PayPal.Enum;
-using AivenEcommerce.V1.Modules.PayPal.Options;
+﻿using AivenEcommerce.V1.Modules.PayPal.Options;
 using AivenEcommerce.V1.Modules.PayPal.Request;
 
 using PayPalCheckoutSdk.Core;
@@ -73,7 +72,7 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-    
+
         public async Task<PaypalOrder> CaptureOrder(string transaction)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();

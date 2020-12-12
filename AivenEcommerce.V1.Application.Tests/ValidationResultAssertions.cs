@@ -1,7 +1,6 @@
 ﻿using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 
 using FluentAssertions;
-using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
 namespace AivenEcommerce.V1.Application.Tests

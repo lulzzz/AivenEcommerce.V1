@@ -4,10 +4,6 @@ using AivenEcommerce.V1.Domain.Shared.Dtos.CouponCodes;
 using AivenEcommerce.V1.Domain.Shared.Dtos.ProductCategories;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xunit;
 
@@ -138,7 +134,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.CouponCodes
         private CouponCode MockCouponCode() =>
         new()
         {
-            Categories = new[] {"a", "b" },
+            Categories = new[] { "a", "b" },
             Code = nameof(CouponCode.Code),
             Customers = new[] { "c", "d" },
             DateExpire = DateTime.Now,

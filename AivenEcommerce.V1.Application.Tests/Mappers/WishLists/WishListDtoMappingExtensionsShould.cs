@@ -3,10 +3,6 @@ using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Shared.Dtos.WishLists;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xunit;
 

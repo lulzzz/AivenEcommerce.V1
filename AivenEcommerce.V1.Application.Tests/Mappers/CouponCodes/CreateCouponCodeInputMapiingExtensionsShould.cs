@@ -4,10 +4,6 @@ using AivenEcommerce.V1.Domain.Shared.Dtos.CouponCodes;
 using AivenEcommerce.V1.Domain.Shared.Dtos.ProductCategories;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xunit;
 

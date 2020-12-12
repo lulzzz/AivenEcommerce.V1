@@ -4,8 +4,6 @@ using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Shared.Dtos.Addresses;
 using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 
-using FluentAssertions;
-
 using Moq;
 
 using System;
@@ -422,7 +420,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
         {
             MockObject mockObject = new();
 
-     
+
             DeleteAddressInput input = new(Guid.NewGuid(), null);
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);

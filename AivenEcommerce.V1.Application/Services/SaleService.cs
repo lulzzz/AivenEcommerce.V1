@@ -1,5 +1,4 @@
-﻿using AivenEcommerce.V1.Application.Extensions;
-using AivenEcommerce.V1.Application.Mappers.Invoices;
+﻿using AivenEcommerce.V1.Application.Mappers.Invoices;
 using AivenEcommerce.V1.Application.Mappers.Orders;
 using AivenEcommerce.V1.Application.Mappers.Sales;
 using AivenEcommerce.V1.Domain.Entities;
@@ -121,7 +120,7 @@ namespace AivenEcommerce.V1.Application.Services
         {
             decimal totalAmount = products.Sum(x => x.Price);
 
-            if(couponCode is null)
+            if (couponCode is null)
                 return totalAmount;
 
             if (totalAmount < couponCode.MinAmount || totalAmount > couponCode.MaxAmount)

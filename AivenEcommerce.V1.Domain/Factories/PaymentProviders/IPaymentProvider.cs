@@ -1,7 +1,6 @@
 ﻿
 using AivenEcommerce.V1.Domain.Entities;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Domain.Factories.PaymentProviders

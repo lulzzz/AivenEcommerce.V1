@@ -10,8 +10,6 @@ using Moq;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xunit;
@@ -670,8 +668,8 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
             MockObject mockObject = new();
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Customer());
-            mockObject.BasketRepositoryMock.Setup(x => x.GetByCustomerAsync(It.IsAny<string>())).ReturnsAsync(new Basket 
-            { 
+            mockObject.BasketRepositoryMock.Setup(x => x.GetByCustomerAsync(It.IsAny<string>())).ReturnsAsync(new Basket
+            {
                 Products = new List<ProductDefinitive>
                 {
                     new("1", new List<ProductVariantPair>(), 4)
@@ -756,7 +754,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
             {
                 Products = new List<ProductDefinitive>
                 {
-                   
+
                 }
             });
             mockObject.ProductRepositoryMock.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(new Product());

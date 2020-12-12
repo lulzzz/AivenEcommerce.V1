@@ -64,7 +64,7 @@ namespace AivenEcommerce.V1.Application.Services
                 {
                     product.Stock -= saleDetail.Products.Where(x => x.ProductId == product.Id).Sum(x => x.Quantity);
 
-                    if(product.Stock <= 0)
+                    if (product.Stock <= 0)
                     {
                         product.IsActive = false;
                     }

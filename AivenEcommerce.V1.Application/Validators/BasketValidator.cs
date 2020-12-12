@@ -178,7 +178,7 @@ namespace AivenEcommerce.V1.Application.Validators
                         validationResult.Messages.Add(new(nameof(UpdateBasketInput.Products), $"La cantidad debe ser mayor a cero para el producto {product.Name}."));
                     }
 
-                    if(!product.IsActive)
+                    if (!product.IsActive)
                     {
                         validationResult.Messages.Add(new(nameof(UpdateBasketInput.Products), $"El producto {product.Name} debe estar activo."));
                     }

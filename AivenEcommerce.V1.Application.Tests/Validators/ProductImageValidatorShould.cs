@@ -4,8 +4,6 @@ using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Shared.Dtos.ProductImages;
 using AivenEcommerce.V1.Domain.Shared.OperationResults.Validations;
 
-using FluentAssertions;
-
 using Moq;
 
 using System;

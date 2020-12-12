@@ -1,6 +1,5 @@
 ﻿using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Factories.PaymentProviders;
-using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
 using AivenEcommerce.V1.Domain.Shared.Enums;
 using AivenEcommerce.V1.Infrastructure.Options.PaymentProvider;
 using AivenEcommerce.V1.Modules.PayPal.Services;
