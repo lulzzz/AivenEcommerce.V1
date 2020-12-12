@@ -42,7 +42,7 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             }
         }
 
-        public async Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, Payer payer, ApplicationContext applicationContext)
+        public async Task<PaypalOrder> CreatePaypalOrder(IEnumerable<PurchaseUnitRequest> purchaseUnits, ApplicationContext applicationContext)
         {
             PayPalCheckoutSdk.Core.PayPalEnvironment environment = CreateEnvironment();
             var client = new PayPalHttpClient(environment);
@@ -51,7 +51,6 @@ namespace AivenEcommerce.V1.Modules.PayPal.Services
             {
                 CheckoutPaymentIntent = "CAPTURE",
                 PurchaseUnits = purchaseUnits.ToList(),
-                Payer = payer,
                 ApplicationContext = applicationContext
             };
 

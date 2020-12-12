@@ -38,32 +38,8 @@ namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
             var paypalOrder = await _paypalService.CaptureOrder(invoice.Transaction);
         }
 
-        public async Task<Invoice> CreateInvoice(Domain.Entities.Order order, SaleDetail saleDetail, IEnumerable<Product> products, Customer customer, Address address)
+        public async Task<Invoice> CreateInvoice(Domain.Entities.Order order)
         {
-            List<Item> items = new();
-
-            foreach (ProductDefinitive productDefinitive in saleDetail.Products)
-            {
-                Product product = products.Single(x => x.Id == productDefinitive.ProductId);
-
-                Item item = new()
-                {
-                    UnitAmount = new Money
-                    {
-                        CurrencyCode = order.Currency.ToString(),
-                        Value = product.Price.ToString()
-                    },
-                    Description = product.Name,
-                    Category = product.Category,
-                    Quantity = productDefinitive.Quantity.ToString(),
-                    Name = product.Name,
-                    Sku = product.Id
-                };
-
-                items.Add(item);
-            }
-
-
             List<PurchaseUnitRequest> purchaseUnits = new();
             purchaseUnits.Add(new()
             {
@@ -73,32 +49,9 @@ namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
                 {
                     CurrencyCode = order.Currency.ToString(),
 
-                    Value = order.TotalAmount.ToString()
-                },
-                Items = items
-
-            });
-
-            Payer payer = new()
-            {
-                Email = customer.Email,
-                Name = new()
-                {
-                    FullName = customer.Name + " " + customer.LastName
-                },
-                PayerId = customer.Id.ToString(),
-                AddressPortable = new()
-                {
-                    AddressDetails = new()
-                    {
-                        StreetName = address.Street,
-                        StreetNumber = address.Number?.ToString()
-                    },
-                    AddressLine1 = address.Phone,
-                    PostalCode = address.ZipCode
+                    Value = Convert.ToInt32(order.TotalAmount).ToString()
                 }
-            };
-
+            });
 
             ApplicationContext applicationContext = new()
             {
@@ -106,7 +59,7 @@ namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
                 CancelUrl = _paymentProviderOptions.CancelUrl
             };
 
-            PaypalOrder payPalOrder = await _paypalService.CreatePaypalOrder(purchaseUnits, payer, applicationContext);
+            PaypalOrder payPalOrder = await _paypalService.CreatePaypalOrder(purchaseUnits, applicationContext);
 
             Uri uri = new(payPalOrder.Links.Single(l => l.Rel == "approve").Href);
 
@@ -119,7 +72,7 @@ namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
             };
         }
 
-        public async Task<Invoice> UpdateInvoice(Invoice invoice, Domain.Entities.Order order, SaleDetail saleDetail, IEnumerable<Product> products, Customer customer, Address address)
+        public async Task<Invoice> UpdateInvoice(Invoice invoice, Domain.Entities.Order order)
         {
             ApplicationContext applicationContext = new()
             {
@@ -133,10 +86,9 @@ namespace AivenEcommerce.V1.Infrastructure.Factories.PaymentProviders
             PaypalOrder paypalOrderNew = await _paypalService.CreatePaypalOrder(paypalOrder.PurchaseUnits.Select(x => new PurchaseUnitRequest()
             {
                 AmountWithBreakdown = x.AmountWithBreakdown,
-                Items = x.Items,
                 CustomId = x.CustomId,
                 Description = x.Description
-            }), paypalOrder.Payer, applicationContext);
+            }), applicationContext);
 
             await _paypalService.CancelInvoice(invoice.Transaction);
 

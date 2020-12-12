@@ -10,7 +10,7 @@ namespace AivenEcommerce.V1.Domain.Shared.Dtos.CouponCodes
         Guid Id,
         string Code,
         CouponCodeOffType Type,
-        decimal Value,
+        int Value,
         int MinAmount,
         int? MaxAmount,
         IEnumerable<string> Categories,

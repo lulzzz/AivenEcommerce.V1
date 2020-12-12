@@ -11,7 +11,7 @@ namespace AivenEcommerce.V1.Application.Mappers.Products
             return new(source.Id,
                 source.Name,
                 source.Cost,
-                source.Price,
+                (int)source.Price,
                 source.PercentageOff,
                 source.Category,
                 source.SubCategory,

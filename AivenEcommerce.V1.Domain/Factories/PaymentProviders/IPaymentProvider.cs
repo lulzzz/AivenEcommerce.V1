@@ -10,7 +10,7 @@ namespace AivenEcommerce.V1.Domain.Factories.PaymentProviders
     {
         Task CancelInvoice(Invoice invoice);
         Task ConfirmOrder(Invoice invoice);
-        Task<Invoice> CreateInvoice(Order order, SaleDetail saleDetail, IEnumerable<Product> products, Customer customer, Address address);
-        Task<Invoice> UpdateInvoice(Invoice invoice, Order order, SaleDetail saleDetail, IEnumerable<Product> products, Customer customer, Address address);
+        Task<Invoice> CreateInvoice(Order order);
+        Task<Invoice> UpdateInvoice(Invoice invoice, Order order);
     }
 }

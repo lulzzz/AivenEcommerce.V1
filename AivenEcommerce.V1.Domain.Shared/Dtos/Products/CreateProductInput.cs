@@ -3,7 +3,7 @@
     public record CreateProductInput(string Name,
         string Description,
         decimal Cost,
-        decimal Price,
+        int Price,
         string Category,
         string SubCategory);
 

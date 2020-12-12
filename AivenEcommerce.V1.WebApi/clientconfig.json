@@ -1,7 +1,7 @@
 {
   "ClientConfigOptions": {
-    "WebhookReturnUrl": "https://tugimnasiaonline.com",
-    "WebhookCancelUrl": "https://tugimnasiaonline.com",
-    "BuildVersion" :  "0"
+    "WebhookReturnUrl": "https://aivenweb.com",
+    "WebhookCancelUrl": "https://aivenweb.com",
+    "BuildVersion": "0"
   }
 }

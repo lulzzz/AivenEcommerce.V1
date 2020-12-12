@@ -16,9 +16,16 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
         }
 
-        public Task<Invoice> GetInvoiceByOrderAsync(Order order)
+        public async Task<Invoice> GetInvoiceByOrderAsync(Order order)
         {
-            throw new NotImplementedException();
+            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, order.Id);
+
+            if (fileContent is null)
+            {
+                return null;
+            }
+
+            return fileContent.Content.Deserialize<Invoice>();
         }
 
         public override async Task<Invoice> CreateAsync(Invoice entity)

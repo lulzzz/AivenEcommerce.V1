@@ -98,7 +98,7 @@ namespace AivenEcommerce.V1.Application.Services
 
                 IPaymentProvider paymentProvider = _paymentProviderFactory.CreatePaymentProvider(input.PaymentProvider);
 
-                Invoice invoice = await paymentProvider.CreateInvoice(order, saleDetail, products, customer, address);
+                Invoice invoice = await paymentProvider.CreateInvoice(order);
 
                 invoice = await _invoiceRepository.CreateAsync(invoice);
 
