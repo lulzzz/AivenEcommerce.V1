@@ -61,7 +61,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeTrue();
+            validationResult.Should().BeSuccess();
         }
 
         [Fact]
@@ -104,8 +104,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -148,8 +147,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -192,8 +190,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -236,8 +233,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -280,8 +276,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -324,8 +319,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -368,8 +362,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -406,8 +399,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -446,8 +438,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -490,8 +481,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -534,8 +524,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -578,8 +567,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -622,8 +610,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().CreateSaleAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
-            validationResult.Messages.Should().HaveCount(1);
+            validationResult.Should().BeFail();
         }
 
 

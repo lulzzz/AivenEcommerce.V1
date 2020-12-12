@@ -31,7 +31,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeTrue();
+            validationResult.Should().BeSuccess();
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
 
@@ -88,7 +88,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -126,11 +126,11 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Domain.Entities.Customer());
 
-            CreateAddressInput input = new(nameof(CreateAddressInput.Name), nameof(CreateAddressInput.ZipCode), nameof(CreateAddressInput.City), null, 1, nameof(CreateAddressInput.Depatarment), nameof(CreateAddressInput.BetweenStreet1), nameof(CreateAddressInput.BetweenStreet2), nameof(CreateAddressInput.Observations), nameof(CreateAddressInput.Phone), (Domain.Shared.Enums.AddressType)3, nameof(CreateAddressInput.CustomerEmail));
+            CreateAddressInput input = new(nameof(CreateAddressInput.Name), nameof(CreateAddressInput.ZipCode), nameof(CreateAddressInput.City), nameof(CreateAddressInput.Street), 1, nameof(CreateAddressInput.Depatarment), nameof(CreateAddressInput.BetweenStreet1), nameof(CreateAddressInput.BetweenStreet2), nameof(CreateAddressInput.Observations), nameof(CreateAddressInput.Phone), (Domain.Shared.Enums.AddressType)3, nameof(CreateAddressInput.CustomerEmail));
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateCreateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         #endregion
@@ -153,7 +153,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeTrue();
+            validationResult.Should().BeSuccess();
         }
 
         [Fact]
@@ -172,7 +172,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -192,7 +192,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -210,11 +210,11 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Domain.Entities.Customer());
 
-            UpdateAddressInput input = new(Guid.NewGuid(), null, nameof(UpdateAddressInput.ZipCode), nameof(UpdateAddressInput.City), nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
+            UpdateAddressInput input = new(addressId, null, nameof(UpdateAddressInput.ZipCode), nameof(UpdateAddressInput.City), nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
 
@@ -233,11 +233,11 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Domain.Entities.Customer());
 
-            UpdateAddressInput input = new(Guid.NewGuid(), nameof(UpdateAddressInput.Name), null, nameof(UpdateAddressInput.City), nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
+            UpdateAddressInput input = new(addressId, nameof(UpdateAddressInput.Name), null, nameof(UpdateAddressInput.City), nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -255,11 +255,11 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Domain.Entities.Customer());
 
-            UpdateAddressInput input = new(Guid.NewGuid(), nameof(UpdateAddressInput.Name), nameof(UpdateAddressInput.ZipCode), null, nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
+            UpdateAddressInput input = new(addressId, nameof(UpdateAddressInput.Name), nameof(UpdateAddressInput.ZipCode), null, nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -277,11 +277,11 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Domain.Entities.Customer());
 
-            UpdateAddressInput input = new(Guid.NewGuid(), nameof(UpdateAddressInput.Name), nameof(UpdateAddressInput.ZipCode), nameof(UpdateAddressInput.City), null, 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
+            UpdateAddressInput input = new(addressId, nameof(UpdateAddressInput.Name), nameof(UpdateAddressInput.ZipCode), nameof(UpdateAddressInput.City), null, 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), Domain.Shared.Enums.AddressType.Home, nameof(UpdateAddressInput.CustomerEmail));
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -299,11 +299,11 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             mockObject.CustomerRepositoryMock.Setup(x => x.GetCustomer(It.IsAny<string>())).ReturnsAsync(new Domain.Entities.Customer());
 
-            UpdateAddressInput input = new(Guid.NewGuid(), nameof(UpdateAddressInput.Name), nameof(UpdateAddressInput.ZipCode), nameof(UpdateAddressInput.City), null, 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), (Domain.Shared.Enums.AddressType)3, nameof(UpdateAddressInput.CustomerEmail));
+            UpdateAddressInput input = new(addressId, nameof(UpdateAddressInput.Name), nameof(UpdateAddressInput.ZipCode), nameof(UpdateAddressInput.City), nameof(UpdateAddressInput.Street), 1, nameof(UpdateAddressInput.Depatarment), nameof(UpdateAddressInput.BetweenStreet1), nameof(UpdateAddressInput.BetweenStreet2), nameof(UpdateAddressInput.Observations), nameof(UpdateAddressInput.Phone), (Domain.Shared.Enums.AddressType)3, nameof(UpdateAddressInput.CustomerEmail));
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -321,7 +321,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -339,7 +339,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -354,7 +354,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -372,7 +372,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateUpdateAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         #endregion
@@ -395,7 +395,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeTrue();
+            validationResult.Should().BeSuccess();
         }
 
         [Fact]
@@ -414,7 +414,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -427,7 +427,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -445,7 +445,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -463,7 +463,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -478,7 +478,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         [Fact]
@@ -496,7 +496,7 @@ namespace AivenEcommerce.V1.Application.Tests.Validators
 
             ValidationResult validationResult = await mockObject.GetValidator().ValidateDeleteAddressAsync(input);
 
-            validationResult.IsSuccess.Should().BeFalse();
+            validationResult.Should().BeFail();
         }
 
         #endregion
