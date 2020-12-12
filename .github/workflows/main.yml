@@ -56,7 +56,7 @@ jobs:
         with:
           file: "AivenEcommerce.V1.WebApi/clientconfig.json"
           field: "ClientConfigOptions.BuildVersion"
-          value: ${{ env.GITHUB_RUN_NUMBER }}
+          value: $GITHUB_RUN_NUMBER 
          
       #- name: Upload AppSettings 
       #  uses: actions/upload-artifact@v2
