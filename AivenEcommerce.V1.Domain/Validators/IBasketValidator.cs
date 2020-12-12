@@ -8,9 +8,9 @@ namespace AivenEcommerce.V1.Domain.Validators
 {
     public interface IBasketValidator : IScopedService
     {
-        Task<ValidationResult> ValidateAddBasketProduct(AddBasketProductInput input);
-        Task<ValidationResult> ValidateRemoveBasketProduct(RemoveBasketProductInput input);
-        Task<ValidationResult> ValidateRemoveAllBasket(RemoveAllBasketInput input);
-        Task<ValidationResult> ValidateUpdateBasket(UpdateBasketInput input);
+        Task<ValidationResult> ValidateAddBasketProductAsync(AddBasketProductInput input);
+        Task<ValidationResult> ValidateRemoveBasketProductAsync(RemoveBasketProductInput input);
+        Task<ValidationResult> ValidateRemoveAllBasketAsync(RemoveAllBasketInput input);
+        Task<ValidationResult> ValidateUpdateBasketAsync(UpdateBasketInput input);
     }
 }

@@ -29,7 +29,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<BasketDto>> AddBasketProductAsync(AddBasketProductInput input)
         {
-            var validatioResult = await _validator.ValidateAddBasketProduct(input);
+            var validatioResult = await _validator.ValidateAddBasketProductAsync(input);
             if (validatioResult.IsSuccess)
             {
                 var basket = await _repository.GetByCustomerAsync(input.CustomerEmail);
@@ -73,7 +73,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult> RemoveAllBasketAsync(RemoveAllBasketInput input)
         {
-            var validatioResult = await _validator.ValidateRemoveAllBasket(input);
+            var validatioResult = await _validator.ValidateRemoveAllBasketAsync(input);
             if (validatioResult.IsSuccess)
             {
                 var basket = await _repository.GetByCustomerAsync(input.CustomerEmail);
@@ -89,7 +89,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<BasketDto>> RemoveBasketProductAsync(RemoveBasketProductInput input)
         {
-            var validatioResult = await _validator.ValidateRemoveBasketProduct(input);
+            var validatioResult = await _validator.ValidateRemoveBasketProductAsync(input);
             if (validatioResult.IsSuccess)
             {
                 var basket = await _repository.GetByCustomerAsync(input.CustomerEmail);
@@ -105,7 +105,7 @@ namespace AivenEcommerce.V1.Application.Services
 
         public async Task<OperationResult<BasketDto>> UpdateBasketAsync(UpdateBasketInput input)
         {
-            var validatioResult = await _validator.ValidateUpdateBasket(input);
+            var validatioResult = await _validator.ValidateUpdateBasketAsync(input);
             if (validatioResult.IsSuccess)
             {
                 var basket = await _repository.GetByCustomerAsync(input.CustomerEmail);

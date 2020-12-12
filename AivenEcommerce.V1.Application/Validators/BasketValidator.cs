@@ -28,57 +28,78 @@ namespace AivenEcommerce.V1.Application.Validators
             _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
         }
 
-        public async Task<ValidationResult> ValidateAddBasketProduct(AddBasketProductInput input)
+        public async Task<ValidationResult> ValidateAddBasketProductAsync(AddBasketProductInput input)
         {
             ValidationResult validationResult = new();
 
-            Product product = await _productRepository.GetAsync(input.Product.ProductId);
-            if (product is not null)
+            if (string.IsNullOrWhiteSpace(input.CustomerEmail))
             {
-                if (!product.IsActive)
-                {
-                    validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product), $"El producto '{product.Name}' no esta activo."));
-                }
-
-                if (input.Product.Quantity <= 0)
-                {
-                    validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.Quantity), $"La cantidad debe ser mayor a cero."));
-                }
-
+                validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"Debe ingresar un cliente."));
+            }
+            else
+            {
                 Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
 
                 if (customer is null)
                 {
                     validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
                 }
+            }
 
-                IEnumerable<ProductVariant> variants = await _productVariantRepository.GetByProduct(product);
-
-                foreach (ProductVariantPair variantInput in input.Product.Variants)
-                {
-                    if (!variants.Any(x => x.Name == variantInput.Name && x.Values.Contains(variantInput.Value)))
-                    {
-                        validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.Variants), $"La variante '{variantInput.Name}' con valor '{variantInput.Value}' del producto '{product.Name}' no existe."));
-                    }
-                }
+            if (input.Product is null)
+            {
+                validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product), $"Debe seleccionar un producto."));
             }
             else
             {
-                validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.ProductId), "El producto no existe."));
+                Product product = await _productRepository.GetAsync(input.Product.ProductId);
+                if (product is not null)
+                {
+                    if (!product.IsActive)
+                    {
+                        validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product), $"El producto '{product.Name}' no esta activo."));
+                    }
+
+                    if (input.Product.Quantity <= 0)
+                    {
+                        validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.Quantity), $"La cantidad debe ser mayor a cero."));
+                    }
+
+                    IEnumerable<ProductVariant> variants = await _productVariantRepository.GetByProduct(product);
+
+                    foreach (ProductVariantPair variantInput in input.Product.Variants)
+                    {
+                        if (!variants.Any(x => x.Name == variantInput.Name && x.Values.Contains(variantInput.Value)))
+                        {
+                            validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.Variants), $"La variante '{variantInput.Name}' con valor '{variantInput.Value}' del producto '{product.Name}' no existe."));
+                        }
+                    }
+                }
+                else
+                {
+                    validationResult.Messages.Add(new(nameof(AddBasketProductInput.Product.ProductId), "El producto no existe."));
+                }
             }
 
             return validationResult;
         }
 
-        public async Task<ValidationResult> ValidateRemoveAllBasket(RemoveAllBasketInput input)
+        public async Task<ValidationResult> ValidateRemoveAllBasketAsync(RemoveAllBasketInput input)
         {
             ValidationResult validationResult = new();
 
-            Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
-
-            if (customer is null)
+            if (string.IsNullOrWhiteSpace(input.CustomerEmail))
             {
-                validationResult.Messages.Add(new(nameof(RemoveAllBasketInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
+                validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"Debe ingresar un cliente."));
+            }
+            else
+            {
+                Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
+
+                if (customer is null)
+                {
+                    validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
+                }
             }
 
             Basket basket = await _basketRepository.GetByCustomerAsync(input.CustomerEmail);
@@ -91,15 +112,22 @@ namespace AivenEcommerce.V1.Application.Validators
             return validationResult;
         }
 
-        public async Task<ValidationResult> ValidateRemoveBasketProduct(RemoveBasketProductInput input)
+        public async Task<ValidationResult> ValidateRemoveBasketProductAsync(RemoveBasketProductInput input)
         {
             ValidationResult validationResult = new();
 
-            Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
-
-            if (customer is null)
+            if (string.IsNullOrWhiteSpace(input.CustomerEmail))
             {
-                validationResult.Messages.Add(new(nameof(RemoveAllBasketInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
+                validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"Debe ingresar un cliente."));
+            }
+            else
+            {
+                Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
+
+                if (customer is null)
+                {
+                    validationResult.Messages.Add(new(nameof(AddBasketProductInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
+                }
             }
 
             Basket basket = await _basketRepository.GetByCustomerAsync(input.CustomerEmail);
@@ -116,16 +144,25 @@ namespace AivenEcommerce.V1.Application.Validators
             return validationResult;
         }
 
-        public async Task<ValidationResult> ValidateUpdateBasket(UpdateBasketInput input)
+        public async Task<ValidationResult> ValidateUpdateBasketAsync(UpdateBasketInput input)
         {
             ValidationResult validationResult = new();
 
-            Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
-
-            if (customer is null)
+            if (string.IsNullOrWhiteSpace(input.CustomerEmail))
             {
-                validationResult.Messages.Add(new(nameof(UpdateBasketInput.CustomerEmail), $"El usuario '{input.CustomerEmail}' no existe."));
+                validationResult.Messages.Add(new(nameof(UpdateBasketInput.CustomerEmail), $"Debe ingresar un cliente."));
             }
+            else
+            {
+                Customer customer = await _customerRepository.GetCustomer(input.CustomerEmail);
+
+                if (customer is null)
+                {
+                    validationResult.Messages.Add(new(nameof(UpdateBasketInput.CustomerEmail), $"El cliente '{input.CustomerEmail}' no existe."));
+                }
+
+            }
+
 
             foreach (ProductDefinitive productInput in input.Products)
             {
@@ -139,6 +176,11 @@ namespace AivenEcommerce.V1.Application.Validators
                     if (productInput.Quantity <= 0)
                     {
                         validationResult.Messages.Add(new(nameof(UpdateBasketInput.Products), $"La cantidad debe ser mayor a cero para el producto {product.Name}."));
+                    }
+
+                    if(!product.IsActive)
+                    {
+                        validationResult.Messages.Add(new(nameof(UpdateBasketInput.Products), $"El producto {product.Name} debe estar activo."));
                     }
 
                     IEnumerable<ProductVariant> variants = await _productVariantRepository.GetByProduct(product);
