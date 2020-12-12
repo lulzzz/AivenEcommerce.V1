@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Application.Mappers.Invoices;
+﻿using AivenEcommerce.V1.Application.Extensions;
+using AivenEcommerce.V1.Application.Mappers.Invoices;
 using AivenEcommerce.V1.Application.Mappers.Orders;
 using AivenEcommerce.V1.Application.Mappers.Sales;
 using AivenEcommerce.V1.Domain.Entities;
@@ -29,9 +30,10 @@ namespace AivenEcommerce.V1.Application.Services
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly IProductRepository _productRepository;
         private readonly IDeliveryRepository _deliveryRepository;
+        private readonly ICouponCodeRepository _couponCodeRepository;
         private readonly IPaymentProviderFactory _paymentProviderFactory;
 
-        public SaleService(ISaleValidator saleValidator, ISaleRepository saleRepository, ICustomerRepository customerRepository, IAddressRepository addressRepository, IOrderRepository orderRepository, ISaleDetailRepository saleDetailRepository, IInvoiceRepository invoiceRepository, IProductRepository productRepository, IDeliveryRepository deliveryRepository, IPaymentProviderFactory paymentProviderFactory)
+        public SaleService(ISaleValidator saleValidator, ISaleRepository saleRepository, ICustomerRepository customerRepository, IAddressRepository addressRepository, IOrderRepository orderRepository, ISaleDetailRepository saleDetailRepository, IInvoiceRepository invoiceRepository, IProductRepository productRepository, IDeliveryRepository deliveryRepository, ICouponCodeRepository couponCodeRepository, IPaymentProviderFactory paymentProviderFactory)
         {
             _saleValidator = saleValidator ?? throw new ArgumentNullException(nameof(saleValidator));
             _saleRepository = saleRepository ?? throw new ArgumentNullException(nameof(saleRepository));
@@ -42,6 +44,7 @@ namespace AivenEcommerce.V1.Application.Services
             _invoiceRepository = invoiceRepository ?? throw new ArgumentNullException(nameof(invoiceRepository));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _deliveryRepository = deliveryRepository ?? throw new ArgumentNullException(nameof(deliveryRepository));
+            _couponCodeRepository = couponCodeRepository ?? throw new ArgumentNullException(nameof(couponCodeRepository));
             _paymentProviderFactory = paymentProviderFactory ?? throw new ArgumentNullException(nameof(paymentProviderFactory));
         }
 
@@ -57,13 +60,20 @@ namespace AivenEcommerce.V1.Application.Services
                 AddressCustomer addressCustomer = await _addressRepository.GetByCustomerAsync(input.CustomerEmail);
                 Address address = addressCustomer.Addresses.Single(x => x.Id == input.AddressId);
 
+                CouponCode couponCode = null;
+
+                if (!string.IsNullOrWhiteSpace(input.CouponCode))
+                {
+                    couponCode = await _couponCodeRepository.GetCouponAsync(input.CouponCode);
+                }
+
                 Order order = new()
                 {
                     Status = OrderStatus.Created,
                     CreationDate = DateTime.Now,
                     CustomerEmail = input.CustomerEmail,
                     Type = OrderType.ProductSale,
-                    TotalAmount = products.Sum(x => x.Price)
+                    TotalAmount = CalculateTotalAmount(couponCode, products, customer)
                 };
 
                 order = await _orderRepository.CreateAsync(order);
@@ -105,6 +115,49 @@ namespace AivenEcommerce.V1.Application.Services
             }
 
             return OperationResult<SaleOrderDto>.Fail(validationResult);
+        }
+
+        private decimal CalculateTotalAmount(CouponCode couponCode, IEnumerable<Product> products, Customer customer)
+        {
+            decimal totalAmount = products.Sum(x => x.Price);
+
+            if(couponCode is null)
+                return totalAmount;
+
+            if (totalAmount < couponCode.MinAmount || totalAmount > couponCode.MaxAmount)
+                return totalAmount;
+
+            if (DateTime.Today < couponCode.DateStart || DateTime.Today > couponCode.DateExpire)
+                return totalAmount;
+
+            List<Product> productsToOff = new();
+
+
+            if (couponCode.Customers?.Contains(customer.Email) ?? false)
+            {
+                productsToOff.AddRange(products);
+            }
+            else
+            {
+                if (couponCode.Categories?.Any() ?? false)
+                    productsToOff.AddRange(products.Where(x => couponCode.Categories.Contains(x.Category)));
+
+                if (couponCode.SubCategories?.Any() ?? false)
+                    productsToOff.AddRange(products.Where(x => couponCode.SubCategories.Any(y => y.Category == x.Category && y.SubCategory == x.SubCategory)));
+
+                if (couponCode.Products?.Any() ?? false)
+                    productsToOff.AddRange(products.Where(x => couponCode.Products.Contains(x.Id)));
+            }
+
+            decimal valueOff = couponCode.Type switch
+            {
+                CouponCodeOffType.Percentage => (couponCode.Value / productsToOff.Sum(x => x.Price)) * 100,
+                CouponCodeOffType.SpecificAmount => productsToOff.Sum(x => x.Price) - couponCode.Value
+            };
+
+
+            return totalAmount - valueOff;
+
         }
     }
 }
