@@ -97,21 +97,24 @@ namespace AivenEcommerce.V1.Application.Validators
                     }
                     else
                     {
-                        IEnumerable<ProductVariant> variants = await _productVariantRepository.GetByProduct(product);
-
-                        if (productDefinitive.Variants is not null && variants is not null)
+                        if (productDefinitive.Variants is not null)
                         {
-                            foreach (ProductVariantPair variantPair in productDefinitive.Variants)
-                            {
-                                ProductVariant productVariant = variants.SingleOrDefault(x => x.Name == variantPair.Name);
+                            IEnumerable<ProductVariant> variants = await _productVariantRepository.GetByProduct(product);
 
-                                if (productVariant is null)
+                            if (variants is not null)
+                            {
+                                foreach (ProductVariantPair variantPair in productDefinitive.Variants)
                                 {
-                                    validationResult.Messages.Add(new(nameof(CreateSaleInput.Products), $"El producto {product.Name} no tiene variaciones de {variantPair.Name}."));
-                                }
-                                else if (!productVariant.Values.Contains(variantPair.Value))
-                                {
-                                    validationResult.Messages.Add(new(nameof(CreateSaleInput.Products), $"El producto {product.Name} no tiene una variación de {variantPair.Name} con el valor {variantPair.Value}."));
+                                    ProductVariant productVariant = variants.SingleOrDefault(x => x.Name == variantPair.Name);
+
+                                    if (productVariant is null)
+                                    {
+                                        validationResult.Messages.Add(new(nameof(CreateSaleInput.Products), $"El producto {product.Name} no tiene variaciones de {variantPair.Name}."));
+                                    }
+                                    else if (!productVariant.Values.Contains(variantPair.Value))
+                                    {
+                                        validationResult.Messages.Add(new(nameof(CreateSaleInput.Products), $"El producto {product.Name} no tiene una variación de {variantPair.Name} con el valor {variantPair.Value}."));
+                                    }
                                 }
                             }
                         }
