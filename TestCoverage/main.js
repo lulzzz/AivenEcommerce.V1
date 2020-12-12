@@ -247,7 +247,7 @@ var assemblies = [
       { "name": "AivenEcommerce.V1.Application.Mappers.Products.ProductDtoMapperExtension", "rp": "AivenEcommerce.V1.Application_ProductDtoMapperExtension.html", "cl": 27, "ucl": 0, "cal": 27, "tl": 40, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.Products.UpdateProductInputMapperExtension", "rp": "AivenEcommerce.V1.Application_UpdateProductInputMapperExtension.html", "cl": 13, "ucl": 0, "cal": 13, "tl": 23, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.ProductVariants.CreateProductVariantInputMappingExtensions", "rp": "AivenEcommerce.V1.Application_CreateProductVariantInputMappingExtensions.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 18, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Application.Mappers.ProductVariants.ProductVariantDtoMappingExtensions", "rp": "AivenEcommerce.V1.Application_ProductVariantDtoMappingExtensions.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Mappers.ProductVariants.ProductVariantDtoMappingExtensions", "rp": "AivenEcommerce.V1.Application_ProductVariantDtoMappingExtensions.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 13, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.Sales.SaleDtoMappingExtensions", "rp": "AivenEcommerce.V1.Application_SaleDtoMappingExtensions.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 13, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.WishLists.WishListDtoMappingExtensions", "rp": "AivenEcommerce.V1.Application_WishListDtoMappingExtensions.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 13, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.WishLists.WishListProductsDtoMappingExtensions", "rp": "AivenEcommerce.V1.Application_WishListProductsDtoMappingExtensions.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
@@ -262,7 +262,7 @@ var assemblies = [
       { "name": "AivenEcommerce.V1.Application.Services.ProductOverviewService", "rp": "AivenEcommerce.V1.Application_ProductOverviewService.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 2, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.ProductService", "rp": "AivenEcommerce.V1.Application_ProductService.html", "cl": 0, "ucl": 184, "cal": 184, "tl": 325, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 40, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.ProductVariantService", "rp": "AivenEcommerce.V1.Application_ProductVariantService.html", "cl": 0, "ucl": 71, "cal": 71, "tl": 129, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Application.Services.SaleService", "rp": "AivenEcommerce.V1.Application_SaleService.html", "cl": 0, "ucl": 91, "cal": 91, "tl": 163, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 68, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Services.SaleService", "rp": "AivenEcommerce.V1.Application_SaleService.html", "cl": 0, "ucl": 91, "cal": 91, "tl": 162, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 68, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.WebhookService", "rp": "AivenEcommerce.V1.Application_WebhookService.html", "cl": 0, "ucl": 39, "cal": 39, "tl": 80, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 20, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.WishListService", "rp": "AivenEcommerce.V1.Application_WishListService.html", "cl": 0, "ucl": 72, "cal": 72, "tl": 138, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.AddressValidator", "rp": "AivenEcommerce.V1.Application_AddressValidator.html", "cl": 42, "ucl": 0, "cal": 42, "tl": 147, "ct": "LineCoverage", "mc": "-", "cb": 28, "tb": 30, "lch": [], "bch": [], "hc": [] },
@@ -392,7 +392,7 @@ var assemblies = [
     "classes": [
       { "name": "AivenEcommerce.V1.Modules.PayPal.Options.PayPalOptions", "rp": "AivenEcommerce.V1.Modules.PayPal_PayPalOptions.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 11, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Modules.PayPal.Request.OrderDeleteRequest", "rp": "AivenEcommerce.V1.Modules.PayPal_OrderDeleteRequest.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 22, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Modules.PayPal.Services.PayPalService", "rp": "AivenEcommerce.V1.Modules.PayPal_PayPalService.html", "cl": 0, "ucl": 74, "cal": 74, "tl": 131, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 10, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Modules.PayPal.Services.PayPalService", "rp": "AivenEcommerce.V1.Modules.PayPal_PayPalService.html", "cl": 0, "ucl": 73, "cal": 73, "tl": 129, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 10, "lch": [], "bch": [], "hc": [] },
     ]},
 ];
 
@@ -409,7 +409,7 @@ var riskHotspots = [
       { "value": 60, "exceeded": true },
     ]},
   {
-    "assembly": "AivenEcommerce.V1.Application", "class": "AivenEcommerce.V1.Application.Services.SaleService", "reportPath": "AivenEcommerce.V1.Application_SaleService.html", "methodName": "CalculateTotalAmount(AivenEcommerce.V1.Domain.Entities.CouponCode,System.Collections.Generic.IEnumerable`1<AivenEcommerce.V1.Domain.Entities.Product>,AivenEcommerce.V1.Domain.Entities.Customer)", "methodShortName": "CalculateTotalAmount(...)", "fileIndex": 0, "line": 121,
+    "assembly": "AivenEcommerce.V1.Application", "class": "AivenEcommerce.V1.Application.Services.SaleService", "reportPath": "AivenEcommerce.V1.Application_SaleService.html", "methodName": "CalculateTotalAmount(AivenEcommerce.V1.Domain.Entities.CouponCode,System.Collections.Generic.IEnumerable`1<AivenEcommerce.V1.Domain.Entities.Product>,AivenEcommerce.V1.Domain.Entities.Customer)", "methodShortName": "CalculateTotalAmount(...)", "fileIndex": 0, "line": 120,
     "metrics": [
       { "value": 42, "exceeded": true },
     ]},
