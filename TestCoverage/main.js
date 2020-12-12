@@ -262,15 +262,15 @@ var assemblies = [
       { "name": "AivenEcommerce.V1.Application.Services.ProductOverviewService", "rp": "AivenEcommerce.V1.Application_ProductOverviewService.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 2, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.ProductService", "rp": "AivenEcommerce.V1.Application_ProductService.html", "cl": 0, "ucl": 184, "cal": 184, "tl": 325, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 40, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.ProductVariantService", "rp": "AivenEcommerce.V1.Application_ProductVariantService.html", "cl": 0, "ucl": 71, "cal": 71, "tl": 129, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Application.Services.SaleService", "rp": "AivenEcommerce.V1.Application_SaleService.html", "cl": 0, "ucl": 57, "cal": 57, "tl": 110, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Services.SaleService", "rp": "AivenEcommerce.V1.Application_SaleService.html", "cl": 0, "ucl": 91, "cal": 91, "tl": 163, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 68, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.WebhookService", "rp": "AivenEcommerce.V1.Application_WebhookService.html", "cl": 0, "ucl": 39, "cal": 39, "tl": 80, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 20, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Services.WishListService", "rp": "AivenEcommerce.V1.Application_WishListService.html", "cl": 0, "ucl": 72, "cal": 72, "tl": 138, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.AddressValidator", "rp": "AivenEcommerce.V1.Application_AddressValidator.html", "cl": 42, "ucl": 0, "cal": 42, "tl": 147, "ct": "LineCoverage", "mc": "-", "cb": 28, "tb": 30, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Application.Validators.BasketValidator", "rp": "AivenEcommerce.V1.Application_BasketValidator.html", "cl": 0, "ucl": 24, "cal": 24, "tl": 159, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Validators.BasketValidator", "rp": "AivenEcommerce.V1.Application_BasketValidator.html", "cl": 30, "ucl": 0, "cal": 30, "tl": 201, "ct": "LineCoverage", "mc": "-", "cb": 20, "tb": 24, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.CouponCodeValidator", "rp": "AivenEcommerce.V1.Application_CouponCodeValidator.html", "cl": 0, "ucl": 118, "cal": 118, "tl": 299, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 74, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.CustomerValidator", "rp": "AivenEcommerce.V1.Application_CustomerValidator.html", "cl": 0, "ucl": 86, "cal": 86, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 36, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.ProductCategoryValidator", "rp": "AivenEcommerce.V1.Application_ProductCategoryValidator.html", "cl": 0, "ucl": 44, "cal": 44, "tl": 176, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 22, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Application.Validators.ProductImageValidator", "rp": "AivenEcommerce.V1.Application_ProductImageValidator.html", "cl": 0, "ucl": 26, "cal": 26, "tl": 53, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 10, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Validators.ProductImageValidator", "rp": "AivenEcommerce.V1.Application_ProductImageValidator.html", "cl": 32, "ucl": 0, "cal": 32, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 10, "tb": 12, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.ProductOverviewValidator", "rp": "AivenEcommerce.V1.Application_ProductOverviewValidator.html", "cl": 0, "ucl": 22, "cal": 22, "tl": 49, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 6, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.ProductValidator", "rp": "AivenEcommerce.V1.Application_ProductValidator.html", "cl": 0, "ucl": 160, "cal": 160, "tl": 308, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 66, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Validators.ProductVariantValidator", "rp": "AivenEcommerce.V1.Application_ProductVariantValidator.html", "cl": 0, "ucl": 39, "cal": 39, "tl": 155, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 20, "lch": [], "bch": [], "hc": [] },
@@ -407,6 +407,11 @@ var riskHotspots = [
     "assembly": "AivenEcommerce.V1.Application", "class": "AivenEcommerce.V1.Application.Validators.CouponCodeValidator", "reportPath": "AivenEcommerce.V1.Application_CouponCodeValidator.html", "methodName": "ValidateUpdateCouponCodeAsync()", "methodShortName": "ValidateUpdateCouponCodeAsync()", "fileIndex": 0, "line": 186,
     "metrics": [
       { "value": 60, "exceeded": true },
+    ]},
+  {
+    "assembly": "AivenEcommerce.V1.Application", "class": "AivenEcommerce.V1.Application.Services.SaleService", "reportPath": "AivenEcommerce.V1.Application_SaleService.html", "methodName": "CalculateTotalAmount(AivenEcommerce.V1.Domain.Entities.CouponCode,System.Collections.Generic.IEnumerable`1<AivenEcommerce.V1.Domain.Entities.Product>,AivenEcommerce.V1.Domain.Entities.Customer)", "methodShortName": "CalculateTotalAmount(...)", "fileIndex": 0, "line": 121,
+    "metrics": [
+      { "value": 42, "exceeded": true },
     ]},
 ];
 
