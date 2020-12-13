@@ -24,7 +24,7 @@ jobs:
   uploadnuget:
     needs: verifychanges
     runs-on: ubuntu-latest
-    if: jobs.verifychanges.steps.changed-domain-shared.outputs.changed == 'true'
+    if: job.verifychanges.steps.changed-domain-shared.outputs.changed == 'true'
     steps:
     - name: Checkout 
       uses: actions/checkout@v2
