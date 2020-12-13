@@ -39,14 +39,14 @@ jobs:
     - name: Install UpdateVersion
       run: dotnet tool install -g Monbsoft.UpdateVersion
       
-    - name: Increment Minor Version
+    - name: Increment Patch Version
       working-directory: AivenEcommerce.V1.Domain.Shared
-      run: update-version patch 
+      run: update-version set  0.0.${{ github.run_number }}
     
-    - name: Deploy Pack
+    - name: Generate Package
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
     
-    - name: Update Nuget
+    - name: Upload Nuget
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
         nupkg-path:  'AivenEcommerce.V1.Domain.Shared/bin/Release/*.nupkg'
