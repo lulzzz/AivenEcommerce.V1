@@ -1,10 +1,17 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Application.Extensions;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
+using AivenEcommerce.V1.Domain.Shared.Dtos.Orders;
+using AivenEcommerce.V1.Domain.Shared.Paginations;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
+using MongoDB.Bson;
+using MongoDB.Driver;
+
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
@@ -18,6 +25,41 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
             //TODO: fieohfoi
             return base.GetQueryable().Where(x => true).ToList();
+        }
+
+        public async Task<PagedData<Order>> GetAllAsync(OrderParameters parameters)
+        {
+            var taskCount = base._collection.Find(new BsonDocument()).CountDocumentsAsync();
+
+            var findFluent = base._collection.Find(new BsonDocument());
+
+            if (parameters.SortDirection is not Domain.Shared.Enums.SortDirection.None)
+            {
+                var sort = parameters.SortDirection switch
+                {
+                    Domain.Shared.Enums.SortDirection.Asc => Builders<Order>.Sort.Ascending(parameters.SortColumn),
+                    Domain.Shared.Enums.SortDirection.Desc => Builders<Order>.Sort.Descending(parameters.SortColumn),
+                    _ => Builders<Order>.Sort.Ascending(parameters.SortColumn)
+                };
+
+                findFluent = findFluent.Sort(sort);
+            }
+
+            if (parameters.PageSize.HasValue)
+            {
+                findFluent = findFluent.Skip(parameters.CalculateSkip()).Limit(parameters.PageSize);
+            }
+
+            var products = await findFluent.ToListAsync();
+
+            PagedData<Order> paged = new()
+            {
+                TotalCount = await taskCount,
+                Items = products
+            };
+
+            return paged;
+
         }
     }
 }
