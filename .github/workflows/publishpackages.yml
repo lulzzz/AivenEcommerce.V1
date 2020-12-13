@@ -22,13 +22,11 @@ jobs:
         
       
     - name: Setup .NET Core
-      if: steps.changed-domain-shared.outputs.changed == 'true'
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
         
     - name: Deploy Pack
-      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
       
     - name: Install gpr
