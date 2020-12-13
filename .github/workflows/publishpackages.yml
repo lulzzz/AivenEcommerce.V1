@@ -39,3 +39,10 @@ jobs:
       if: steps.changed-domain-shared.outputs.changed == 'true'
       run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
       
+    - name: Update Nuget
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  'AivenEcommerce.V1.Domain.Shared/bin/Release/*.nupkg'
+        repo-owner:  'aivenweb'
+        gh-user:  'aivenweb'
+        token:  ${{ secrets.GH_AIVEN_TOKEN }}
