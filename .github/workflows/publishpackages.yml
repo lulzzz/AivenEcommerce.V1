@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  verifychanges:
     runs-on: ubuntu-latest
     steps:
     
@@ -21,21 +21,42 @@ jobs:
         paths: AivenEcommerce.V1.Domain.Shared
         
       
+  uploadnuget:
+    needs: verifychanges
+    runs-on: ubuntu-latest
+    if: github.jobs.verifychanges.steps.changed-domain-shared.outputs.changed == 'true'
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v2
+      
     - name: Setup .NET Core
-      if: steps.changed-domain-shared.outputs.changed == 'true'
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
         
+    - name: Install ReportGenerator
+      run: dotnet tool install -g Monbsoft.UpdateVersion
+      
+    - name: Increment Minor Version
+      working-directory: AivenEcommerce.V1.Domain.Shared
+      run: update-version major 
+    
     - name: Deploy Pack
-      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
       
     - name: Install gpr
-      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: dotnet tool install gpr --global
     
     - name: gpr upload
-      if: steps.changed-domain-shared.outputs.changed == 'true'
       run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
       
+    - name: Update Nuget
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        nupkg-path:  'AivenEcommerce.V1.Domain.Shared/bin/Release/*.nupkg'
+        repo-owner:  'aivenweb'
+        gh-user:  'aivenweb'
+        token:  ${{ secrets.GH_AIVEN_TOKEN }}
+
+
+    
