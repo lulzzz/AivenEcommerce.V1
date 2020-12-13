@@ -26,7 +26,7 @@ jobs:
   uploadnuget:
     needs: verifychanges
     runs-on: ubuntu-latest
-   # if: needs.verifychanges.outputs.result == 'true'
+    if: needs.verifychanges.outputs.result == 'true'
     steps:
     - name: Checkout 
       uses: actions/checkout@v2
