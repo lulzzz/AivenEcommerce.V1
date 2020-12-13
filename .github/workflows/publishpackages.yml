@@ -45,13 +45,7 @@ jobs:
     
     - name: Deploy Pack
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
-      
-    - name: Install gpr
-      run: dotnet tool install gpr --global
     
-    - name: gpr upload
-      run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
-      
     - name: Update Nuget
       uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
       with:
