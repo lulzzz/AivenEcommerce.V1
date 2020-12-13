@@ -6,7 +6,7 @@
     <Company>AivenWeb</Company>
     <Product>AivenEcommerce.V1</Product>
     <Title>AivenEcommerce.V1.Domain.Shared</Title>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <PackageDescription>
       AivenEcommerce.V1.Domain.Shared
     </PackageDescription>
