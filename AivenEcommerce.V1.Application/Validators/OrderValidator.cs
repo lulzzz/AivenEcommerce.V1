@@ -23,24 +23,31 @@ namespace AivenEcommerce.V1.Application.Validators
         {
             ValidationResult validationResult = new();
 
-            Order order = await _orderRepository.GetAsync(input.Id);
-
-            if (order is null)
+            if (string.IsNullOrWhiteSpace(input.Id))
             {
-                validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "La orden de pago no existe."));
+                validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "Debe seleccionar una orden de pago."));
             }
             else
             {
-                switch (order.Status)
-                {
-                    case OrderStatus.Payed:
-                        validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "No se puede cancelar una orden que ya fue pagada."));
-                        break;
-                    case OrderStatus.Canceled:
-                        validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "No se puede cancelar una orden que ya fue cancelada."));
-                        break;
-                }
+                Order order = await _orderRepository.GetAsync(input.Id);
 
+                if (order is null)
+                {
+                    validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "La orden de pago no existe."));
+                }
+                else
+                {
+                    switch (order.Status)
+                    {
+                        case OrderStatus.Payed:
+                            validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "No se puede cancelar una orden que ya fue pagada."));
+                            break;
+                        case OrderStatus.Canceled:
+                            validationResult.Messages.Add(new(nameof(CancelOrderInput.Id), "No se puede cancelar una orden que ya fue cancelada."));
+                            break;
+                    }
+
+                }
             }
 
             return validationResult;
