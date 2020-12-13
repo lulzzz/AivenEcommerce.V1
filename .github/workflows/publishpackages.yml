@@ -46,13 +46,12 @@ jobs:
     - name: Generate Package
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
     
-    - name: Upload Nuget
-      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
-      with:
-        nupkg-path:  'AivenEcommerce.V1.Domain.Shared/bin/Release/*.nupkg'
-        repo-owner:  'aivenweb'
-        gh-user:  'aivenweb'
-        token:  ${{ secrets.GH_AIVEN_TOKEN }}
+    - name: Install gpr
+      run: dotnet tool install gpr --global
+
+    - name: gpr upload
+      run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_AIVEN_TOKEN}}
+   
 
 
     
