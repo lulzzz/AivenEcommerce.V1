@@ -7,14 +7,16 @@ on:
 jobs:
   verifychanges:
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.changed-domain-shared.outputs.changed }}
+    
     steps:
     
     - name: Checkout 
       uses: actions/checkout@v2
       with:
         fetch-depth: 100 # avoid shallow clone so nbgv can do its work.
-        
-        
+
     - uses: marceloprado/has-changed-path@v1
       id: changed-domain-shared
       with:
@@ -24,7 +26,7 @@ jobs:
   uploadnuget:
     needs: verifychanges
     runs-on: ubuntu-latest
-    if: github.jobs.verifychanges.steps.changed-domain-shared.outputs.changed == 'true'
+    if: needs.verifychanges.outputs.result == 'true'
     steps:
     - name: Checkout 
       uses: actions/checkout@v2
@@ -39,7 +41,7 @@ jobs:
       
     - name: Increment Minor Version
       working-directory: AivenEcommerce.V1.Domain.Shared
-      run: update-version major 
+      run: update-version pacth 
     
     - name: Deploy Pack
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
