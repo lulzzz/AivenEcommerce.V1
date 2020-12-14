@@ -100,9 +100,23 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public async Task<PagedData<Product>> GetAllAsync(ProductParameters parameters)
         {
-            var taskCount = base._collection.Find(new BsonDocument()).CountDocumentsAsync();
+            var filterDefinitions = Enumerable.Empty<FilterDefinition<Product>>();
 
-            var findFluent = base._collection.Find(new BsonDocument());
+            FilterDefinition<Product> filter = new BsonDocument();
+
+            if (parameters.IsActive.HasValue)
+            {
+                filterDefinitions = filterDefinitions.Append(Builders<Product>.Filter.Eq(x => x.IsActive, parameters.IsActive.Value));
+            }
+
+            if (filterDefinitions.Any())
+            {
+                filter = Builders<Product>.Filter.And(filterDefinitions);
+            }
+
+            var taskCount = base._collection.Find(filter).CountDocumentsAsync();
+
+            var findFluent = base._collection.Find(filter);
 
             if (parameters.SortDirection is not Domain.Shared.Enums.SortDirection.None)
             {

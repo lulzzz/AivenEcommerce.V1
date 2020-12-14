@@ -31,16 +31,21 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
         {
             var filterDefinitions = Enumerable.Empty<FilterDefinition<Order>>();
 
+            FilterDefinition<Order> filter = new BsonDocument();
+
             if (parameters.Status.HasValue)
             {
                 filterDefinitions = filterDefinitions.Append(Builders<Order>.Filter.Eq(x => x.Status, parameters.Status.Value));
             }
 
-            var filterComplete = Builders<Order>.Filter.And(filterDefinitions);
+            if (filterDefinitions.Any())
+            {
+                filter = Builders<Order>.Filter.And(filterDefinitions);
+            }
 
-            var taskCount = base._collection.Find(filterComplete).CountDocumentsAsync();
+            var taskCount = base._collection.Find(filter).CountDocumentsAsync();
 
-            var findFluent = base._collection.Find(filterComplete);
+            var findFluent = base._collection.Find(filter);
 
 
             if (parameters.SortDirection is not Domain.Shared.Enums.SortDirection.None)
