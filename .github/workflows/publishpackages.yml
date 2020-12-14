@@ -31,34 +31,32 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v2
       
-    - name: Setup .NET Core
+    - name: Setup .NET Core 5.0
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
+
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 3.1.401
         
-    - name: Install ReportGenerator
+    - name: Install UpdateVersion
       run: dotnet tool install -g Monbsoft.UpdateVersion
       
-    - name: Increment Minor Version
+    - name: Increment Patch Version
       working-directory: AivenEcommerce.V1.Domain.Shared
-      run: update-version pacth 
+      run: update-version set  0.0.${{ github.run_number }}
     
-    - name: Deploy Pack
+    - name: Generate Package
       run: dotnet build AivenEcommerce.V1.Domain.Shared/AivenEcommerce.V1.Domain.Shared.csproj --configuration Release
-      
+    
     - name: Install gpr
       run: dotnet tool install gpr --global
-    
+
     - name: gpr upload
-      run: find -name "*.nupkg" -print -exec gpr push -k ${{secrets.GH_PACKAGE}} {} \;
-      
-    - name: Update Nuget
-      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
-      with:
-        nupkg-path:  'AivenEcommerce.V1.Domain.Shared/bin/Release/*.nupkg'
-        repo-owner:  'aivenweb'
-        gh-user:  'aivenweb'
-        token:  ${{ secrets.GH_AIVEN_TOKEN }}
+      run:  gpr push AivenEcommerce.V1.Domain.Shared/bin/Release/AivenEcommerce.V1.Domain.Shared.0.0.${{ github.run_number }}.nupkg -k ${{secrets.GH_AIVEN_TOKEN}}
+   
 
 
     
