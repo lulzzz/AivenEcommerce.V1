@@ -6,11 +6,11 @@ namespace AivenEcommerce.V1.Domain.Shared.OperationResults
 {
     public class OperationResult
     {
-        public HttpStatusCode Status { get; protected set; }
+        public HttpStatusCode Status { get; set; }
 
-        public bool IsSuccess { get; protected set; }
+        public bool IsSuccess { get; set; }
 
-        public ValidationResult Validations { get; protected set; }
+        public ValidationResult Validations { get; set; }
 
         public static OperationResult Success() =>
 

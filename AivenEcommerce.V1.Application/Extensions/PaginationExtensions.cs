@@ -15,15 +15,24 @@ namespace AivenEcommerce.V1.Application.Extensions
         {
             int pageSize = parameters.PageSize ?? Convert.ToInt32(data.TotalCount);
 
-            return new()
-            {
-                CurrentPage = parameters.PageNumber,
-                TotalCount = data.TotalCount,
-                TotalPages = (int)Math.Ceiling(data.TotalCount / (double)pageSize),
-                PageSize = pageSize,
-                Items = data.Items
-
-            };
+            return new(
+                   parameters.PageNumber,
+                   data.TotalCount,
+                   (int)Math.Ceiling(data.TotalCount / (double)pageSize),
+                   pageSize,
+                   data.Items
+               );
         }
     }
 }
+
+
+//return new()
+//{
+//    CurrentPage = parameters.PageNumber,
+//    TotalCount = data.TotalCount,
+//    TotalPages = (int)Math.Ceiling(data.TotalCount / (double)pageSize),
+//    PageSize = pageSize,
+//    Items = data.Items
+
+//};

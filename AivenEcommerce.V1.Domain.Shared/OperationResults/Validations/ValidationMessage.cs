@@ -16,6 +16,10 @@ namespace AivenEcommerce.V1.Domain.Shared.OperationResults.Validations
 
         }
 
+        public ValidationMessage()
+        {
+        }
+
         public string Field { get; set; }
         public string Message { get; set; }
     }
