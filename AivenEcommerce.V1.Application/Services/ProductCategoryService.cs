@@ -83,6 +83,8 @@ namespace AivenEcommerce.V1.Application.Services
         public async Task<OperationResultEnumerable<ProductCategoryDto>> GetAllAsync()
         {
             var categories = await _productCategoryRepository.GetAllAsync();
+            
+            categories = await _productCategoryRepository.GetAllAsync();
 
             List<ProductCategoryDto> categoryDtos = new();
 

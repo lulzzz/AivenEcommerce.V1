@@ -25,14 +25,3 @@ namespace AivenEcommerce.V1.Application.Extensions
         }
     }
 }
-
-
-//return new()
-//{
-//    CurrentPage = parameters.PageNumber,
-//    TotalCount = data.TotalCount,
-//    TotalPages = (int)Math.Ceiling(data.TotalCount / (double)pageSize),
-//    PageSize = pageSize,
-//    Items = data.Items
-
-//};

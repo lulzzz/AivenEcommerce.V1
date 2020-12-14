@@ -32,13 +32,13 @@ namespace AivenEcommerce.V1.WebApi
             services.AddControllers();
             services.AddSwaggerApiVersioning()
 
-
             .AddOptions<IClientConfigOptions, ClientConfigOptions>(Configuration)
             .AddOptions<IPaymentProviderOptions, PaymentProviderOptions>(Configuration)
             .AddOptions<IMongoProductOptions, MongoProductOptions>(Configuration)
             .AddOptions<IMongoSaleOptions, MongoSaleOptions>(Configuration)
             .AddOptions<IMongoOrderOptions, MongoOrderOptions>(Configuration)
 
+            .AddMemoryCache()
 
             .AddGitHubClient()
             .AddImgBb()
@@ -76,6 +76,8 @@ namespace AivenEcommerce.V1.WebApi
             .UseSwaggerApiVersioning(provider)
 
             .UseHttpsRedirection()
+
+            .UseScopedCache()
 
             .UseRouting()
 

@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -14,32 +15,53 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductCategoryRepository : GitHubRepository<ProductCategory, Guid>, IProductCategoryRepository
     {
-        public ProductCategoryRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.ProductCategoryRepositoryId, "categories")
+        private readonly ICachedRepository _cachedRepository;
+
+        public ProductCategoryRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.ProductCategoryRepositoryId, "categories")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public async Task<ProductCategory> GetByNameAsync(string productCategoryName)
         {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, productCategoryName);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductCategory), nameof(GetByNameAsync), productCategoryName),
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+                        async () =>
+                        {
+                            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, productCategoryName);
 
-            return fileContent.Content.Deserialize<ProductCategory>();
+                            if (fileContent is null)
+                            {
+                                return null;
+                            }
+
+                            return fileContent.Content.Deserialize<ProductCategory>();
+                        }
+                    );
         }
 
         public async Task<IEnumerable<ProductCategory>> GetAllNamesAsync()
         {
-            var files = await base.GithubService.GetAllFilesAsync(base.RepositoryId, base.Path);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductCategory), nameof(GetAllNamesAsync), nameof(GetAllNamesAsync)),
 
-            if (files is null)
-            {
-                return Enumerable.Empty<ProductCategory>();
-            }
+                    async () =>
+                    {
 
-            return files.Select(x => x.Content.Deserialize<ProductCategory>());
+                        var files = await base.GithubService.GetAllFilesAsync(base.RepositoryId, base.Path);
+
+                        if (files is null)
+                        {
+                            return Enumerable.Empty<ProductCategory>();
+                        }
+
+                        return files.Select(x => x.Content.Deserialize<ProductCategory>());
+                    }
+             );
+        }
+
+        public override async Task<IEnumerable<ProductCategory>> GetAllAsync()
+        {
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductCategory), nameof(GetAllAsync)), () => base.GetAllAsync());
         }
 
         public override async Task<ProductCategory> CreateAsync(ProductCategory entity)
