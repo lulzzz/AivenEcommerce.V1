@@ -14,4 +14,8 @@
     <IsPackable>true</IsPackable>
     <RepositoryUrl>https://github.com/aivenweb/AivenEcommerce.V1</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Paginations\Paged.cs" />
+  </ItemGroup>
 </Project>
