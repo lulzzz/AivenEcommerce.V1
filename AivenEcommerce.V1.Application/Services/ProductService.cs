@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Application.Mappers.Paginations;
+﻿using AivenEcommerce.V1.Application.Extensions;
+using AivenEcommerce.V1.Application.Mappers.Paginations;
 using AivenEcommerce.V1.Application.Mappers.Products;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
@@ -132,7 +133,7 @@ namespace AivenEcommerce.V1.Application.Services
 
             PagedData<ProductDto> pagedDataDto = pagedData.ConvertToDto(x => x.ConvertToDto());
 
-            return OperationResult<PagedResult<ProductDto>>.Success(new(pagedDataDto, parameters));
+            return OperationResult<PagedResult<ProductDto>>.Success(pagedDataDto.ConvertToPagedResult(parameters));
         }
 
         public async Task<OperationResult<ProductDto>> UpdateAsync(UpdateProductInput input)

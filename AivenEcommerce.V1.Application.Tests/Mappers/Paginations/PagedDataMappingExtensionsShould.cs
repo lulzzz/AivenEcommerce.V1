@@ -37,9 +37,9 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Paginations
         }
 
         private PagedData<Order> MockPagedData() =>
-            new()
-            {
-                Items = new List<Order>(){
+            new(
+
+                new List<Order>(){
                     new()
                     {
                         Id = nameof(Order.Id),
@@ -51,7 +51,7 @@ namespace AivenEcommerce.V1.Application.Tests.Mappers.Paginations
                         Type = Domain.Shared.Enums.OrderType.Other
                     }
                 },
-                TotalCount = 10
-            };
+                10
+            );
     }
 }

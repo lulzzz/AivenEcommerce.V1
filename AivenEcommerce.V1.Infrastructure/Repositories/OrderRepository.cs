@@ -52,11 +52,7 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
             var products = await findFluent.ToListAsync();
 
-            PagedData<Order> paged = new()
-            {
-                TotalCount = await taskCount,
-                Items = products
-            };
+            PagedData<Order> paged = new(products, await taskCount);
 
             return paged;
 
