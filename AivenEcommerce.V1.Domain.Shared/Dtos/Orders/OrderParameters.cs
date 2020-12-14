@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Shared.Paginations;
+﻿using AivenEcommerce.V1.Domain.Shared.Enums;
+using AivenEcommerce.V1.Domain.Shared.Paginations;
 
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,6 @@ namespace AivenEcommerce.V1.Domain.Shared.Dtos.Orders
 {
     public class OrderParameters : QueryStringParameters
     {
+        public OrderStatus? Status { get; set; }
     }
 }

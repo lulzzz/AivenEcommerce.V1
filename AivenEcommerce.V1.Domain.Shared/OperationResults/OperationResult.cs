@@ -48,7 +48,7 @@ namespace AivenEcommerce.V1.Domain.Shared.OperationResults
 
         public static OperationResult Error(ValidationResult validations) =>
 
-             new OperationResult
+             new()
              {
                  Validations = validations,
                  Status = HttpStatusCode.InternalServerError,
