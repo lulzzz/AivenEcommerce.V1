@@ -225,7 +225,7 @@ var assemblies = [
     "name": "AivenEcommerce.V1.Application",
     "classes": [
       { "name": "AivenEcommerce.V1.Application.Extensions.EnumerableExtensions", "rp": "AivenEcommerce.V1.Application_EnumerableExtensions.html", "cl": 13, "ucl": 0, "cal": 13, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 2, "tb": 2, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Application.Extensions.PaginationExtensions", "rp": "AivenEcommerce.V1.Application_PaginationExtensions.html", "cl": 3, "ucl": 10, "cal": 13, "tl": 27, "ct": "LineCoverage", "mc": "-", "cb": 2, "tb": 4, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Application.Extensions.PaginationExtensions", "rp": "AivenEcommerce.V1.Application_PaginationExtensions.html", "cl": 3, "ucl": 12, "cal": 15, "tl": 29, "ct": "LineCoverage", "mc": "-", "cb": 2, "tb": 4, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Extensions.StringExtensions", "rp": "AivenEcommerce.V1.Application_StringExtensions.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 18, "tb": 18, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.Addresses.AddressMappingExtensions", "rp": "AivenEcommerce.V1.Application_AddressMappingExtensions.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Application.Mappers.Addresses.CreateAddressInputMappingExtensions", "rp": "AivenEcommerce.V1.Application_CreateAddressInputMappingExtensions.html", "cl": 17, "ucl": 0, "cal": 17, "tl": 27, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
@@ -378,7 +378,7 @@ var assemblies = [
       { "name": "AivenEcommerce.V1.Domain.Shared.OperationResults.Validations.ValidationMessage", "rp": "AivenEcommerce.V1.Domain.Shared_ValidationMessage.html", "cl": 5, "ucl": 5, "cal": 10, "tl": 22, "ct": "LineCoverage", "mc": "-", "cb": 1, "tb": 2, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Domain.Shared.OperationResults.Validations.ValidationResult", "rp": "AivenEcommerce.V1.Domain.Shared_ValidationResult.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Domain.Shared.Paginations.PagedData`1", "rp": "AivenEcommerce.V1.Domain.Shared_PagedData_1.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 7, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "AivenEcommerce.V1.Domain.Shared.Paginations.PagedResult`1", "rp": "AivenEcommerce.V1.Domain.Shared_PagedResult_1.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 10, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "AivenEcommerce.V1.Domain.Shared.Paginations.PagedResult`1", "rp": "AivenEcommerce.V1.Domain.Shared_PagedResult_1.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "AivenEcommerce.V1.Domain.Shared.Paginations.QueryStringParameters", "rp": "AivenEcommerce.V1.Domain.Shared_QueryStringParameters.html", "cl": 2, "ucl": 2, "cal": 4, "tl": 12, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
