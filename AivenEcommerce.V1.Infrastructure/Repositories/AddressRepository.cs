@@ -14,8 +14,9 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
     public class AddressRepository : GitHubRepository<AddressCustomer, Guid>, IAddressRepository
     {
         private readonly ICachedRepository _cachedRepository;
-        public AddressRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.AddressRepositoryId, "addresses")
+        public AddressRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.AddressRepositoryId, "addresses")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public async Task<AddressCustomer> GetByCustomerAsync(string customer)

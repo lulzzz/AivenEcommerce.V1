@@ -116,6 +116,20 @@ namespace AivenEcommerce.V1.Application.Validators
                 validationResult.Messages.Add(new(nameof(UpdateProductCategoryInput.SubCategories), "No pueden haber subcategorias repetidas."));
             }
 
+            var productCategory = await _repository.GetByNameAsync(input.OldName);
+
+            if(productCategory is null)
+            {
+                validationResult.Messages.Add(new(nameof(UpdateProductCategoryInput.OldName), $"No existe una categoria con el nombre {input.OldName}."));
+            }
+
+            productCategory = await _repository.GetByNameAsync(input.NewName);
+
+            if (productCategory is not null)
+            {
+                validationResult.Messages.Add(new(nameof(UpdateProductCategoryInput.NewName), $"Ya existe una categoria con el nombre {input.NewName}."));
+            }
+
             return validationResult;
         }
 

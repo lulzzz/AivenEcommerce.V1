@@ -116,7 +116,7 @@ namespace AivenEcommerce.V1.Application.Services
             return OperationResult<SaleOrderDto>.Fail(validationResult);
         }
 
-        private decimal CalculateTotalAmount(CouponCode couponCode, IEnumerable<Product> products, Customer customer)
+        private static decimal CalculateTotalAmount(CouponCode couponCode, IEnumerable<Product> products, Customer customer)
         {
             decimal totalAmount = products.Sum(x => x.Price);
 
@@ -151,7 +151,8 @@ namespace AivenEcommerce.V1.Application.Services
             decimal valueOff = couponCode.Type switch
             {
                 CouponCodeOffType.Percentage => (couponCode.Value / productsToOff.Sum(x => x.Price)) * 100,
-                CouponCodeOffType.SpecificAmount => productsToOff.Sum(x => x.Price) - couponCode.Value
+                CouponCodeOffType.SpecificAmount => productsToOff.Sum(x => x.Price) - couponCode.Value,
+                _ => throw new ArgumentException("CouponCodeOffType invalido.", nameof(couponCode))
             };
 
 
