@@ -1,17 +1,14 @@
 ﻿using AivenEcommerce.V1.Domain.Caching;
 
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
 
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace AivenEcommerce.V1.Infrastructure.Repositories.Caching
 {
     public class CachedRepository : ICachedRepository
     {
-        private static CancellationTokenSource _resetCacheToken = new();
         private readonly IMemoryCache _memoryCache;
 
         public CachedRepository(IMemoryCache memoryCache)
@@ -45,21 +42,14 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Caching
 
         private void SetItemToCache<T>(ScopedCacheKey scopedCacheKey, T item)
         {
-            var options = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.Normal).SetSlidingExpiration(TimeSpan.FromMinutes(30));
-            options.AddExpirationToken(new CancellationChangeToken(_resetCacheToken.Token));
+            var options = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.Normal).SetSlidingExpiration(TimeSpan.FromSeconds(90));
 
             _memoryCache.Set(scopedCacheKey, item, options);
         }
 
-        public void Reset()
+        public void RemoveByEntity()
         {
-            if (_resetCacheToken != null && !_resetCacheToken.IsCancellationRequested && _resetCacheToken.Token.CanBeCanceled)
-            {
-                _resetCacheToken.Cancel();
-                _resetCacheToken.Dispose();
-            }
-
-            _resetCacheToken = new CancellationTokenSource();
+           
         }
     }
 }

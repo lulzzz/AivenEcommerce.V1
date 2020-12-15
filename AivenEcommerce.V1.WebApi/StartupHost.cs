@@ -77,8 +77,6 @@ namespace AivenEcommerce.V1.WebApi
 
             .UseHttpsRedirection()
 
-            .UseScopedCache()
-
             .UseRouting()
 
             .UseAuthorization()
