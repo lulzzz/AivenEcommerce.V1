@@ -1,4 +1,5 @@
 ﻿using AivenEcommerce.V1.Application.Extensions;
+using AivenEcommerce.V1.Domain.Caching;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Shared.Dtos.Orders;
@@ -9,6 +10,7 @@ using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,15 +19,20 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class OrderRepository : MongoRepository<Order>, IOrderRepository
     {
-        public OrderRepository(IMongoOrderOptions options) : base(options)
+        private readonly ICachedRepository _cachedRepository;
+
+        public OrderRepository(IMongoOrderOptions options, ICachedRepository cachedRepository) : base(options)
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
-        public IEnumerable<Order> GetOrdersByUser(User user)
-        {
-            //TODO: fieohfoi
-            return base.GetQueryable().Where(x => true).ToList();
-        }
+        public IEnumerable<Order> GetOrdersByCustomer(string customerEmail) =>
+
+                _cachedRepository.GetOrSet(new(nameof(Order), nameof(GetOrdersByCustomer), customerEmail),
+                    () => base.GetQueryable().Where(x => x.CustomerEmail == customerEmail).ToList()
+
+        );
+
 
         public async Task<PagedData<Order>> GetAllAsync(OrderParameters parameters)
         {

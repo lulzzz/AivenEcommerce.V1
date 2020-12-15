@@ -10,7 +10,7 @@ namespace AivenEcommerce.V1.Domain.Repositories
 {
     public interface IOrderRepository : IRepository<Order, string>
     {
-        IEnumerable<Order> GetOrdersByUser(User user);
+        IEnumerable<Order> GetOrdersByCustomer(string customerEmail);
         Task<PagedData<Order>> GetAllAsync(OrderParameters parameters);
     }
 }

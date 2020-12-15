@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,20 +13,30 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class CouponCodeRepository : GitHubRepository<CouponCode, Guid>, ICouponCodeRepository
     {
-        public CouponCodeRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.CouponCodeRepositoryId, "couponcodes")
+        private readonly ICachedRepository _cachedRepository;
+
+        public CouponCodeRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.CouponCodeRepositoryId, "couponcodes")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public async Task<CouponCode> GetCouponAsync(string code)
         {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, code);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(CouponCode), nameof(GetCouponAsync), code),
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+                      async () =>
+                      {
+                          var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, code);
 
-            return fileContent.Content.Deserialize<CouponCode>();
+                          if (fileContent is null)
+                          {
+                              return null;
+                          }
+
+                          return fileContent.Content.Deserialize<CouponCode>();
+
+                      }
+                    );
         }
 
         public override async Task<CouponCode> CreateAsync(CouponCode entity)

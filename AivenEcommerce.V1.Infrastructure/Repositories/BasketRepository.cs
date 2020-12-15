@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,21 +13,30 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class BasketRepository : GitHubRepository<Basket, Guid>, IBasketRepository
     {
-        public BasketRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.BasketRepositoryId, "baskets")
+        private readonly ICachedRepository _cachedRepository;
+
+        public BasketRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.BasketRepositoryId, "baskets")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
-        public async Task<Basket> GetByCustomerAsync(string customerEmail)
-        {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customerEmail);
+        public async Task<Basket> GetByCustomerAsync(string customerEmail) =>
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+            await _cachedRepository.GetOrSetAsync(new(nameof(Basket), nameof(GetByCustomerAsync), customerEmail),
 
-            return fileContent.Content.Deserialize<Basket>();
-        }
+                       async () =>
+                       {
+                           var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customerEmail);
+
+                           if (fileContent is null)
+                           {
+                               return null;
+                           }
+
+                           return fileContent.Content.Deserialize<Basket>();
+                       }
+                    );
+
 
         public override async Task<Basket> CreateAsync(Basket entity)
         {

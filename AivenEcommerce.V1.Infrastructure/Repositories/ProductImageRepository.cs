@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -14,8 +15,12 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductImageRepository : GitHubRepository<ProductImage, Guid>, IProductImageRepository
     {
-        public ProductImageRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.ProductImageRepositoryId, "products")
+        private readonly ICachedRepository _cachedRepository;
+
+        public ProductImageRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.ProductImageRepositoryId, "products")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
+
         }
 
         public async Task<IEnumerable<ProductImage>> UpdateProductImages(IEnumerable<ProductImage> productImages)
@@ -28,14 +33,22 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public async Task<IEnumerable<ProductImage>> GetProductImages(Product product)
         {
-            var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, product.Id);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductImage), nameof(GetProductImages), product.Id),
 
-            if (file is null)
-            {
-                return Enumerable.Empty<ProductImage>();
-            }
+                      async () =>
+                      {
 
-            return file.Content.Deserialize<IEnumerable<ProductImage>>();
+                          var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, product.Id);
+
+                          if (file is null)
+                          {
+                              return Enumerable.Empty<ProductImage>();
+                          }
+
+                          return file.Content.Deserialize<IEnumerable<ProductImage>>();
+
+                      }
+                    );
         }
 
         public async Task<IEnumerable<ProductImage>> CreateProductImages(IEnumerable<ProductImage> productImages)

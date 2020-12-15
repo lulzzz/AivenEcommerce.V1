@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,20 +13,31 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class DeliveryRepository : GitHubRepository<Delivery, Guid>, IDeliveryRepository
     {
-        public DeliveryRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.DeliveryRepositoryId, "deliveries")
+        private readonly ICachedRepository _cachedRepository;
+
+        public DeliveryRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.DeliveryRepositoryId, "deliveries")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public async Task<Delivery> GetDeliveryAsync(Order order)
         {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, order.Id);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(Basket), nameof(GetDeliveryAsync), order.Id),
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+                          async () =>
+                          {
 
-            return fileContent.Content.Deserialize<Delivery>();
+                              var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, order.Id);
+
+                              if (fileContent is null)
+                              {
+                                  return null;
+                              }
+
+                              return fileContent.Content.Deserialize<Delivery>();
+
+                          }
+                    );
         }
 
         public override async Task<Delivery> CreateAsync(Delivery entity)

@@ -1,8 +1,10 @@
 ﻿using AivenEcommerce.V1.Application.Extensions;
+using AivenEcommerce.V1.Domain.Caching;
 using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Domain.Shared.Dtos.Products;
 using AivenEcommerce.V1.Domain.Shared.Paginations;
+using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Options.Mongo;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
 
@@ -10,6 +12,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,23 +21,33 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductRepository : MongoRepository<Product>, IProductRepository
     {
-        public ProductRepository(IMongoProductOptions options) : base(options)
+        private readonly ICachedRepository _cachedRepository;
+
+        public ProductRepository(IMongoProductOptions options, ICachedRepository cachedRepository) : base(options)
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
-        public IEnumerable<Product> GetAvailableProducts()
-        {
-            return base.GetQueryable().Where(x => x.IsActive && x.Stock > 0).ToList();
-        }
-        public IEnumerable<Product> GetAvailableProducts(IEnumerable<string> products)
-        {
-            return base.GetQueryable().Where(x => products.Contains(x.Id) && x.IsActive && x.Stock > 0).ToList();
-        }
+        public IEnumerable<Product> GetAvailableProducts() =>
 
-        public Product GetByName(string productName)
-        {
-            return base.GetQueryable().Where(x => x.Name == productName).SingleOrDefault();
-        }
+        _cachedRepository.GetOrSet(new(nameof(Product), nameof(GetAvailableProducts)),
+                       () => base.GetQueryable().Where(x => x.IsActive && x.Stock > 0)
+            );
+
+
+        public IEnumerable<Product> GetAvailableProducts(IEnumerable<string> products) =>
+
+            _cachedRepository.GetOrSet(new(nameof(Product), nameof(GetAvailableProducts), products.Serialize()),
+                       () => base.GetQueryable().Where(x => products.Contains(x.Id) && x.IsActive && x.Stock > 0)
+            );
+
+        public Product GetByName(string productName) =>
+
+            _cachedRepository.GetOrSet(new(nameof(Product), nameof(GetByName), productName),
+
+                () => base.GetQueryable().Where(x => x.Name == productName).SingleOrDefault()
+            );
+
 
         public Task UpdateCategoryName(string oldName, string newName)
         {

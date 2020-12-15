@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,21 +13,29 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class CustomerRepository : GitHubRepository<Customer, Guid>, ICustomerRepository
     {
-        public CustomerRepository(IGitHubOptions options, IGitHubService githubService) : base(githubService, options.CustomerRepositoryId, "customers")
-        {
+        private readonly ICachedRepository _cachedRepository;
 
+        public CustomerRepository(IGitHubOptions options, IGitHubService githubService, ICachedRepository cachedRepository) : base(githubService, options.CustomerRepositoryId, "customers")
+        {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public async Task<Customer> GetCustomer(string email)
         {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, email);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(Customer), nameof(GetCustomer), email),
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+                          async () =>
+                          {
+                              var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, email);
 
-            return fileContent.Content.Deserialize<Customer>();
+                              if (fileContent is null)
+                              {
+                                  return null;
+                              }
+
+                              return fileContent.Content.Deserialize<Customer>();
+                          }
+                    );
         }
 
         public override async Task<Customer> CreateAsync(Customer entity)

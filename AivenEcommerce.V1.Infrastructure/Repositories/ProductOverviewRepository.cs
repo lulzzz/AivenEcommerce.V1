@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,14 +13,24 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductOverviewRepository : GitHubRepository<ProductOverview, Guid>, IProductOverviewRepository
     {
-        public ProductOverviewRepository(IGitHubOptions options, IGitHubService gitHubService) : base(gitHubService, options.ProductOverviewRepositoryId, "products")
+        private readonly ICachedRepository _cachedRepository;
+
+        public ProductOverviewRepository(IGitHubOptions options, IGitHubService gitHubService, ICachedRepository cachedRepository) : base(gitHubService, options.ProductOverviewRepositoryId, "products")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public async Task<ProductOverview> GetByProduct(Product product)
         {
-            var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, product.Id);
-            return file.Content.Deserialize<ProductOverview>();
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductOverview), nameof(GetByProduct), product.Id),
+
+                       async () =>
+                       {
+                           var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, product.Id);
+                           return file.Content.Deserialize<ProductOverview>();
+
+                       }
+                    );
         }
 
         public override async Task<ProductOverview> CreateAsync(ProductOverview entity)

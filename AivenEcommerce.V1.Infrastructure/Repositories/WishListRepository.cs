@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,21 +13,29 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class WishListRepository : GitHubRepository<WishList, Guid>, IWishListRepository
     {
-        public WishListRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.WishListRepositoryId, "wishlists")
+        private readonly ICachedRepository _cachedRepository;
+
+        public WishListRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.WishListRepositoryId, "wishlists")
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
-        public async Task<WishList> GetByCustomerAsync(string customerEmail)
-        {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customerEmail);
+        public async Task<WishList> GetByCustomerAsync(string customerEmail) =>
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+            await _cachedRepository.GetOrSetAsync(new(nameof(Basket), nameof(GetByCustomerAsync), customerEmail),
 
-            return fileContent.Content.Deserialize<WishList>();
-        }
+                       async () =>
+                       {
+                           var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customerEmail);
+
+                           if (fileContent is null)
+                           {
+                               return null;
+                           }
+
+                           return fileContent.Content.Deserialize<WishList>();
+                       }
+                );
 
         public override async Task<WishList> CreateAsync(WishList entity)
         {

@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,20 +13,26 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class AddressRepository : GitHubRepository<AddressCustomer, Guid>, IAddressRepository
     {
+        private readonly ICachedRepository _cachedRepository;
         public AddressRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.AddressRepositoryId, "addresses")
         {
         }
 
         public async Task<AddressCustomer> GetByCustomerAsync(string customer)
         {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customer);
-
-            if (fileContent is null)
+            return await _cachedRepository.GetOrSetAsync(new(nameof(AddressCustomer), nameof(GetByCustomerAsync), customer), async () =>
             {
-                return null;
-            }
 
-            return fileContent.Content.Deserialize<AddressCustomer>();
+                var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, customer);
+
+                if (fileContent is null)
+                {
+                    return null;
+                }
+
+                return fileContent.Content.Deserialize<AddressCustomer>();
+
+            });
         }
 
         public override async Task<AddressCustomer> CreateAsync(AddressCustomer entity)

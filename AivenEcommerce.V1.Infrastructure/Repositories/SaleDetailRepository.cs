@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -12,16 +13,24 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class SaleDetailRepository : GitHubRepository<SaleDetail, Guid>, ISaleDetailRepository
     {
-        public SaleDetailRepository(IGitHubOptions options, IGitHubService githubService) : base(githubService, options.SaleDetailRepositoryId, "saledetails")
-        {
+        private readonly ICachedRepository _cachedRepository;
 
+        public SaleDetailRepository(IGitHubOptions options, IGitHubService githubService, ICachedRepository cachedRepository) : base(githubService, options.SaleDetailRepositoryId, "saledetails")
+        {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
-        public async Task<SaleDetail> GetBySaleAsync(Sale sale)
-        {
-            var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, sale.Id);
-            return file.Content.Deserialize<SaleDetail>();
-        }
+        public async Task<SaleDetail> GetBySaleAsync(Sale sale) =>
+
+            await _cachedRepository.GetOrSetAsync(new(nameof(SaleDetail), nameof(GetBySaleAsync), sale.Id),
+
+                       async () =>
+                       {
+                           var file = await base.GithubService.GetFileContentAsync(base.RepositoryId, base.Path, sale.Id);
+                           return file.Content.Deserialize<SaleDetail>();
+                       }
+            );
+
 
         public override async Task<SaleDetail> CreateAsync(SaleDetail entity)
         {

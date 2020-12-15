@@ -42,14 +42,9 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories.Caching
 
         private void SetItemToCache<T>(ScopedCacheKey scopedCacheKey, T item)
         {
-            var options = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.Normal).SetSlidingExpiration(TimeSpan.FromSeconds(90));
+            var options = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.Normal).SetSlidingExpiration(TimeSpan.FromSeconds(10));
 
             _memoryCache.Set(scopedCacheKey, item, options);
-        }
-
-        public void RemoveByEntity()
-        {
-           
         }
     }
 }

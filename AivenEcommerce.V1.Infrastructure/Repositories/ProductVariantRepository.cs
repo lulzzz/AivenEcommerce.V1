@@ -1,4 +1,5 @@
-﻿using AivenEcommerce.V1.Domain.Entities;
+﻿using AivenEcommerce.V1.Domain.Caching;
+using AivenEcommerce.V1.Domain.Entities;
 using AivenEcommerce.V1.Domain.Repositories;
 using AivenEcommerce.V1.Infrastructure.Extensions;
 using AivenEcommerce.V1.Infrastructure.Repositories.Base;
@@ -14,8 +15,11 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 {
     public class ProductVariantRepository : GitHubRepository<ProductVariant, Guid>, IProductVariantRepository
     {
-        public ProductVariantRepository(IGitHubService githubService, IGitHubOptions options) : base(githubService, options.ProductVariantRepositoryId)
+        private readonly ICachedRepository _cachedRepository;
+
+        public ProductVariantRepository(IGitHubService githubService, IGitHubOptions options, ICachedRepository cachedRepository) : base(githubService, options.ProductVariantRepositoryId)
         {
+            _cachedRepository = cachedRepository ?? throw new ArgumentNullException(nameof(cachedRepository));
         }
 
         public override async Task<ProductVariant> CreateAsync(ProductVariant entity)
@@ -39,26 +43,40 @@ namespace AivenEcommerce.V1.Infrastructure.Repositories
 
         public async Task<IEnumerable<ProductVariant>> GetByProduct(Product product)
         {
-            var files = await base.GithubService.GetAllFilesWithContentAsync(base.RepositoryId, $"variants/{product.Id}");
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductVariant), nameof(GetByProduct), product.Id),
 
-            if (files is null)
-            {
-                return Enumerable.Empty<ProductVariant>();
-            }
+                       async () =>
+                       {
+                           var files = await base.GithubService.GetAllFilesWithContentAsync(base.RepositoryId, $"variants/{product.Id}");
 
-            return files.Select(x => x.Content.Deserialize<ProductVariant>());
+                           if (files is null)
+                           {
+                               return Enumerable.Empty<ProductVariant>();
+                           }
+
+                           return files.Select(x => x.Content.Deserialize<ProductVariant>());
+
+                       }
+                    );
         }
 
         public async Task<ProductVariant> GetByNameAsync(Product product, string variantName)
         {
-            var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, $"variants/{product.Id}", variantName);
+            return await _cachedRepository.GetOrSetAsync(new(nameof(ProductVariant), nameof(GetByNameAsync), product.Id + variantName),
 
-            if (fileContent is null)
-            {
-                return null;
-            }
+                       async () =>
+                       {
 
-            return fileContent.Content.Deserialize<ProductVariant>();
+                           var fileContent = await base.GithubService.GetFileContentAsync(base.RepositoryId, $"variants/{product.Id}", variantName);
+
+                           if (fileContent is null)
+                           {
+                               return null;
+                           }
+
+                           return fileContent.Content.Deserialize<ProductVariant>();
+                       }
+                    );
         }
     }
 }
