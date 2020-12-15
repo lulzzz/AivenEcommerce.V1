@@ -84,8 +84,6 @@ namespace AivenEcommerce.V1.Application.Services
         {
             var categories = await _productCategoryRepository.GetAllAsync();
 
-            categories = await _productCategoryRepository.GetAllAsync();
-
             List<ProductCategoryDto> categoryDtos = new();
 
             foreach (var item in categories)
